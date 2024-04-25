@@ -1,4 +1,4 @@
-library constant_product;
+library;
 
 dep full_math;
 

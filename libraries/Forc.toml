@@ -1,7 +1,7 @@
 [project]
 authors = ["alphak3y"]
-entry = "math_libs.sw"
+entry = "libs.sw"
 license = "Apache-2.0"
-name = "math_libs"
+name = "libs"
 
 [dependencies]

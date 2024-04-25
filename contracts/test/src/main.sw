@@ -12,6 +12,13 @@ storage {
     counter: u64 = 0,
 }
 
+#[test]
+fn test_success() {
+    let caller = abi(MyContract, CONTRACT_ID);
+    let result = caller.test_function {}();
+    assert(result == false)
+}
+
 impl Counter for Contract {
     #[storage(read)]
     fn get_count() -> u64 {

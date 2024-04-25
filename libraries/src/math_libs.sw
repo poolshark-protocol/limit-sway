@@ -1,3 +1,3 @@
-library math_libs;
+library;
 
 dep math/constant_product;

@@ -16,11 +16,6 @@ pub enum I24Error {
     DivisionByZero: (),
 }
 
-// pub trait From {
-//     /// Function for creating I24 from u32
-//     fn from(underlying: u32) -> Self;
-// }
-
 impl From<u32> for I24 {
     /// Helper function to get a signed number from with an underlying
     fn from(underlying: u32) -> I24 {

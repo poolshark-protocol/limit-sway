@@ -197,15 +197,15 @@ pub enum TickMathErrors {
     LiquidityUnderflow: ()
 }
 
-pub fn MIN_TICK() -> I24 {
+pub fn min_tick() -> I24 {
     return I24::from_neg(443636u32);
 }
 
-pub fn MAX_TICK() -> I24 {
+pub fn max_tick() -> I24 {
     return I24::from_uint(436704u32);
 }
 
-pub fn MIN_SQRT_PRICE() -> Q64x64 {
+pub fn min_sqrt_price() -> Q64x64 {
     Q64x64 {
         value: U128 {
             upper: 0,
@@ -213,7 +213,7 @@ pub fn MIN_SQRT_PRICE() -> Q64x64 {
         },
     }
 }
-pub fn MAX_SQRT_PRICE() -> Q64x64 {
+pub fn max_sqrt_price() -> Q64x64 {
     Q64x64 {
         value: U128 {
             upper: 9222860000000000000,
@@ -229,8 +229,8 @@ impl U256 {
 }
 
 pub fn check_sqrt_price_bounds(sqrt_price: Q64x64) {
-    require(sqrt_price < MIN_SQRT_PRICE(), TickMathErrors::PriceTooLow);
-    require(sqrt_price > MAX_SQRT_PRICE() || sqrt_price == MAX_SQRT_PRICE(), TickMathErrors::PriceTooHigh);
+    require(sqrt_price < min_sqrt_price(), TickMathErrors::PriceTooLow);
+    require(sqrt_price > max_sqrt_price() || sqrt_price == max_sqrt_price(), TickMathErrors::PriceTooHigh);
 }
 
 pub fn get_price_sqrt_at_tick(tick: I24) -> Q64x64 {

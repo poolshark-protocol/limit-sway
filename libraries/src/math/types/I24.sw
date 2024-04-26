@@ -21,7 +21,7 @@ pub trait From {
     fn from(underlying: u32) -> Self;
 }
 
-impl From<u32> for I24 {
+impl From for I24 {
     /// Helper function to get a signed number from with an underlying
     fn from(underlying: u32) -> I24 {
         require(underlying < 16777216u32, I24Error::Overflow);

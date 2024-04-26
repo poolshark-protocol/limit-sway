@@ -1,4 +1,4 @@
-library full_math;
+library;
 
 dep Q128x128;
 dep Q64x64;

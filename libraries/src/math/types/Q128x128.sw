@@ -197,7 +197,7 @@ pub fn most_sig_bits(value: U256, msb_idx: u8) -> u64 {
         _ => return 0,
     };
 
-    if msb_mod == 0u32 || value_idx == 0u32 {
+    if msb_mod == 0u64 || value_idx == 0u64 {
         return first_val;
     }
 

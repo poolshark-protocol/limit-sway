@@ -1,3 +1,3 @@
 library;
 
-mod types;
+pub mod types;

@@ -1,4 +1,4 @@
 library;
 
-mod I24;
-mod Q128x128;
+pub mod I24;
+pub mod Q128x128;

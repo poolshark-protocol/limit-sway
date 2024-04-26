@@ -184,8 +184,8 @@ pub fn most_sig_bit_idx(value: U256) -> u64 {
 }
 
 pub fn most_sig_bits(value: U256, msb_idx: u8) -> u64 {
-    let value_idx = msb_idx / 64u8;
-    let msb_mod   = (msb_idx + 1u8) % 64u8;
+    let value_idx = msb_idx / 64u64;
+    let msb_mod   = (msb_idx + 1u64) % 64u64;
 
     let first_val: u64 = 0; let second_val: u64 = 0;
 

@@ -1,6 +1,6 @@
 library;
 
-mod Q128x128;
+mod types;
 
 use core::primitives::*;
 use std::{revert::require, math::*, revert::revert, u128::*, u256::*};

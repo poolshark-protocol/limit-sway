@@ -27,8 +27,7 @@ pub fn dydx_math_get_dy() -> u64 {
         false
     )
 }
-// Obligatory note on liquidity
-// Note that dydx math is implicitly expecting a Q.
+
 pub fn get_dy(
     liquidity: U128,
     price_upper: Q64x64,

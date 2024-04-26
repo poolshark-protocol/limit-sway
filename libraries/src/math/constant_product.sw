@@ -1,7 +1,5 @@
 library;
 
-dep full_math;
-
 use full_math::{
     mul_div,
     mul_div_q64x64,

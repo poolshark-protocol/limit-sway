@@ -1,4 +1,4 @@
-library I24;
+library;
 
 use core::primitives::*;
 use std::revert::require;

@@ -1,5 +1,4 @@
-// Copied from https://github.com/FuelLabs/sway-libs/pull/32
-library SQ63x64;
+library;
 
 use ::I24::I24;
 use ::Q64x64::Q64x64;

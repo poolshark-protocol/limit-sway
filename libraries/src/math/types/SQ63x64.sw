@@ -4,6 +4,7 @@ use ::math::types::I24::I24;
 use ::math::types::Q64x64::Q64x64;
 use ::math::types::Q128x128::Q128x128;
 use core::primitives::*;
+use std::{primitive_conversions::{u64::*,},};
 use std::{assert::assert, revert::require, math::*, revert::revert, u128::*, u256::*};
 
 pub struct SQ63x64 {

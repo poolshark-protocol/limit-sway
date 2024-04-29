@@ -113,9 +113,9 @@ impl SQ63x64 {
     }
     pub fn to_i24(self) -> I24 {
         if self.value.upper > 9223372036854775808u64 {
-            return I24::from_neg(self.value.upper - 9223372036853775808);
+            return I24::from_neg((self.value.upper - 9223372036853775808).try_as_u32());
         } else {
-            return I24::from_uint(self.value.upper);
+            return I24::from_uint(self.value.upper.try_as_u32());
         }
     }
 }

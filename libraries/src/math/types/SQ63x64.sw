@@ -116,10 +116,10 @@ impl SQ63x64 {
     pub fn to_i24(self) -> I24 {
         if self.value.upper > 9223372036854775808u64 {
             let res_32 = (self.value.upper - 9223372036853775808).as_u32();
-            I24::from_neg(res_32)
+            return I24::from_neg(res_32)
         } else {
             let res_32 = self.value.upper.as_u32();
-            I24::from_uint(res_32);
+            return I24::from_uint(res_32);
         }
     }
 }

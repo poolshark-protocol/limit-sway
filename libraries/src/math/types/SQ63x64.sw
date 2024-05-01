@@ -255,11 +255,11 @@ impl SQ63x64 {
 
         if msb_idx > 63u32 {
             msb_offset = msb_idx - 64u32;
-            log_result = SQ63x64::from_uint(msb_offset); 
+            log_result = SQ63x64::from_uint(msb_offset.as_u64());
         } else { 
             is_negative = true;     
-            msb_offset = 64 - msb_idx;
-            log_result = SQ63x64::from_neg(msb_offset);
+            msb_offset = 64 - msb_idx.as_u64();
+            log_result = SQ63x64::from_neg(msb_offset.as_u64());
         };
         
         let mut y = self.value >> (msb_offset + 1);
@@ -313,9 +313,9 @@ pub fn most_sig_bit_idx(input: SQ63x64) -> u32 {
     let mut msb_idx: u32 = 0;
     if input.value.upper > 0 {
         msb_idx += 64;
-        msb_idx += log2(input.value.upper);
+        msb_idx += log2(input.value.upper).try_as_u32();
     } else {
-        msb_idx += log2(input.value.lower);
+        msb_idx += log2(input.value.lower).try_as_u32();
     }
     msb_idx
 }

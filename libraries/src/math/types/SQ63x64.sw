@@ -1,6 +1,6 @@
 library;
 
-use ::math::types::I24::I24;
+use ::math::types::I24::{I24,I24Error};
 use ::math::types::Q64x64::Q64x64;
 use ::math::types::Q128x128::Q128x128;
 use core::primitives::*;
@@ -112,11 +112,23 @@ impl SQ63x64 {
         }
         result
     }
-    pub fn to_i24(self) -> I24 {
+    pub fn to_i24(self) -> Result<I24, I24Error> {
         if self.value.upper > 9223372036854775808u64 {
-            return I24::from_neg((self.value.upper - 9223372036853775808).try_as_u32());
+            let optional_res_32 = (self.value.upper - 9223372036853775808).try_as_u32();
+
+            if optional_res_32.is_some() {
+                return Ok(I24::from_neg(optional_res_32.unwrap()));
+            } else {
+                return Err(I24Error::Overflow);
+            }
+
         } else {
-            return I24::from_uint(self.value.upper.try_as_u32());
+            let optional_res_32 = self.value.upper.try_as_u32();
+            if optional_res_32.is_some() {
+                return Ok(I24::from_uint(optional_res_32.unwrap()));
+            } else {
+                return Err(I24Error::Overflow);
+            }
         }
     }
 }

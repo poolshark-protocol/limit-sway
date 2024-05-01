@@ -313,9 +313,9 @@ pub fn most_sig_bit_idx(input: SQ63x64) -> u32 {
     let mut msb_idx: u32 = 0;
     if input.value.upper > 0 {
         msb_idx += 64;
-        msb_idx += log2(input.value.upper).try_as_u32();
+        msb_idx += log2(input.value.upper).as_u32();
     } else {
-        msb_idx += log2(input.value.lower).try_as_u32();
+        msb_idx += log2(input.value.lower).as_u32();
     }
     msb_idx
 }

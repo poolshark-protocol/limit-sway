@@ -253,7 +253,7 @@ impl SQ63x64 {
             log_result = SQ63x64::from_neg(msb_offset.as_u64());
         };
         
-        let mut y = self.value >> (msb_offset + 1);
+        let mut y = self.value >> (msb_offset + 1).as_u64();
 
         if y == scaling_unit {
             return log_result;

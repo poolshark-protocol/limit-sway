@@ -9,6 +9,6 @@ impl u64 {
 
         require(optional_res_32.is_some(), U32Error::Overflow);
 
-        optional_res_32.unwrap();
+        optional_res_32.unwrap()
     }
 }

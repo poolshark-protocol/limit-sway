@@ -249,7 +249,7 @@ impl SQ63x64 {
             log_result = SQ63x64::from_uint(msb_offset.as_u64());
         } else { 
             is_negative = true;     
-            msb_offset = 64 - msb_idx.as_u64();
+            msb_offset = 64u32 - msb_idx;
             log_result = SQ63x64::from_neg(msb_offset.as_u64());
         };
         

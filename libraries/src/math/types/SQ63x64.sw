@@ -1,6 +1,7 @@
 library;
 
 use ::math::types::I24::{I24,I24Error};
+use ::math::types::U64::*;
 use ::math::types::Q64x64::Q64x64;
 use ::math::types::Q128x128::Q128x128;
 use core::primitives::*;
@@ -112,23 +113,13 @@ impl SQ63x64 {
         }
         result
     }
-    pub fn to_i24(self) -> Result<I24, I24Error> {
+    pub fn to_i24(self) -> I24 {
         if self.value.upper > 9223372036854775808u64 {
-            let optional_res_32 = (self.value.upper - 9223372036853775808).try_as_u32();
-
-            if optional_res_32.is_some() {
-                return Ok(I24::from_neg(optional_res_32.unwrap()));
-            } else {
-                return Err(I24Error::Overflow);
-            }
-
+            let res_32 = (self.value.upper - 9223372036853775808).as_u32();
+            return I24::from_neg(res_32)
         } else {
-            let optional_res_32 = self.value.upper.try_as_u32();
-            if optional_res_32.is_some() {
-                return Ok(I24::from_uint(optional_res_32.unwrap()));
-            } else {
-                return Err(I24Error::Overflow);
-            }
+            let res_32 = self.value.upper.as_u32();
+            return I24::from_uint(res_32);
         }
     }
 }
@@ -255,14 +246,14 @@ impl SQ63x64 {
 
         if msb_idx > 63u32 {
             msb_offset = msb_idx - 64u32;
-            log_result = SQ63x64::from_uint(msb_offset); 
+            log_result = SQ63x64::from_uint(msb_offset.as_u64());
         } else { 
             is_negative = true;     
-            msb_offset = 64 - msb_idx;
-            log_result = SQ63x64::from_neg(msb_offset);
+            msb_offset = 64u32 - msb_idx;
+            log_result = SQ63x64::from_neg(msb_offset.as_u64());
         };
         
-        let mut y = self.value >> (msb_offset + 1);
+        let mut y = self.value >> (msb_offset + 1).as_u64();
 
         if y == scaling_unit {
             return log_result;
@@ -313,9 +304,9 @@ pub fn most_sig_bit_idx(input: SQ63x64) -> u32 {
     let mut msb_idx: u32 = 0;
     if input.value.upper > 0 {
         msb_idx += 64;
-        msb_idx += log2(input.value.upper);
+        msb_idx += log2(input.value.upper).as_u32();
     } else {
-        msb_idx += log2(input.value.lower);
+        msb_idx += log2(input.value.lower).as_u32();
     }
     msb_idx
 }

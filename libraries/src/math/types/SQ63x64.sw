@@ -1,6 +1,7 @@
 library;
 
 use ::math::types::I24::{I24,I24Error};
+use ::math::types::U64::*;
 use ::math::types::Q64x64::Q64x64;
 use ::math::types::Q128x128::Q128x128;
 use core::primitives::*;

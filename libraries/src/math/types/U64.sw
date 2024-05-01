@@ -1,3 +1,5 @@
+library;
+
 use ::math::types::U32::{U32Error};
 use std::{primitive_conversions::{u64::*,},};
 

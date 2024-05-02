@@ -220,7 +220,7 @@ pub fn mul_div_u256(base: U256, factor: U128, denominator: U128) -> U128 {
 
 #[test]
 pub fn test_mul_div_u256() -> (U128) {
-    let result = mul_div_u256(U256::from((0,3)), U128::from((0,2)), U128::from((0,4)));
+    let result = mul_div_u256(U256::from((0,0,0,3)), U128::from((0,2)), U128::from((0,4)));
     assert(result == U128::from((0,2)));
     result
 }

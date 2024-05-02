@@ -1,5 +1,6 @@
 library;
 
+use ::math::types::U64::*;
 use ::math::types::Q64x64::Q64x64;
 use ::math::types::Q128x128::Q128x128;
 use std::{result::Result, u128::U128, u256::U256};
@@ -26,7 +27,7 @@ pub fn test_log2() -> (u64) {
 }
 
 pub fn msb_idx(input: U256) -> u32 {
-    let mut msb_idx: u32 = 0;
+    let mut msb_idx: u64 = 0;
     if input.a > 0 {
         msb_idx += 192;
         msb_idx += log2(input.a);
@@ -39,14 +40,14 @@ pub fn msb_idx(input: U256) -> u32 {
     } else {
         msb_idx += log2(input.d);
     }
-    msb_idx
+    msb_idx.as_u32()
 }
 
 #[test]
 pub fn test_msb_idx() -> (u64) {
     let result = msb_idx(U256::from((0,0,0,2)));
     assert(result == 2);
-    result
+    result.as_u64()
 }
 
 pub fn mul_div(base: U128, factor: U128, denominator: U128) -> U128 {

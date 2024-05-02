@@ -309,30 +309,30 @@ pub fn full_math_mul_div_rounding_up_u128() -> (U128) {
     result
 }
 
-pub fn mul_div_u256(base: U256, factor: U128, denominator: U128) -> U128 {
-    let base_u256 = base;
-    let factor_u256 = U256 {
-        a: 0,
-        b: 0,
-        c: factor.upper,
-        d: factor.lower,
-    };
-    let denominator_u256 = U256 {
-        a: 0,
-        b: 0,
-        c: denominator.upper,
-        d: denominator.lower,
-    };
-    let res_u256 = base_u256.mul(factor_u256).div(denominator_u256);
-    if (res_u256.a != 0) || (res_u256.b != 0) {
-        // panic on overflow
-        revert(0);
-    }
-    return U128 {
-        upper: res_u256.c,
-        lower: res_u256.d,
-    };
-}
+// pub fn mul_div_u256(base: U256, factor: U128, denominator: U128) -> U128 {
+//     let base_u256 = base;
+//     let factor_u256 = U256 {
+//         a: 0,
+//         b: 0,
+//         c: factor.upper,
+//         d: factor.lower,
+//     };
+//     let denominator_u256 = U256 {
+//         a: 0,
+//         b: 0,
+//         c: denominator.upper,
+//         d: denominator.lower,
+//     };
+//     let res_u256 = base_u256.mul(factor_u256).div(denominator_u256);
+//     if (res_u256.a != 0) || (res_u256.b != 0) {
+//         // panic on overflow
+//         revert(0);
+//     }
+//     return U128 {
+//         upper: res_u256.c,
+//         lower: res_u256.d,
+//     };
+// }
 
 #[test]
 pub fn mul_div_u256() -> (U128) {
@@ -342,38 +342,38 @@ pub fn mul_div_u256() -> (U128) {
 }
 
 
-pub fn mul_div_rounding_up_u256(base: U256, factor: U128, denominator: U128) -> U128 {
-    let base_u256 = base;
-    let factor_u256 = U256 {
-        a: 0,
-        b: 0,
-        c: factor.upper,
-        d: factor.lower,
-    };
-    let denominator_u256 = U256 {
-        a: 0,
-        b: 0,
-        c: denominator.upper,
-        d: denominator.lower,
-    };
-    let res_u256 = base_u256.mul(factor_u256).div(denominator_u256);
-    if (res_u256.a != 0) || (res_u256.b != 0) {
-        // panic on overflow
-        revert(0);
-    }
-    let mut res_128 = U128 {
-        upper: res_u256.c,
-        lower: res_u256.d,
-    };
-    if res_u256 * denominator_u256 != base_u256 * factor_u256 {
-        res_128 = res_128 + U128 {
-            upper: 0,
-            lower: 1,
-        };
-    }
+// pub fn mul_div_rounding_up_u256(base: U256, factor: U128, denominator: U128) -> U128 {
+//     let base_u256 = base;
+//     let factor_u256 = U256 {
+//         a: 0,
+//         b: 0,
+//         c: factor.upper,
+//         d: factor.lower,
+//     };
+//     let denominator_u256 = U256 {
+//         a: 0,
+//         b: 0,
+//         c: denominator.upper,
+//         d: denominator.lower,
+//     };
+//     let res_u256 = base_u256.mul(factor_u256).div(denominator_u256);
+//     if (res_u256.a != 0) || (res_u256.b != 0) {
+//         // panic on overflow
+//         revert(0);
+//     }
+//     let mut res_128 = U128 {
+//         upper: res_u256.c,
+//         lower: res_u256.d,
+//     };
+//     if res_u256 * denominator_u256 != base_u256 * factor_u256 {
+//         res_128 = res_128 + U128 {
+//             upper: 0,
+//             lower: 1,
+//         };
+//     }
 
-    res_128
-}
+//     res_128
+// }
 
 #[test]
 pub fn mul_div_rounding_up_u256() -> (U128) {

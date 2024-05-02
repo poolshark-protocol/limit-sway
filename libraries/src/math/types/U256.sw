@@ -1,5 +1,6 @@
 library;
 
+use std::ops::{Not};
 use std::{u256::U256};
 
 pub enum U256Error {
@@ -31,5 +32,17 @@ impl U256 {
         require(optional_res_256.is_some(), U256Error::Overflow);
 
         optional_res_256.unwrap()
+    }
+}
+
+impl<'a> std::ops::Not for &'a U256 {
+    type Output = U256;
+
+    fn not(self) -> Self::Output {
+        let mut bytes = self.to_be_bytes();
+        for b in bytes.iter_mut() {
+            *b = !*b;
+        }
+        U256(BigUint::from_bytes_be(&bytes))
     }
 }

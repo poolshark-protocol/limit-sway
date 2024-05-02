@@ -323,8 +323,7 @@ pub fn mul_div_u256(base: U256, factor: U128, denominator: U128) -> U128 {
         c: denominator.upper,
         d: denominator.lower,
     };
-    let res_u256 = base_u256.mul(factor_u256).div(denominator_u256)
-    ;
+    let res_u256 = base_u256.mul(factor_u256).div(denominator_u256);
     if (res_u256.a != 0) || (res_u256.b != 0) {
         // panic on overflow
         revert(0);

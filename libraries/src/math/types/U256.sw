@@ -1,6 +1,6 @@
 library;
 
-use std::{u256::U256};
+use std::{u256::*};
 
 pub enum U256Error {
     Overflow: (),

@@ -1,7 +1,6 @@
 library;
 
 use std::{u256::U256};
-use sway_types::{u256::*};
 
 pub enum U256Error {
     Overflow: (),
@@ -9,6 +8,15 @@ pub enum U256Error {
 }
 
 impl U256 {
+    pub fn checked_mul(&self, other: &U256) -> Option<U256> {
+        let r = &self.0 * &other.0;
+        (r.bits() <= 256).then_some(Self(r))
+    }
+
+    pub fn checked_div(&self, other: &U256) -> Option<U256> {
+        other.0.is_zero().not().then(|| Self(&self.0 / &other.0))
+    }
+
     pub fn mul(self, other: U256) -> U256 {
         let optional_res_256 = self.checked_mul(other);
 

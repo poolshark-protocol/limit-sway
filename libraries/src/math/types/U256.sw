@@ -1,6 +1,6 @@
 library;
 
-use std::{u256::U256, u256::U256::checked_div};
+use std::{u256::U256};
 
 pub enum U256Error {
     Overflow: (),

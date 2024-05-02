@@ -360,6 +360,6 @@ fn sq63x64_most_sig_bit_idx() {
 #[test]
 fn sq63x64_binary_log() {
     let mut test_number = SQ63x64::from_uint(9);
-    let log = test_number.binary_log();
-    log(log);
+    let binary_log = test_number.binary_log();
+    log(binary_log);
 }

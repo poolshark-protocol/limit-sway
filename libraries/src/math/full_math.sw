@@ -12,7 +12,6 @@ pub enum FullMathError {
 }
 
 fn log2(number: u64) -> u64 {
-    let two = 2;
     asm(r1: number, r2: 2, r3) {
         mlog r3 r1 r2;
         r3: u64

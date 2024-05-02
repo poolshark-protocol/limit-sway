@@ -1,7 +1,7 @@
-library swap_lib;
+library;
 
-use ::Q64x64::*;
-use ::Q128x128::*;
+use ::math::types::Q64x64::*;
+use ::math::types::Q128x128::*;
 use std::u128::U128;
 use ::full_math::*;
     

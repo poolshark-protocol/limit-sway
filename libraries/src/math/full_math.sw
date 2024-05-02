@@ -329,10 +329,10 @@ pub fn mul_div_u256(base: U256, factor: U128, denominator: U128) -> U128 {
         // panic on overflow
         revert(0);
     }
-    U128 {
+    return U128 {
         upper: res_u256.c,
         lower: res_u256.d,
-    }
+    };
 }
 
 #[test]

@@ -187,7 +187,7 @@ pub fn mul_div(base: U128, factor: U128, denominator: U128) -> U128 {
         denominator.lower,
     ));
     //TODO: this division does not work properly
-    let res_u256 = (base_u256.mul(factor_u256).div(denominator_u256));
+    let res_u256 = (base_u256 * factor_u256 / denominator_u256);
     //TODO:
     // if (res_u256.a != 0) || (res_u256.b != 0) {
     //     // panic on overflow

@@ -211,7 +211,6 @@ impl core::ops::Divide for SQ63x64 {
     /// Divide a SQ63x64 by a SQ63x64. Panics if divisor is zero.
     fn divide(self, other: Self) -> Self {
         let mask = 0x0fffffffffffffff; 
-        let indent = 0x8000000000000000;
         // self.value = (self.value & mask) * (other.value & mask);
         let inverse = (U256 {
             a: 1,
@@ -294,7 +293,6 @@ impl Root for SQ63x64 {
     }
 }
 fn log2(number: u64) -> u64 {
-    let two = 2;
     asm(r1: number, r2: 2, r3) {
         mlog r3 r1 r2;
         r3: u64
@@ -355,10 +353,12 @@ fn sq63x64_divide() {
 fn sq63x64_most_sig_bit_idx() {
     let mut test_number = SQ63x64::from_uint(9);
     let msb = most_sig_bit_idx(test_number);
+    log(msb);
 }
 
 #[test]
 fn sq63x64_binary_log() {
     let mut test_number = SQ63x64::from_uint(9);
-    let log = test_number.binary_log();
+    let binary_log = test_number.binary_log();
+    log(binary_log);
 }

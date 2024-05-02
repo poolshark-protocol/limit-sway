@@ -212,17 +212,18 @@ impl core::ops::Divide for SQ63x64 {
     fn divide(self, other: Self) -> Self {
         let mask = 0x0fffffffffffffff; 
         // self.value = (self.value & mask) * (other.value & mask);
-        let inverse = (u256 {
+        let inverse = (U256 {
             a: 1,
             b: 0,
             c: 0,
             d: 0
-        }) / (u256 {
+        }) / (U256 {
             a: 0,
             b: other.value.upper & mask,
             c: other.value.lower,
             d: 0
         });
+        let zero: u256 = 0_u256;
         let other = SQ63x64 {
                 value: U128::from((inverse.c, inverse.d)),
         };

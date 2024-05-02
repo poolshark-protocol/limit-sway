@@ -16,7 +16,7 @@ impl U256 {
         optional_res_256.unwrap()
     }
 
-    pub fn div(self, other: U256) -> u32 {
+    pub fn div(self, other: U256) -> U256 {
         let optional_res_256 = self.checked_div(other);
 
         require(optional_res_256.is_some(), U256Error::Overflow);

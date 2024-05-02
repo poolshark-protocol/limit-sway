@@ -429,9 +429,6 @@ pub fn get_price_sqrt_at_tick(tick: I24) -> Q64x64 {
     } else {
         ratio
     };
-    if (tick > I24::from_uint(0u32)) {
-        let ratio = U256::max() / ratio;
-    }
     // shr 128 to downcast to a U128
     let round_up: U256 = if (ratio % (U256 {
             a: 0,
@@ -514,30 +511,12 @@ fn delta_math(liquidity: U128, delta: U128) -> U128 {
 
 #[test]
 fn tick_math_get_price_from_tick() {
-    let mut tick_base = SQ63x64 {
-        value: U128 {
-            upper: 1,
-            lower: 429497 << 33, //approx. 1 bps
-        },
-    };
 }
 
 #[test]
 fn tick_math_get_tick_from_price() {
-    let mut tick_base = SQ63x64 {
-        value: U128 {
-            upper: 1,
-            lower: 429497 << 33, //approx. 1 bps
-        },
-    };
 }
 
 #[test]
 fn tick_math_delta_math() {
-    let mut tick_base = SQ63x64 {
-        value: U128 {
-            upper: 1,
-            lower: 429497 << 33, //approx. 1 bps
-        },
-    };
 }

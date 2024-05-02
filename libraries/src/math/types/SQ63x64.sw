@@ -223,7 +223,6 @@ impl core::ops::Divide for SQ63x64 {
             c: other.value.lower,
             d: 0
         });
-        let zero: u256 = 0_u256;
         let other = SQ63x64 {
                 value: U128::from((inverse.c, inverse.d)),
         };

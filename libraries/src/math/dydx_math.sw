@@ -1,6 +1,6 @@
 library;
 
-use full_math::{
+use ::math::full_math::{
     mul_div,
     mul_div_q64x64,
     mul_div_rounding_up_u128,

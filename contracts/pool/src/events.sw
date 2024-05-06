@@ -1,8 +1,8 @@
-library events;
+library;
 
 use std::{identity::Identity, contract_id::ContractId, u128::U128};
-use cl_libs::Q64x64::Q64x64;
-use cl_libs::I24::I24;
+use amm_libs::math::types::Q64x64::Q64x64;
+use amm_libs::math::types::I24::I24;
 
 pub struct InitEvent {
     pool_id: ContractId,

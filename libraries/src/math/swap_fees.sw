@@ -3,7 +3,7 @@ library;
 use ::math::types::Q64x64::*;
 use ::math::types::Q128x128::*;
 use std::u128::U128;
-use ::full_math::*;
+use ::math::full_math::*;
     
 pub fn handle_fees(
     output: u64,

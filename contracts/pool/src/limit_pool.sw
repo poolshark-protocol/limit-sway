@@ -1,5 +1,8 @@
 contract;
 
+mod errors;
+mod events;
+
 use ::limit_pool::errors::ConcentratedLiquidityPoolErrors;
 use ::limit_pool::events::{BurnEvent, InitEvent, SwapEvent, MintEvent, FlashEvent};
 

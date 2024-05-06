@@ -14,11 +14,6 @@ pub fn handle_fees(
     protocol_fee: u64,
     ref mut fee_growth_global: Q64x64,
 ) -> (u64, u64, u64, Q64x64) {
-    let PRECISION = U128 {
-        upper: 0,
-        lower: u64::max(),
-    };
-    // let mut fee_amount: u64 = mul_div_rounding_up_u64(output, swap_fee, 100000); // precision on swap_fee
     let mut fee_amount = 0;
     let mut total_fee_amount = total_fee_amount;
     let mut amount_out = amount_out;

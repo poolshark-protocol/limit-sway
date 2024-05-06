@@ -22,13 +22,13 @@ use std::{
     context::msg_amount,
 };
 
-use amm_libs::I24::*;
-use amm_libs::Q64x64::*;
-use amm_libs::Q128x128::*;
-use amm_libs::dydx_math::*;
-use amm_libs::tick_math::*;
-use amm_libs::full_math::*;
-use amm_libs::swap_lib::*;
+use amm_libs::math::types::I24::*;
+use amm_libs::math::types::Q64x64::*;
+use amm_libs::math::types::Q128x128::*;
+use amm_libs::math::dydx_math::*;
+use amm_libs::math::tick_math::*;
+use amm_libs::math::full_math::*;
+use amm_libs::math::swap_fees::*;
 
 // impl core::ops::Ord for ContractId {
 //     fn lt(self, other: Self) -> bool {

@@ -1,7 +1,7 @@
 [project]
 authors = ["alphak3y"]
-entry = "libs.sw"
+entry = "amm_libs.sw"
 license = "Apache-2.0"
-name = "libs"
+name = "amm_libs"
 
 [dependencies]

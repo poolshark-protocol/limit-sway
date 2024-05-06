@@ -1,0 +1,8 @@
+[project]
+authors = ["alphak3y"]
+entry = "limit_pool.sw"
+license = "Apache-2.0"
+name = "limit_pool"
+
+[dependencies]
+amm_libs = { path = "../amm_libs" }

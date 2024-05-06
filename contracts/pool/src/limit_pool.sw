@@ -3,8 +3,8 @@ contract;
 dep events;
 dep errors;
 
-use errors::ConcentratedLiquidityPoolErrors;
-use events::{BurnEvent, InitEvent, SwapEvent, MintEvent, FlashEvent};
+use ::limit_pool::errors::ConcentratedLiquidityPoolErrors;
+use ::limit_pool::events::{BurnEvent, InitEvent, SwapEvent, MintEvent, FlashEvent};
 
 use std::{
     revert::require,
@@ -22,13 +22,13 @@ use std::{
     context::msg_amount,
 };
 
-use cl_libs::I24::*;
-use cl_libs::Q64x64::*;
-use cl_libs::Q128x128::*;
-use cl_libs::dydx_math::*;
-use cl_libs::tick_math::*;
-use cl_libs::full_math::*;
-use cl_libs::swap_lib::*;
+use amm_libs::I24::*;
+use amm_libs::Q64x64::*;
+use amm_libs::Q128x128::*;
+use amm_libs::dydx_math::*;
+use amm_libs::tick_math::*;
+use amm_libs::full_math::*;
+use amm_libs::swap_lib::*;
 
 impl core::ops::Ord for ContractId {
     fn lt(self, other: Self) -> bool {

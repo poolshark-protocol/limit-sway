@@ -2,7 +2,9 @@ library;
 
 use core::primitives::*;
 use std::revert::require;
-use std::hash::*;
+use {
+    std::{hash::Hash},
+};
 
 /// The 24-bit signed integer type.
 /// Represented as an underlying u32 value.
@@ -46,8 +48,8 @@ impl core::ops::Ord for I24 {
     }
 }
 
-impl std::hash::Hash for I24 {
-    fn hash(self, ref mut state: Hasher) {
+impl Hash for I24 {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
         self.underlying.hash(state);
     }
 }

@@ -45,6 +45,12 @@ impl core::ops::Ord for I24 {
     }
 }
 
+impl Hash for I24 {
+    fn hash(self, ref mut state: Hasher) {
+        self.underlying.hash(state);
+    }
+}
+
 impl I24 {
     /// The underlying value that corresponds to zero signed value
     pub fn indent() -> u32 {

@@ -139,7 +139,7 @@ storage {
 
     unlocked: bool = false,
 
-    ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
+    // ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
 }
 

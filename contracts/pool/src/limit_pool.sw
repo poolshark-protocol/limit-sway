@@ -16,6 +16,7 @@ use std::{
     asset::transfer,
     result::*,
     auth::*,
+    hash::*,
     logging::log,
     call_frames::{contract_id ,msg_asset_id},
     context::msg_amount,
@@ -139,7 +140,7 @@ storage {
 
     unlocked: bool = false,
 
-    // ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
+    ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
 }
 

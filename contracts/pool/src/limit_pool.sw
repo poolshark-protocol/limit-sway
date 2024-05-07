@@ -139,8 +139,8 @@ storage {
 
     unlocked: bool = false,
 
-    ticks: StorageMap<u32, Tick> = StorageMap {},
-    positions: StorageMap<(Identity, u32, u32), Position> = StorageMap {},
+    ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
+    positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
 }
 
 // impl ConcentratedLiquidityPool for Contract {

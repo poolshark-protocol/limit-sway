@@ -2,6 +2,7 @@ library;
 
 use core::primitives::*;
 use std::revert::require;
+use std::hash::*;
 
 /// The 24-bit signed integer type.
 /// Represented as an underlying u32 value.

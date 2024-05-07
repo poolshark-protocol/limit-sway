@@ -46,7 +46,7 @@ impl core::ops::Ord for I24 {
     }
 }
 
-impl Hash for I24 {
+impl std::hash::Hash for I24 {
     fn hash(self, ref mut state: Hasher) {
         self.underlying.hash(state);
     }

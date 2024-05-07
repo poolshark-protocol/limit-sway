@@ -69,45 +69,45 @@ abi ConcentratedLiquidityPool {
     #[storage(read, write)]
     fn init(token0: ContractId, token1: ContractId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32);
 
-    // tawnee
-    #[storage(read, write)]
-    fn set_price(price : Q64x64);
+    // // tawnee
+    // #[storage(read, write)]
+    // fn set_price(price : Q64x64);
 
-    // alphak3y
-    #[storage(read, write)]
-    fn mint(lower_old: I24, lower: I24, upper_old: I24, upper: I24, amount0_desired: u64, amount1_desired: u64, recipient: Identity) -> U128;
+    // // alphak3y
+    // #[storage(read, write)]
+    // fn mint(lower_old: I24, lower: I24, upper_old: I24, upper: I24, amount0_desired: u64, amount1_desired: u64, recipient: Identity) -> U128;
 
-    // alphak3y
-    #[storage(read, write)]
-    fn collect(tickLower: I24, tickUpper: I24) -> (u64, u64);
+    // // alphak3y
+    // #[storage(read, write)]
+    // fn collect(tickLower: I24, tickUpper: I24) -> (u64, u64);
 
-    // alphak3y
-    #[storage(read, write)]
-    fn burn(recipient: Identity, lower: I24, upper: I24, liquidity_amount: U128) -> (u64, u64, u64, u64);
+    // // alphak3y
+    // #[storage(read, write)]
+    // fn burn(recipient: Identity, lower: I24, upper: I24, liquidity_amount: U128) -> (u64, u64, u64, u64);
 
-    // alphak3y
-    #[storage(read, write)]
-    fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64;
+    // // alphak3y
+    // #[storage(read, write)]
+    // fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64;
 
-    // alphak3y
-    #[storage(read)]
-    fn quote_amount_in(token_zero_to_one: bool, amount_out: u64) -> u64;
+    // // alphak3y
+    // #[storage(read)]
+    // fn quote_amount_in(token_zero_to_one: bool, amount_out: u64) -> u64;
 
-    // tawnee
-    #[storage(read, write)]
-    fn collect_protocol_fee() -> (u64, u64);
+    // // tawnee
+    // #[storage(read, write)]
+    // fn collect_protocol_fee() -> (u64, u64);
 
-    // tawnee
-    #[storage(read)]
-    fn get_price_and_nearest_tick() -> (Q64x64, I24);
+    // // tawnee
+    // #[storage(read)]
+    // fn get_price_and_nearest_tick() -> (Q64x64, I24);
 
-    // tawnee
-    #[storage(read)]
-    fn get_protocol_fees() -> (u64, u64);
+    // // tawnee
+    // #[storage(read)]
+    // fn get_protocol_fees() -> (u64, u64);
 
-    // tawnee
-    #[storage(read)]
-    fn get_reserves() -> (u64, u64);
+    // // tawnee
+    // #[storage(read)]
+    // fn get_reserves() -> (u64, u64);
 }
 
 // Should be all storage variables

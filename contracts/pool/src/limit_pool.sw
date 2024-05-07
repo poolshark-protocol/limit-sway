@@ -3,8 +3,8 @@ contract;
 pub mod errors;
 pub mod events;
 
-use ::limit_pool::errors::ConcentratedLiquidityPoolErrors;
-use ::limit_pool::events::{BurnEvent, InitEvent, SwapEvent, MintEvent, FlashEvent};
+use ::errors::ConcentratedLiquidityPoolErrors;
+use ::events::{BurnEvent, InitEvent, SwapEvent, MintEvent, FlashEvent};
 
 use std::{
     revert::require,
@@ -13,8 +13,7 @@ use std::{
     address::Address,
     u128::*,
     u256::*,
-    storage::StorageMap,
-    token::transfer,
+    asset::transfer,
     result::*,
     auth::*,
     logging::log,

@@ -1,7 +1,7 @@
 contract;
 
-mod errors;
-mod events;
+pub mod errors;
+pub mod events;
 
 use ::limit_pool::errors::ConcentratedLiquidityPoolErrors;
 use ::limit_pool::events::{BurnEvent, InitEvent, SwapEvent, MintEvent, FlashEvent};
@@ -30,14 +30,14 @@ use amm_libs::math::tick_math::*;
 use amm_libs::math::full_math::*;
 use amm_libs::math::swap_fees::*;
 
-// impl core::ops::Ord for ContractId {
-//     fn lt(self, other: Self) -> bool {
-//         self.value < other.value
-//     }
-//     fn gt(self, other: Self) -> bool {
-//         self.value > other.value
-//     }
-// }
+impl core::ops::Ord for ContractId {
+    fn lt(self, other: Self) -> bool {
+        self.value < other.value
+    }
+    fn gt(self, other: Self) -> bool {
+        self.value > other.value
+    }
+}
 
 // impl u64 {
 //     fn u128(self) -> U128 {
@@ -55,7 +55,7 @@ use amm_libs::math::swap_fees::*;
 // }
 
 // struct Tick {
-//     prev_tick: I24,
+//     prev_tick: I24, 
 //     next_tick: I24,
 //     liquidity: U128,
 //     fee_growth_outside0: Q64x64,

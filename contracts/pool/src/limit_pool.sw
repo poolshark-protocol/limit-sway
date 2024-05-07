@@ -47,90 +47,101 @@ impl u64 {
     }
 }
 
-// struct Position {
-//     liquidity: U128,
-//     fee_growth_inside0: Q64x64,
-//     fee_growth_inside1: Q64x64,
-// }
+struct Position {
+    liquidity: U128,
+    fee_growth_inside0: Q64x64,
+    fee_growth_inside1: Q64x64,
+}
 
-// struct Tick {
-//     prev_tick: I24, 
-//     next_tick: I24,
-//     liquidity: U128,
-//     fee_growth_outside0: Q64x64,
-//     fee_growth_outside1: Q64x64,
-//     seconds_growth_outside: U128
-// }
+struct Tick {
+    prev_tick: I24, 
+    next_tick: I24,
+    liquidity: U128,
+    fee_growth_outside0: Q64x64,
+    fee_growth_outside1: Q64x64,
+    seconds_growth_outside: U128
+}
 
-// abi ConcentratedLiquidityPool {
-//     // Core functions
-//     #[storage(read, write)]
-//     fn init(token0: ContractId, token1: ContractId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32);
+abi ConcentratedLiquidityPool {
+    // Core functions
+    // tawnee
+    #[storage(read, write)]
+    fn init(token0: ContractId, token1: ContractId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32);
 
-//     #[storage(read, write)]
-//     fn set_price(price : Q64x64);
+    // tawnee
+    #[storage(read, write)]
+    fn set_price(price : Q64x64);
 
-//     #[storage(read, write)]
-//     fn mint(lower_old: I24, lower: I24, upper_old: I24, upper: I24, amount0_desired: u64, amount1_desired: u64, recipient: Identity) -> U128;
+    // alphak3y
+    #[storage(read, write)]
+    fn mint(lower_old: I24, lower: I24, upper_old: I24, upper: I24, amount0_desired: u64, amount1_desired: u64, recipient: Identity) -> U128;
 
-//     #[storage(read, write)]
-//     fn collect(tickLower: I24, tickUpper: I24) -> (u64, u64);
+    // alphak3y
+    #[storage(read, write)]
+    fn collect(tickLower: I24, tickUpper: I24) -> (u64, u64);
 
-//     #[storage(read, write)]
-//     fn burn(recipient: Identity, lower: I24, upper: I24, liquidity_amount: U128) -> (u64, u64, u64, u64);
+    // alphak3y
+    #[storage(read, write)]
+    fn burn(recipient: Identity, lower: I24, upper: I24, liquidity_amount: U128) -> (u64, u64, u64, u64);
 
-//     #[storage(read, write)]
-//     fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64;
+    // alphak3y
+    #[storage(read, write)]
+    fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64;
 
-//     #[storage(read)]
-//     fn quote_amount_in(token_zero_to_one: bool, amount_out: u64) -> u64;
+    // alphak3y
+    #[storage(read)]
+    fn quote_amount_in(token_zero_to_one: bool, amount_out: u64) -> u64;
 
-//     #[storage(read, write)]
-//     fn collect_protocol_fee() -> (u64, u64);
+    // tawnee
+    #[storage(read, write)]
+    fn collect_protocol_fee() -> (u64, u64);
 
-//     #[storage(read)]
-//     fn get_price_and_nearest_tick() -> (Q64x64, I24);
+    // tawnee
+    #[storage(read)]
+    fn get_price_and_nearest_tick() -> (Q64x64, I24);
 
-//     #[storage(read)]
-//     fn get_protocol_fees() -> (u64, u64);
+    // tawnee
+    #[storage(read)]
+    fn get_protocol_fees() -> (u64, u64);
 
-//     #[storage(read)]
-//     fn get_reserves() -> (u64, u64);
-// }
+    // tawnee
+    #[storage(read)]
+    fn get_reserves() -> (u64, u64);
+}
 
-// // Should be all storage variables
-// storage { 
-//     token0: ContractId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
-//     token1: ContractId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
+// Should be all storage variables
+storage { 
+    token0: ContractId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
+    token1: ContractId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
 
-//     max_fee: u32 = 100000,
-//     tick_spacing: u32 = 10, // implicitly a u24
-//     swap_fee: u32 = 2500,
+    max_fee: u32 = 100000,
+    tick_spacing: u32 = 10, // implicitly a u24
+    swap_fee: u32 = 2500,
 
-//     liquidity: U128 = U128{upper: 0, lower: 0},
+    liquidity: U128 = U128{upper: 0, lower: 0},
 
-//     seconds_growth_global: U256 = U256{a: 0, b: 0, c: 0, d:0},
-//     last_observation: u32 = 0,
+    seconds_growth_global: U256 = U256{a: 0, b: 0, c: 0, d:0},
+    last_observation: u32 = 0,
 
-//     fee_growth_global0: Q64x64 = Q64x64{value : U128{upper:0,lower:0}},
-//     fee_growth_global1: Q64x64 = Q64x64{value : U128{upper:0,lower:0}},
+    fee_growth_global0: Q64x64 = Q64x64{value : U128{upper:0,lower:0}},
+    fee_growth_global1: Q64x64 = Q64x64{value : U128{upper:0,lower:0}},
 
-//     token0_protocol_fee: u64 = 0,
-//     token1_protocol_fee: u64 = 0,
+    token0_protocol_fee: u64 = 0,
+    token1_protocol_fee: u64 = 0,
 
-//     reserve0: u64 = 0,
-//     reserve1: u64 = 0,
+    reserve0: u64 = 0,
+    reserve1: u64 = 0,
 
-//     // Orginally Sqrt of price aka. √(y/x), multiplied by 2^64.
-//     sqrt_price: Q64x64 = Q64x64{value : U128{upper:0,lower:0}}, 
+    // Orginally Sqrt of price aka. √(y/x), multiplied by 2^64.
+    sqrt_price: Q64x64 = Q64x64{value : U128{upper:0,lower:0}}, 
     
-//     nearest_tick: I24 = I24 { underlying: 2147483648u32}, // Zero
+    nearest_tick: I24 = I24 { underlying: 2147483648u32}, // Zero
 
-//     unlocked: bool = false,
+    unlocked: bool = false,
 
-//     ticks: StorageMap<I24, Tick> = StorageMap {},
-//     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap {},
-// }
+    ticks: StorageMap<I24, Tick> = StorageMap {},
+    positions: StorageMap<(Identity, I24, I24), Position> = StorageMap {},
+}
 
 // impl ConcentratedLiquidityPool for Contract {
 //     #[storage(read, write)]

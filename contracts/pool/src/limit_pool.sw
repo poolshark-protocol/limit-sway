@@ -38,14 +38,14 @@ impl core::ops::Ord for ContractId {
     }
 }
 
-// impl u64 {
-//     fn u128(self) -> U128 {
-//         U128 {
-//             upper: 0,
-//             lower: self
-//         }
-//     }
-// }
+impl u64 {
+    fn as_u128(self) -> U128 {
+        U128 {
+            upper: 0,
+            lower: self
+        }
+    }
+}
 
 // struct Position {
 //     liquidity: U128,

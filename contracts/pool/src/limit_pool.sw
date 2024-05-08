@@ -172,7 +172,7 @@ impl ConcentratedLiquidityPool for Contract {
     #[storage(read, write)]
     fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64 {
         // sanity checks
-        require(msg_amount() > 0, ConcentratedLiquidityPoolErrors:ZeroAmount);
+        require(msg_amount() > 0, ConcentratedLiquidityPoolErrors::ZeroAmount);
         let token0 = storage.token0.try_read().unwrap();
         let token1 = storage.token1.try_read().unwrap();
         // require(msg_asset_id() == token0 || msg_asset_id() == token1, ConcentratedLiquidityPoolErrors::InvalidToken);
@@ -201,7 +201,7 @@ impl ConcentratedLiquidityPool for Contract {
         // let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick } else { storage.ticks.get(storage.nearest_tick).next_tick };
         
         // // return value
-        // let mut amount_out = 0;
+        let mut amount_out = 0;
         // // handle next_tick == 0
         // while amount_in_left != zero_u128 {
         //     let next_tick_price = get_price_sqrt_at_tick(next_tick_to_cross);

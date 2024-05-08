@@ -65,13 +65,11 @@ struct Tick {
 
 abi ConcentratedLiquidityPool {
     // Core functions
-    // tawnee
     #[storage(read, write)]
     fn init(token0: ContractId, token1: ContractId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32);
 
-    // // tawnee
-    // #[storage(read, write)]
-    // fn set_price(price : Q64x64);
+    #[storage(read, write)]
+    fn set_price(price : Q64x64);
 
     // // alphak3y
     // #[storage(read, write)]
@@ -93,9 +91,8 @@ abi ConcentratedLiquidityPool {
     // #[storage(read)]
     // fn quote_amount_in(token_zero_to_one: bool, amount_out: u64) -> u64;
 
-    // // tawnee
-    // #[storage(read, write)]
-    // fn collect_protocol_fee() -> (u64, u64);
+    #[storage(read, write)]
+    fn collect_protocol_fee() -> (u64, u64);
 
     // // tawnee
     // #[storage(read)]
@@ -427,16 +424,16 @@ impl ConcentratedLiquidityPool for Contract {
 //         final_amount_in.lower
 //     }
 
-//     #[storage(read, write)]
-//     fn set_price(price : Q64x64) {
-//         check_sqrt_price_bounds(price);
-//         let zero_price = Q64x64{ value: U128{upper: 0, lower: 0} };
-//         if storage.sqrt_price == zero_price {
-//             storage.sqrt_price = price;
-//         }
+    #[storage(read, write)]
+    fn set_price(price : Q64x64) {
+        check_sqrt_price_bounds(price);
+        let zero_price = Q64x64{ value: U128{upper: 0, lower: 0} };
+        if storage.sqrt_price.try_read().unwrap() == zero_price {
+            storage.sqrt_price.write(price);
+        }
 
-//         ()
-//     }
+        ()
+    }
 
 //     #[storage(read, write)]
 //     fn mint(lower_old: I24, lower: I24, upper_old: I24, upper: I24, amount0_desired: u64, amount1_desired: u64, recipient: Identity) -> U128 {
@@ -538,24 +535,28 @@ impl ConcentratedLiquidityPool for Contract {
 //         (token0_amount, token1_amount, amount0_fees, amount1_fees)
 //     }
 
-//     #[storage(read, write)]
-//     fn collect_protocol_fee() -> (u64, u64) {
-//         let mut amount0 = 0;
-//         let mut amount1 = 0;
-//         if storage.token0_protocol_fee > 1 {
-//             amount0 = storage.token0_protocol_fee;
-//             storage.token0_protocol_fee = 0;
-//             storage.reserve0 -= amount0;
+    #[storage(read, write)]
+    fn collect_protocol_fee() -> (u64, u64) {
+        let mut amount0 = 0;
+        let mut amount1 = 0;
 
-//         }
-//         if storage.token1_protocol_fee > 1 {
-//             amount1 = storage.token0_protocol_fee;
-//             storage.token1_protocol_fee = 0;
-//             storage.reserve1 -= amount1;
-//         }
+        let token0_protocol_fee = storage.token0_protocol_fee.try_read().unwrap();
+        let token1_protocol_fee = storage.token1_protocol_fee.try_read().unwrap();
 
-//         (amount0, amount1)
-//     }
+        if token0_protocol_fee > 1 {
+            amount0 = token0_protocol_fee;
+            storage.token0_protocol_fee.write(0);
+            storage.reserve0.write(storage.reserve0.try_read().unwrap() - amount0);
+
+        }
+        if token1_protocol_fee > 1 {
+            amount1 =token0_protocol_fee;
+            storage.token1_protocol_fee.write(0);
+             storage.reserve1.write(storage.reserve1.try_read().unwrap() - amount1);
+        }
+
+        (amount0, amount1)
+    }
 
 //     #[storage(read, write)]
 //     fn collect(tick_lower: I24, tick_upper: I24) -> (u64, u64) {

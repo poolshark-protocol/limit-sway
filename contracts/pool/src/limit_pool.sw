@@ -21,6 +21,7 @@ use std::{
     logging::log,
     call_frames::{contract_id ,msg_asset_id},
     context::msg_amount,
+    alias::SubId,
 };
 
 use amm_libs::math::types::I24::*;
@@ -46,6 +47,12 @@ impl u64 {
             upper: 0,
             lower: self
         }
+    }
+}
+
+impl SubId {
+    fn zero() -> SubId {
+        return SubId::new(0x0000000000000000000000000000000000000000000000000000000000000000)
     }
 }
 

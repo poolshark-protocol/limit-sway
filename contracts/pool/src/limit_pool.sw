@@ -121,8 +121,8 @@ abi ConcentratedLiquidityPool {
 
 // Should be all storage variables
 storage { 
-    token0: AssetId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
-    token1: ContractId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
+    token0: AssetId = AssetId::zeroed();,
+    token1: ContractId = AssetId::zeroed();,
 
     max_fee: u32 = 100000,
     tick_spacing: u32 = 10, // implicitly a u24

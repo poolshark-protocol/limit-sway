@@ -175,10 +175,10 @@ impl ConcentratedLiquidityPool for Contract {
         require(msg_amount() > 0, ConcentratedLiquidityPoolErrors::ZeroAmount);
         let token0 = storage.token0.try_read().unwrap();
         let token1 = storage.token1.try_read().unwrap();
-        // require(msg_asset_id() == token0 || msg_asset_id() == token1, ConcentratedLiquidityPoolErrors::InvalidToken);
-        // let amount = msg_amount();
-        // let token_zero_to_one = if msg_asset_id() == token0 { true } else { false };
-        // let mut current_price = storage.sqrt_price;
+        require(msg_asset_id() == token0 || msg_asset_id() == token1, ConcentratedLiquidityPoolErrors::InvalidToken);
+        let amount = msg_amount();
+        let token_zero_to_one = if msg_asset_id() == token0 { true } else { false };
+        let mut current_price = storage.sqrt_price.try_read().unwrap();
         // if token_zero_to_one { require(sqrt_price_limit > current_price, ConcentratedLiquidityPoolErrors::PriceLimitExceeded) }
         // else                 { require(sqrt_price_limit < current_price,  ConcentratedLiquidityPoolErrors::PriceLimitExceeded) }
 

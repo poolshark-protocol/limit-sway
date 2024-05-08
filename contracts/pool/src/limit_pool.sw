@@ -10,6 +10,7 @@ use std::{
     revert::require,
     identity::*,
     contract_id::*,
+    asset_id::*,
     address::Address,
     u128::*,
     u256::*,
@@ -112,7 +113,7 @@ abi ConcentratedLiquidityPool {
 
 // Should be all storage variables
 storage { 
-    token0: ContractId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
+    token0: AssetId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
     token1: ContractId = ContractId{value:0x0000000000000000000000000000000000000000000000000000000000000000},
 
     max_fee: u32 = 100000,
@@ -175,7 +176,7 @@ impl ConcentratedLiquidityPool for Contract {
         require(msg_amount() > 0, ConcentratedLiquidityPoolErrors::ZeroAmount);
         let token0 = storage.token0.try_read().unwrap();
         let token1 = storage.token1.try_read().unwrap();
-        require(msg_asset_id() == AssetId::new(*token0, 0) || msg_asset_id() == AssetId::new(*token1, 0), ConcentratedLiquidityPoolErrors::InvalidToken);
+        require(msg_asset_id() == AssetId::new(token0, 0) || msg_asset_id() == AssetId::new(token1, 0), ConcentratedLiquidityPoolErrors::InvalidToken);
         // let amount = msg_amount();
         // let token_zero_to_one = if msg_asset_id() == token0 { true } else { false };
         // let mut current_price = storage.sqrt_price.try_read().unwrap();

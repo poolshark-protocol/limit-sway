@@ -52,7 +52,8 @@ impl u64 {
 
 impl SubId {
     fn default() -> SubId {
-        return SubId::new(0x0000000000000000000000000000000000000000000000000000000000000000)
+        let default_sub_id: SubId = 0x0000000000000000000000000000000000000000000000000000000000000000;
+        default_sub_id
     }
 }
 

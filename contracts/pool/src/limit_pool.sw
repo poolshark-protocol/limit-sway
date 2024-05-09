@@ -185,29 +185,29 @@ impl ConcentratedLiquidityPool for Contract {
         let token0 = storage.token0.try_read().unwrap();
         let token1 = storage.token1.try_read().unwrap();
         require(msg_asset_id() == token0 || msg_asset_id() == token1, ConcentratedLiquidityPoolErrors::InvalidToken);
-        // let amount = msg_amount();
-        // let token_zero_to_one = if msg_asset_id() == token0 { true } else { false };
-        // let mut current_price = storage.sqrt_price.try_read().unwrap();
-        // if token_zero_to_one { require(sqrt_price_limit > current_price, ConcentratedLiquidityPoolErrors::PriceLimitExceeded) }
-        // else                 { require(sqrt_price_limit < current_price,  ConcentratedLiquidityPoolErrors::PriceLimitExceeded) }
+        let amount = msg_amount();
+        let token_zero_to_one = if msg_asset_id() == token0 { true } else { false };
+        let mut current_price = storage.sqrt_price.try_read().unwrap();
+        if token_zero_to_one { require(sqrt_price_limit > current_price, ConcentratedLiquidityPoolErrors::PriceLimitExceeded) }
+        else                 { require(sqrt_price_limit < current_price,  ConcentratedLiquidityPoolErrors::PriceLimitExceeded) }
 
         // // constants
-        // let one_e_6_u128 = U128{upper: 0, lower: 1000000};
-        // let one_e_6_q128x128 = Q128x128::from_u128(one_e_6_u128);
-        // let one_u128 = (U128{upper: 0, lower:1});
-        // let one_q128x128 = Q128x128::from_uint(1);
-        // let zero_u128 = (U128{upper: 0, lower:0});
+        let one_e_6_u128 = U128{upper: 0, lower: 1000000};
+        let one_e_6_q128x128 = Q128x128::from_u128(one_e_6_u128);
+        let one_u128 = (U128{upper: 0, lower:1});
+        let one_q128x128 = Q128x128::from_uint(1);
+        let zero_u128 = (U128{upper: 0, lower:0});
 
         // // set local vars
-        // let mut fee_amount         = zero_u128;
-        // let mut total_fee_amount   = zero_u128;
-        // let mut protocol_fee       = zero_u128;
-        // let mut fee_growth_globalA = if token_zero_to_one { storage.fee_growth_global1 } else { storage.fee_growth_global0 };
-        // let mut fee_growth_globalB = if token_zero_to_one { storage.fee_growth_global0 } else { storage.fee_growth_global1 };
-        // let mut current_price      = storage.sqrt_price;
-        // let mut current_liquidity  = storage.liquidity;
-        // let mut amount_in_left     = U128{upper: 0, lower: amount};
-        // let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick } else { storage.ticks.get(storage.nearest_tick).next_tick };
+        let mut fee_amount         = zero_u128;
+        let mut total_fee_amount   = zero_u128;
+        let mut protocol_fee       = zero_u128;
+        let mut fee_growth_globalA = if token_zero_to_one { storage.fee_growth_global1.try_read().unwrap() } else { storage.fee_growth_global0.try_read().unwrap() };
+        let mut fee_growth_globalB = if token_zero_to_one { storage.fee_growth_global0.try_read().unwrap() } else { storage.fee_growth_global1.try_read().unwrap() };
+        let mut current_price      = storage.sqrt_price.try_read().unwrap();
+        let mut current_liquidity  = storage.liquidity.try_read().unwrap();
+        let mut amount_in_left     = U128{upper: 0, lower: amount};
+        // let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.try_read().unwrap() } else { storage.ticks.try_read().unwrap().get(storage.nearest_tick).next_tick };
         
         // // return value
         let mut amount_out = 0;

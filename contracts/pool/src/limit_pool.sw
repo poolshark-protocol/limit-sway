@@ -207,7 +207,7 @@ impl ConcentratedLiquidityPool for Contract {
         let mut current_price      = storage.sqrt_price.try_read().unwrap();
         let mut current_liquidity  = storage.liquidity.try_read().unwrap();
         let mut amount_in_left     = U128{upper: 0, lower: amount};
-        let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.try_read().unwrap() } else { storage.ticks.try_read().unwrap().get(storage.nearest_tick.try_read().unwrap()).next_tick };
+        let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.try_read().unwrap() } else { storage.ticks.get(storage.nearest_tick.try_read().unwrap()).next_tick };
         
         // // return value
         let mut amount_out = 0;

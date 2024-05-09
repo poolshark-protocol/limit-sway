@@ -30,7 +30,6 @@ use amm_libs::math::types::Q128x128::*;
 use amm_libs::math::dydx_math::*;
 use amm_libs::math::tick_math::*;
 use amm_libs::math::full_math::*;
-use amm_libs::math::swap_fees::*;
 
 impl core::ops::Ord for AssetId {
     fn lt(self, other: Self) -> bool {

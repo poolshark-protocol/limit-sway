@@ -121,8 +121,8 @@ abi ConcentratedLiquidityPool {
 
 // Should be all storage variables
 storage { 
-    token0: AssetId = AssetId::default(),
-    token1: AssetId = AssetId::default(),
+    token0: AssetId = AssetId{ bits: 0x0000000000000000000000000000000000000000000000000000000000000000 },
+    token1: AssetId = AssetId{ bits: 0x0000000000000000000000000000000000000000000000000000000000000000 },
 
     max_fee: u32 = 100000,
     tick_spacing: u32 = 10, // implicitly a u24
@@ -184,7 +184,7 @@ impl ConcentratedLiquidityPool for Contract {
         require(msg_amount() > 0, ConcentratedLiquidityPoolErrors::ZeroAmount);
         let token0 = storage.token0.try_read().unwrap();
         let token1 = storage.token1.try_read().unwrap();
-        require(msg_asset_id() == AssetId::new(token0, SubId::default()) || msg_asset_id() == AssetId::new(token1, SubId::default()), ConcentratedLiquidityPoolErrors::InvalidToken);
+        require(msg_asset_id() == token0 || msg_asset_id() == token1, ConcentratedLiquidityPoolErrors::InvalidToken);
         // let amount = msg_amount();
         // let token_zero_to_one = if msg_asset_id() == token0 { true } else { false };
         // let mut current_price = storage.sqrt_price.try_read().unwrap();

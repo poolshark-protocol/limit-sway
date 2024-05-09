@@ -201,21 +201,21 @@ impl ConcentratedLiquidityPool for Contract {
         let mut fee_amount         = zero_u128;
         let mut total_fee_amount   = zero_u128;
         let mut protocol_fee       = zero_u128;
-        let mut fee_growth_globalA = if token_zero_to_one { storage.fee_growth_global1.try_read().unwrap() } else { storage.fee_growth_global0.try_read().unwrap() };
-        let mut fee_growth_globalB = if token_zero_to_one { storage.fee_growth_global0.try_read().unwrap() } else { storage.fee_growth_global1.try_read().unwrap() };
-        let mut current_price      = storage.sqrt_price.try_read().unwrap();
-        let mut current_liquidity  = storage.liquidity.try_read().unwrap();
-        let mut amount_in_left     = U128{upper: 0, lower: amount};
-        let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.try_read().unwrap() } else { storage.ticks.get(storage.nearest_tick.try_read().unwrap()).read().next_tick };
+        // let mut fee_growth_globalA = if token_zero_to_one { storage.fee_growth_global1.try_read().unwrap() } else { storage.fee_growth_global0.try_read().unwrap() };
+        // let mut fee_growth_globalB = if token_zero_to_one { storage.fee_growth_global0.try_read().unwrap() } else { storage.fee_growth_global1.try_read().unwrap() };
+        // let mut current_price      = storage.sqrt_price.try_read().unwrap();
+        // let mut current_liquidity  = storage.liquidity.try_read().unwrap();
+        // let mut amount_in_left     = U128{upper: 0, lower: amount};
+        // let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.try_read().unwrap() } else { storage.ticks.get(storage.nearest_tick.try_read().unwrap()).read().next_tick };
         
         // // return value
         let mut amount_out = 0;
         // handle next_tick == 0
-        while amount_in_left != zero_u128 {
-            let next_tick_price = get_price_sqrt_at_tick(next_tick_to_cross);
-            let mut next_price = next_tick_price;
-            let mut output = 0;
-            let mut cross = false;
+        // while amount_in_left != zero_u128 {
+        //     let next_tick_price = get_price_sqrt_at_tick(next_tick_to_cross);
+        //     let mut next_price = next_tick_price;
+        //     let mut output = 0;
+        //     let mut cross = false;
             // if token_zero_to_one {
             //     // token0 (x) for token1 (y)
             //     // decreasing price
@@ -301,7 +301,7 @@ impl ConcentratedLiquidityPool for Contract {
         //         }
         //     }
         //     else { break; }
-        }
+        // }
 
         // storage.sqrt_price = current_price;
 

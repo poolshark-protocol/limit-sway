@@ -155,8 +155,8 @@ storage {
 impl ConcentratedLiquidityPool for Contract {
     #[storage(read, write)]
     fn init(first_token: AssetId, second_token: AssetId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32) {
-        require(storage.sqrt_price.try_read().unwrap() == Q64x64{value: U128{upper:0,lower:0}}, ConcentratedLiquidityPoolErrors::AlreadyInitialized);
-        require(swap_fee <= storage.max_fee.try_read().unwrap().as_u64(), ConcentratedLiquidityPoolErrors::InvalidSwapFee);
+        require(storage.sqrt_price.read() == Q64x64{value: U128{upper:0,lower:0}}, ConcentratedLiquidityPoolErrors::AlreadyInitialized);
+        require(swap_fee <= storage.max_fee.read().as_u64(), ConcentratedLiquidityPoolErrors::InvalidSwapFee);
         require(first_token != second_token, ConcentratedLiquidityPoolErrors::InvalidToken);
         storage.token0.write(if first_token < second_token { first_token }  else { second_token });
         storage.token1.write(if first_token < second_token { second_token } else { first_token });
@@ -168,25 +168,25 @@ impl ConcentratedLiquidityPool for Contract {
 
         log(InitEvent {
             pool_id: contract_id(),
-            token0: storage.token0.try_read().unwrap(),
-            token1: storage.token1.try_read().unwrap(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
             swap_fee,
             tick_spacing: tick_spacing,
             init_price_upper: sqrt_price.value.upper,
             init_price_lower: sqrt_price.value.lower,
-            init_tick: storage.nearest_tick.underlying.try_read().unwrap()
+            init_tick: storage.nearest_tick.underlying.read()
         });
     }
     #[storage(read, write)]
     fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64 {
         // sanity checks
         require(msg_amount() > 0, ConcentratedLiquidityPoolErrors::ZeroAmount);
-        let token0 = storage.token0.try_read().unwrap();
-        let token1 = storage.token1.try_read().unwrap();
+        let token0 = storage.token0.read();
+        let token1 = storage.token1.read();
         require(msg_asset_id() == token0 || msg_asset_id() == token1, ConcentratedLiquidityPoolErrors::InvalidToken);
         let amount = msg_amount();
         let token_zero_to_one = if msg_asset_id() == token0 { true } else { false };
-        let mut current_price = storage.sqrt_price.try_read().unwrap();
+        let mut current_price = storage.sqrt_price.read();
         if token_zero_to_one { require(sqrt_price_limit > current_price, ConcentratedLiquidityPoolErrors::PriceLimitExceeded) }
         else                 { require(sqrt_price_limit < current_price,  ConcentratedLiquidityPoolErrors::PriceLimitExceeded) }
 
@@ -201,12 +201,12 @@ impl ConcentratedLiquidityPool for Contract {
         let mut fee_amount         = zero_u128;
         let mut total_fee_amount   = zero_u128;
         let mut protocol_fee       = zero_u128;
-        let mut fee_growth_globalA = if token_zero_to_one { storage.fee_growth_global1.try_read().unwrap() } else { storage.fee_growth_global0.try_read().unwrap() };
-        let mut fee_growth_globalB = if token_zero_to_one { storage.fee_growth_global0.try_read().unwrap() } else { storage.fee_growth_global1.try_read().unwrap() };
-        let mut current_price      = storage.sqrt_price.try_read().unwrap();
-        let mut current_liquidity  = storage.liquidity.try_read().unwrap();
+        let mut fee_growth_globalA = if token_zero_to_one { storage.fee_growth_global1.read() } else { storage.fee_growth_global0.read() };
+        let mut fee_growth_globalB = if token_zero_to_one { storage.fee_growth_global0.read() } else { storage.fee_growth_global1.read() };
+        let mut current_price      = storage.sqrt_price.read();
+        let mut current_liquidity  = storage.liquidity.read();
         let mut amount_in_left     = U128{upper: 0, lower: amount};
-        let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.try_read().unwrap() } else { storage.ticks.get(storage.nearest_tick.try_read().unwrap()).read().next_tick };
+        let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.read() } else { storage.ticks.get(storage.nearest_tick.read()).read().next_tick };
         
         // // return value
         let mut amount_out = 0;

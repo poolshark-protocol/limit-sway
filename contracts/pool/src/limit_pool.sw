@@ -579,17 +579,17 @@ impl ConcentratedLiquidityPool for Contract {
 
     #[storage(read)]
     fn get_price_and_nearest_tick() -> (Q64x64, I24){
-        (storage.sqrt_price.try_read().unwrap(), storage.nearest_tick.try_read().unwrap())
+        (storage.sqrt_price.read(), storage.nearest_tick.read())
     }
 
     #[storage(read)]
     fn get_protocol_fees() -> (u64, u64){
-        (storage.token0_protocol_fee.try_read().unwrap(), storage.token1_protocol_fee.try_read().unwrap())
+        (storage.token0_protocol_fee.read(), storage.token1_protocol_fee.read())
     }
 
     #[storage(read)]
     fn get_reserves() -> (u64, u64){
-        (storage.reserve0.try_read().unwrap(), storage.reserve1.try_read().unwrap())
+        (storage.reserve0.read(), storage.reserve1.read())
     }
 // }
 // #[storage(read)]

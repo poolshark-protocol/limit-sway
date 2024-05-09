@@ -436,7 +436,7 @@ impl ConcentratedLiquidityPool for Contract {
     fn set_price(price : Q64x64) {
         check_sqrt_price_bounds(price);
         let zero_price = Q64x64{ value: U128{upper: 0, lower: 0} };
-        if storage.sqrt_price.try_read().unwrap() == zero_price {
+        if storage.sqrt_price.read() == zero_price {
             storage.sqrt_price.write(price);
         }
 
@@ -548,19 +548,19 @@ impl ConcentratedLiquidityPool for Contract {
         let mut amount0 = 0;
         let mut amount1 = 0;
 
-        let token0_protocol_fee = storage.token0_protocol_fee.try_read().unwrap();
-        let token1_protocol_fee = storage.token1_protocol_fee.try_read().unwrap();
+        let token0_protocol_fee = storage.token0_protocol_fee.read();
+        let token1_protocol_fee = storage.token1_protocol_fee.read();
 
         if token0_protocol_fee > 1 {
             amount0 = token0_protocol_fee;
             storage.token0_protocol_fee.write(0);
-            storage.reserve0.write(storage.reserve0.try_read().unwrap() - amount0);
+            storage.reserve0.write(storage.reserve0.read() - amount0);
 
         }
         if token1_protocol_fee > 1 {
             amount1 =token0_protocol_fee;
             storage.token1_protocol_fee.write(0);
-             storage.reserve1.write(storage.reserve1.try_read().unwrap() - amount1);
+             storage.reserve1.write(storage.reserve1.read() - amount1);
         }
 
         (amount0, amount1)

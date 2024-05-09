@@ -6,8 +6,8 @@ use amm_libs::math::types::I24::I24;
 
 pub struct InitEvent {
     pool_id: ContractId,
-    token0: ContractId,
-    token1: ContractId,
+    token0: AssetId,
+    token1: AssetId,
     swap_fee: u64,
     tick_spacing: u32,
     init_price_upper: u64,

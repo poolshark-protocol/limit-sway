@@ -76,7 +76,7 @@ abi ConcentratedLiquidityPool {
     // Core functions
     // tawnee
     #[storage(read, write)]
-    fn init(token0: ContractId, token1: ContractId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32);
+    fn init(token0: AssetId, token1: AssetId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32);
 
     // alphak3y
     #[storage(read, write)]

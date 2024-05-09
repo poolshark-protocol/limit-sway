@@ -102,17 +102,14 @@ abi ConcentratedLiquidityPool {
     #[storage(read, write)]
     fn collect_protocol_fee() -> (u64, u64);
 
-    // // tawnee
-    // #[storage(read)]
-    // fn get_price_and_nearest_tick() -> (Q64x64, I24);
+    #[storage(read)]
+    fn get_price_and_nearest_tick() -> (Q64x64, I24);
 
-    // // tawnee
-    // #[storage(read)]
-    // fn get_protocol_fees() -> (u64, u64);
+    #[storage(read)]
+    fn get_protocol_fees() -> (u64, u64);
 
-    // // tawnee
-    // #[storage(read)]
-    // fn get_reserves() -> (u64, u64);
+    #[storage(read)]
+    fn get_reserves() -> (u64, u64);
 }
 
 // Should be all storage variables
@@ -580,20 +577,20 @@ impl ConcentratedLiquidityPool for Contract {
 //         (amount0_fees, amount1_fees)
 //     }
 
-//     #[storage(read)]
-//     fn get_price_and_nearest_tick() -> (Q64x64, I24){
-//         (storage.sqrt_price, storage.nearest_tick)
-//     }
+    #[storage(read)]
+    fn get_price_and_nearest_tick() -> (Q64x64, I24){
+        (storage.sqrt_price.read(), storage.nearest_tick.read())
+    }
 
-//     #[storage(read)]
-//     fn get_protocol_fees() -> (u64, u64){
-//         (storage.token0_protocol_fee, storage.token1_protocol_fee)
-//     }
+    #[storage(read)]
+    fn get_protocol_fees() -> (u64, u64){
+        (storage.token0_protocol_fee.read(), storage.token1_protocol_fee.read())
+    }
 
-//     #[storage(read)]
-//     fn get_reserves() -> (u64, u64){
-//         (storage.reserve0, storage.reserve1)
-//     }
+    #[storage(read)]
+    fn get_reserves() -> (u64, u64){
+        (storage.reserve0.read(), storage.reserve1.read())
+    }
 // }
 // #[storage(read)]
 // fn _ensure_tick_spacing(upper: I24, lower: I24) -> Result<(), ConcentratedLiquidityPoolErrors> {

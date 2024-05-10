@@ -220,7 +220,7 @@ impl ConcentratedLiquidityPool for Contract {
                 // token0 (x) for token1 (y)
                 // decreasing price
                 if next_price < sqrt_price_limit { next_price = sqrt_price_limit }
-                let max_dx : U128 = get_dx(current_liquidity, next_price, current_price, false).u128();
+                let max_dx : U128 = get_dx(current_liquidity, next_price, current_price, false).as_u128();
             }
         }
             //     if amount_in_left < max_dx || amount_in_left == max_dx {

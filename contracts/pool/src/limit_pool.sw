@@ -261,11 +261,11 @@ impl ConcentratedLiquidityPool for Contract {
                     amount_in_left -= max_dy;
                     if next_price == next_tick_price { cross = true }
                 }
-                let mut fee_growth = storage.fee_growth_global0;
+                let mut fee_growth = storage.fee_growth_global0.read();
 
                 let (total_fee_amount, amount_out, protocol_fee, fee_growth_globalA) = handle_fees(
                     output,
-                    storage.swap_fee,
+                    storage.swap_fee.read(),
                     current_liquidity,
                     total_fee_amount.lower,
                     amount_out,
@@ -276,24 +276,24 @@ impl ConcentratedLiquidityPool for Contract {
             if cross {
                 let (mut current_liquidity, mut next_tick_to_cross) = tick_cross(
                     next_tick_to_cross,
-                    storage.seconds_growth_global,
+                    storage.seconds_growth_global.read(),
                     current_liquidity,
                     fee_growth_globalA,
                     fee_growth_globalB,
                     token_zero_to_one,
-                    I24::from(storage.tick_spacing)
+                    I24::from(storage.tick_spacing.read())
                 );
                 if current_liquidity == zero_u128 {
                     // find the next tick with liquidity
                     current_price = get_price_sqrt_at_tick(next_tick_to_cross);
                     let (current_liquidity, next_tick_to_cross) = tick_cross(
                         next_tick_to_cross,
-                        storage.seconds_growth_global,
+                        storage.seconds_growth_global.read(),
                         current_liquidity,
                         fee_growth_globalA,
                         fee_growth_globalB,
                         token_zero_to_one,
-                        I24::from(storage.tick_spacing)
+                        I24::from(storage.tick_spacing.read())
                     );
                 }
             }

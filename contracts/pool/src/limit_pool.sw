@@ -249,18 +249,18 @@ impl ConcentratedLiquidityPool for Contract {
                 // increasing price
                 if next_price > sqrt_price_limit { next_price = sqrt_price_limit }
                 let max_dy = get_dy(current_liquidity, current_price, next_price, false).as_u128();
-                // if amount_in_left < max_dy || amount_in_left == max_dy {
-                //     let new_price = current_price + Q64x64{ value : mul_div(amount_in_left, U128{upper: 0, lower: u64::max()}, current_liquidity)};
-                //     output = get_dx(current_liquidity, current_price, new_price, false);
-                //     current_price = new_price;
-                //     amount_in_left = U128{upper: 0, lower: 0};
-                // } else {
-                //     // we need to cross the next tick
-                //     output = get_dx(current_liquidity, current_price, next_price, false);
-                //     current_price = next_price;
-                //     amount_in_left -= max_dy;
-                //     if next_price == next_tick_price { cross = true }
-                // }
+                if amount_in_left < max_dy || amount_in_left == max_dy {
+                    let new_price = current_price + Q64x64{ value : mul_div(amount_in_left, U128{upper: 0, lower: u64::max()}, current_liquidity)};
+                    output = get_dx(current_liquidity, current_price, new_price, false);
+                    current_price = new_price;
+                    amount_in_left = U128{upper: 0, lower: 0};
+                } else {
+                    // we need to cross the next tick
+                    output = get_dx(current_liquidity, current_price, next_price, false);
+                    current_price = next_price;
+                    amount_in_left -= max_dy;
+                    if next_price == next_tick_price { cross = true }
+                }
                 // let mut fee_growth = storage.fee_growth_global0.read();
 
                 // let (total_fee_amount, amount_out, protocol_fee, fee_growth_globalA) = handle_fees(

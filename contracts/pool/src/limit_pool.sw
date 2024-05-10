@@ -273,31 +273,31 @@ impl ConcentratedLiquidityPool for Contract {
                     fee_growth
                 );
             }
-            // if cross {
-            //     let (mut current_liquidity, mut next_tick_to_cross) = tick_cross(
-            //         next_tick_to_cross,
-            //         storage.seconds_growth_global.read(),
-            //         current_liquidity,
-            //         fee_growth_globalA,
-            //         fee_growth_globalB,
-            //         token_zero_to_one,
-            //         I24::from(storage.tick_spacing.read())
-            //     );
-            //     if current_liquidity == zero_u128 {
-            //         // find the next tick with liquidity
-            //         current_price = get_price_sqrt_at_tick(next_tick_to_cross);
-            //         let (current_liquidity, next_tick_to_cross) = tick_cross(
-            //             next_tick_to_cross,
-            //             storage.seconds_growth_global.read(),
-            //             current_liquidity,
-            //             fee_growth_globalA,
-            //             fee_growth_globalB,
-            //             token_zero_to_one,
-            //             I24::from(storage.tick_spacing.read())
-            //         );
-            //     }
-            // }
-            // else { break; }
+            if cross {
+                let (mut current_liquidity, mut next_tick_to_cross) = tick_cross(
+                    next_tick_to_cross,
+                    storage.seconds_growth_global.read(),
+                    current_liquidity,
+                    fee_growth_globalA,
+                    fee_growth_globalB,
+                    token_zero_to_one,
+                    I24::from(storage.tick_spacing.read())
+                );
+                if current_liquidity == zero_u128 {
+                    // find the next tick with liquidity
+                    current_price = get_price_sqrt_at_tick(next_tick_to_cross);
+                    let (current_liquidity, next_tick_to_cross) = tick_cross(
+                        next_tick_to_cross,
+                        storage.seconds_growth_global.read(),
+                        current_liquidity,
+                        fee_growth_globalA,
+                        fee_growth_globalB,
+                        token_zero_to_one,
+                        I24::from(storage.tick_spacing.read())
+                    );
+                }
+            }
+            else { break; }
         }
 
         // storage.sqrt_price = current_price;

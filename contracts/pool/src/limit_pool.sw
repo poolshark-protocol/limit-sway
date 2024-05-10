@@ -210,69 +210,69 @@ impl ConcentratedLiquidityPool for Contract {
         // // return value
         let mut amount_out = 0;
         // handle next_tick == 0
-        while amount_in_left != zero_u128 {
-            let next_tick_price = get_price_sqrt_at_tick(next_tick_to_cross);
-            let mut next_price = next_tick_price;
-            let mut output = 0;
-            let mut cross = false;
-            if token_zero_to_one {
-                // token0 (x) for token1 (y)
-                // decreasing price
-                if next_price < sqrt_price_limit { next_price = sqrt_price_limit }
-                let max_dx : U128 = get_dx(current_liquidity, next_price, current_price, false).as_u128();
-                if amount_in_left < max_dx || amount_in_left == max_dx {
-                    let liquidity_padded = Q128x128::from_u128(current_liquidity);
-                    let price_padded     = Q128x128::from_q64x64(current_price.value);
-                    let amount_in_padded = Q128x128::from_u128(amount_in_left);
-                    let mut new_price : Q64x64 = mul_div_rounding_up_q64x64(liquidity_padded, price_padded, liquidity_padded + price_padded * amount_in_padded);
+        // while amount_in_left != zero_u128 {
+        //     let next_tick_price = get_price_sqrt_at_tick(next_tick_to_cross);
+        //     let mut next_price = next_tick_price;
+        //     let mut output = 0;
+        //     let mut cross = false;
+        //     if token_zero_to_one {
+        //         // token0 (x) for token1 (y)
+        //         // decreasing price
+        //         if next_price < sqrt_price_limit { next_price = sqrt_price_limit }
+        //         let max_dx : U128 = get_dx(current_liquidity, next_price, current_price, false).as_u128();
+        //         if amount_in_left < max_dx || amount_in_left == max_dx {
+        //             let liquidity_padded = Q128x128::from_u128(current_liquidity);
+        //             let price_padded     = Q128x128::from_q64x64(current_price.value);
+        //             let amount_in_padded = Q128x128::from_u128(amount_in_left);
+        //             let mut new_price : Q64x64 = mul_div_rounding_up_q64x64(liquidity_padded, price_padded, liquidity_padded + price_padded * amount_in_padded);
 
-                    if !((next_price < new_price || next_price == new_price) && new_price < current_price) {
-                        let price_cast = U128{upper: 1, lower: 0};
-                        new_price = mul_div_rounding_up_q64x64(
-                            one_q128x128,
-                            liquidity_padded, 
-                            liquidity_padded / price_padded + amount_in_padded
-                        );
-                    }
-                    output = get_dy(current_liquidity, new_price, current_price, false);
-                    current_price = new_price;
-                    amount_in_left = zero_u128;
-                } else {
-                    // we need to cross the next tick
-                    output = get_dy(current_liquidity, next_price, current_price, false);
-                    current_price = next_price;
-                    if next_price == next_tick_price { cross = true }
-                    amount_in_left -= max_dx;
-                }
-            } else {
-                // token1 (y) for token0 (x)
-                // increasing price
-                if next_price > sqrt_price_limit { next_price = sqrt_price_limit }
-                let max_dy = get_dy(current_liquidity, current_price, next_price, false).as_u128();
-                if amount_in_left < max_dy || amount_in_left == max_dy {
-                    let new_price = current_price + Q64x64{ value : mul_div(amount_in_left, U128{upper: 0, lower: u64::max()}, current_liquidity)};
-                    output = get_dx(current_liquidity, current_price, new_price, false);
-                    current_price = new_price;
-                    amount_in_left = U128{upper: 0, lower: 0};
-                } else {
-                    // we need to cross the next tick
-                    output = get_dx(current_liquidity, current_price, next_price, false);
-                    current_price = next_price;
-                    amount_in_left -= max_dy;
-                    if next_price == next_tick_price { cross = true }
-                }
-                let mut fee_growth = storage.fee_growth_global0.read();
+        //             if !((next_price < new_price || next_price == new_price) && new_price < current_price) {
+        //                 let price_cast = U128{upper: 1, lower: 0};
+        //                 new_price = mul_div_rounding_up_q64x64(
+        //                     one_q128x128,
+        //                     liquidity_padded, 
+        //                     liquidity_padded / price_padded + amount_in_padded
+        //                 );
+        //             }
+        //             output = get_dy(current_liquidity, new_price, current_price, false);
+        //             current_price = new_price;
+        //             amount_in_left = zero_u128;
+        //         } else {
+        //             // we need to cross the next tick
+        //             output = get_dy(current_liquidity, next_price, current_price, false);
+        //             current_price = next_price;
+        //             if next_price == next_tick_price { cross = true }
+        //             amount_in_left -= max_dx;
+        //         }
+        //     } else {
+        //         // token1 (y) for token0 (x)
+        //         // increasing price
+        //         if next_price > sqrt_price_limit { next_price = sqrt_price_limit }
+        //         let max_dy = get_dy(current_liquidity, current_price, next_price, false).as_u128();
+        //         if amount_in_left < max_dy || amount_in_left == max_dy {
+        //             let new_price = current_price + Q64x64{ value : mul_div(amount_in_left, U128{upper: 0, lower: u64::max()}, current_liquidity)};
+        //             output = get_dx(current_liquidity, current_price, new_price, false);
+        //             current_price = new_price;
+        //             amount_in_left = U128{upper: 0, lower: 0};
+        //         } else {
+        //             // we need to cross the next tick
+        //             output = get_dx(current_liquidity, current_price, next_price, false);
+        //             current_price = next_price;
+        //             amount_in_left -= max_dy;
+        //             if next_price == next_tick_price { cross = true }
+        //         }
+        //         let mut fee_growth = storage.fee_growth_global0.read();
 
-                let (total_fee_amount, amount_out, protocol_fee, fee_growth_globalA) = handle_fees(
-                    output,
-                    storage.swap_fee.read(),
-                    current_liquidity,
-                    total_fee_amount.lower,
-                    amount_out,
-                    protocol_fee.lower,
-                    fee_growth
-                );
-            }
+        //         let (total_fee_amount, amount_out, protocol_fee, fee_growth_globalA) = handle_fees(
+        //             output,
+        //             storage.swap_fee.read(),
+        //             current_liquidity,
+        //             total_fee_amount.lower,
+        //             amount_out,
+        //             protocol_fee.lower,
+        //             fee_growth
+        //         );
+        //     }
             if cross {
                 let (mut current_liquidity, mut next_tick_to_cross) = tick_cross(
                     next_tick_to_cross,

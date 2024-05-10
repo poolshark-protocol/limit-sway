@@ -234,15 +234,15 @@ impl ConcentratedLiquidityPool for Contract {
                             liquidity_padded / price_padded + amount_in_padded
                         );
                     }
-        //             output = get_dy(current_liquidity, new_price, current_price, false);
-        //             current_price = new_price;
-        //             amount_in_left = zero_u128;
-        //         } else {
-        //             // we need to cross the next tick
-        //             output = get_dy(current_liquidity, next_price, current_price, false);
-        //             current_price = next_price;
-        //             if next_price == next_tick_price { cross = true }
-        //             amount_in_left -= max_dx;
+                    output = get_dy(current_liquidity, new_price, current_price, false);
+                    current_price = new_price;
+                    amount_in_left = zero_u128;
+                } else {
+                    // we need to cross the next tick
+                    output = get_dy(current_liquidity, next_price, current_price, false);
+                    current_price = next_price;
+                    if next_price == next_tick_price { cross = true }
+                    amount_in_left -= max_dx;
                 }
             } 
         // else {

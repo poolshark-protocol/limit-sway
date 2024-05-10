@@ -226,14 +226,14 @@ impl ConcentratedLiquidityPool for Contract {
                     let amount_in_padded = Q128x128::from_u128(amount_in_left);
                     let mut new_price : Q64x64 = mul_div_rounding_up_q64x64(liquidity_padded, price_padded, liquidity_padded + price_padded * amount_in_padded);
 
-        //             if !((next_price < new_price || next_price == new_price) && new_price < current_price) {
-        //                 let price_cast = U128{upper: 1, lower: 0};
-        //                 new_price = mul_div_rounding_up_q64x64(
-        //                     one_q128x128,
-        //                     liquidity_padded, 
-        //                     liquidity_padded / price_padded + amount_in_padded
-        //                 );
-        //             }
+                    if !((next_price < new_price || next_price == new_price) && new_price < current_price) {
+                        let price_cast = U128{upper: 1, lower: 0};
+                        new_price = mul_div_rounding_up_q64x64(
+                            one_q128x128,
+                            liquidity_padded, 
+                            liquidity_padded / price_padded + amount_in_padded
+                        );
+                    }
         //             output = get_dy(current_liquidity, new_price, current_price, false);
         //             current_price = new_price;
         //             amount_in_left = zero_u128;

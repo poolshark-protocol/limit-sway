@@ -261,17 +261,17 @@ impl ConcentratedLiquidityPool for Contract {
                     amount_in_left -= max_dy;
                     if next_price == next_tick_price { cross = true }
                 }
-                // let mut fee_growth = storage.fee_growth_global0.read();
+                let mut fee_growth = storage.fee_growth_global0.read();
 
-                // let (total_fee_amount, amount_out, protocol_fee, fee_growth_globalA) = handle_fees(
-                //     output,
-                //     storage.swap_fee.read(),
-                //     current_liquidity,
-                //     total_fee_amount.lower,
-                //     amount_out,
-                //     protocol_fee.lower,
-                //     fee_growth
-                // );
+                let (total_fee_amount, amount_out, protocol_fee, fee_growth_globalA) = handle_fees(
+                    output,
+                    storage.swap_fee.read(),
+                    current_liquidity,
+                    total_fee_amount.lower,
+                    amount_out,
+                    protocol_fee.lower,
+                    fee_growth
+                );
             }
             // if cross {
             //     let (mut current_liquidity, mut next_tick_to_cross) = tick_cross(

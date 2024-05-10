@@ -211,10 +211,10 @@ impl ConcentratedLiquidityPool for Contract {
         let mut amount_out = 0;
         // handle next_tick == 0
         while amount_in_left != zero_u128 {
-        //     let next_tick_price = get_price_sqrt_at_tick(next_tick_to_cross);
-        //     let mut next_price = next_tick_price;
-        //     let mut output = 0;
-        //     let mut cross = false;
+            let next_tick_price = get_price_sqrt_at_tick(next_tick_to_cross);
+            let mut next_price = next_tick_price;
+            let mut output = 0;
+            let mut cross = false;
         //     if token_zero_to_one {
         //         // token0 (x) for token1 (y)
         //         // decreasing price

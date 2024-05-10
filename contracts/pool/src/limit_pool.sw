@@ -221,10 +221,10 @@ impl ConcentratedLiquidityPool for Contract {
                 if next_price < sqrt_price_limit { next_price = sqrt_price_limit }
                 let max_dx : U128 = get_dx(current_liquidity, next_price, current_price, false).as_u128();
                 if amount_in_left < max_dx || amount_in_left == max_dx {
-        //             let liquidity_padded = Q128x128::from_u128(current_liquidity);
-        //             let price_padded     = Q128x128::from_q64x64(current_price.value);
-        //             let amount_in_padded = Q128x128::from_u128(amount_in_left);
-        //             let mut new_price : Q64x64 = mul_div_rounding_up_q64x64(liquidity_padded, price_padded, liquidity_padded + price_padded * amount_in_padded);
+                    let liquidity_padded = Q128x128::from_u128(current_liquidity);
+                    let price_padded     = Q128x128::from_q64x64(current_price.value);
+                    let amount_in_padded = Q128x128::from_u128(amount_in_left);
+                    let mut new_price : Q64x64 = mul_div_rounding_up_q64x64(liquidity_padded, price_padded, liquidity_padded + price_padded * amount_in_padded);
 
         //             if !((next_price < new_price || next_price == new_price) && new_price < current_price) {
         //                 let price_cast = U128{upper: 1, lower: 0};

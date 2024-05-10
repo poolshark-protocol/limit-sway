@@ -758,7 +758,7 @@ impl ConcentratedLiquidityPool for Contract {
 //     liquidity_math
 // }
 #[storage(read, write)]
-pub fn tick_cross(
+fn tick_cross(
     ref mut next: I24, 
     seconds_growth_global: U256,
     ref mut liquidity: U128,

@@ -303,7 +303,7 @@ impl ConcentratedLiquidityPool for Contract {
         //         }
         //     }
         //     else { break; }
-        }
+        // }
 
         // storage.sqrt_price = current_price;
 

@@ -30,6 +30,7 @@ use amm_libs::math::types::Q128x128::*;
 use amm_libs::math::dydx_math::*;
 use amm_libs::math::tick_math::*;
 use amm_libs::math::full_math::*;
+use amm_libs::math::swap_fees::*;
 
 impl core::ops::Ord for AssetId {
     fn lt(self, other: Self) -> bool {
@@ -247,7 +248,7 @@ impl ConcentratedLiquidityPool for Contract {
                 // token1 (y) for token0 (x)
                 // increasing price
                 if next_price > sqrt_price_limit { next_price = sqrt_price_limit }
-                let max_dy = get_dy(current_liquidity, current_price, next_price, false).u128();
+                let max_dy = get_dy(current_liquidity, current_price, next_price, false).as_u128();
                 if amount_in_left < max_dy || amount_in_left == max_dy {
                     let new_price = current_price + Q64x64{ value : mul_div(amount_in_left, U128{upper: 0, lower: u64::max()}, current_liquidity)};
                     output = get_dx(current_liquidity, current_price, new_price, false);

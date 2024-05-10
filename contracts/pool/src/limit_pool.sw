@@ -77,9 +77,9 @@ abi ConcentratedLiquidityPool {
     #[storage(read, write)]
     fn init(token0: AssetId, token1: AssetId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32);
 
-    // // alphak3y
-    // #[storage(read, write)]
-    // fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64;
+    // alphak3y
+    #[storage(read, write)]
+    fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64;
 
     // // tawnee
     // #[storage(read, write)]

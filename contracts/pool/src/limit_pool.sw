@@ -594,7 +594,7 @@ impl ConcentratedLiquidityPool for Contract {
     fn get_reserves() -> (u64, u64){
         (storage.reserve0.read(), storage.reserve1.read())
     }
-// }
+}
 // #[storage(read)]
 // fn _ensure_tick_spacing(upper: I24, lower: I24) -> Result<(), ConcentratedLiquidityPoolErrors> {
 //     if lower % I24::from_uint(storage.tick_spacing) != I24::from_uint(0) {
@@ -991,4 +991,3 @@ fn tick_cross(
 //     }
 
 //     nearest
-}

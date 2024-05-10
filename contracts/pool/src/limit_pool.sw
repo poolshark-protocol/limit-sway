@@ -247,8 +247,8 @@ impl ConcentratedLiquidityPool for Contract {
             } else {
                 // token1 (y) for token0 (x)
                 // increasing price
-                // if next_price > sqrt_price_limit { next_price = sqrt_price_limit }
-                // let max_dy = get_dy(current_liquidity, current_price, next_price, false).as_u128();
+                if next_price > sqrt_price_limit { next_price = sqrt_price_limit }
+                let max_dy = get_dy(current_liquidity, current_price, next_price, false).as_u128();
                 // if amount_in_left < max_dy || amount_in_left == max_dy {
                 //     let new_price = current_price + Q64x64{ value : mul_div(amount_in_left, U128{upper: 0, lower: u64::max()}, current_liquidity)};
                 //     output = get_dx(current_liquidity, current_price, new_price, false);

@@ -536,29 +536,6 @@ impl ConcentratedLiquidityPool for Contract {
 //         (token0_amount, token1_amount, amount0_fees, amount1_fees)
 //     }
 
-    #[storage(read, write)]
-    fn collect_protocol_fee() -> (u64, u64) {
-        let mut amount0 = 0;
-        let mut amount1 = 0;
-
-        let token0_protocol_fee = storage.token0_protocol_fee.read();
-        let token1_protocol_fee = storage.token1_protocol_fee.read();
-
-        if token0_protocol_fee > 1 {
-            amount0 = token0_protocol_fee;
-            storage.token0_protocol_fee.write(0);
-            storage.reserve0.write(storage.reserve0.read() - amount0);
-
-        }
-        if token1_protocol_fee > 1 {
-            amount1 =token0_protocol_fee;
-            storage.token1_protocol_fee.write(0);
-             storage.reserve1.write(storage.reserve1.read() - amount1);
-        }
-
-        (amount0, amount1)
-    }
-
 //     #[storage(read, write)]
 //     fn collect(tick_lower: I24, tick_upper: I24) -> (u64, u64) {
 //         let sender: Identity= msg_sender().unwrap();
@@ -735,77 +712,77 @@ impl ConcentratedLiquidityPool for Contract {
 
 //     liquidity_math
 // }
-#[storage(read, write)]
-fn tick_cross(
-    ref mut next: I24, 
-    seconds_growth_global: U256,
-    ref mut liquidity: U128,
-    fee_growth_globalA: Q64x64,
-    fee_growth_globalB: Q64x64, 
-    token_zero_to_one: bool,
-    tick_spacing: I24
-) -> (U128, I24) {
-    //get seconds_growth from next in StorageMap
-    let mut stored_tick = storage.ticks.get(next).read();
-    let outside_growth = storage.ticks.get(next).read().seconds_growth_outside;
+// #[storage(read, write)]
+// fn tick_cross(
+//     ref mut next: I24, 
+//     seconds_growth_global: U256,
+//     ref mut liquidity: U128,
+//     fee_growth_globalA: Q64x64,
+//     fee_growth_globalB: Q64x64, 
+//     token_zero_to_one: bool,
+//     tick_spacing: I24
+// ) -> (U128, I24) {
+//     //get seconds_growth from next in StorageMap
+//     let mut stored_tick = storage.ticks.get(next).read();
+//     let outside_growth = storage.ticks.get(next).read().seconds_growth_outside;
 
-    //cast outside_growth into U256
-    let seconds_growth_outside = U256{a:0,b:0,c:outside_growth.upper,d:outside_growth.lower};
+//     //cast outside_growth into U256
+//     let seconds_growth_outside = U256{a:0,b:0,c:outside_growth.upper,d:outside_growth.lower};
 
-    //do the math, downcast to U128, store in storage.ticks
-    let outside_math: U256 = seconds_growth_global - seconds_growth_outside;
-    let outside_downcast = U128{upper: outside_math.c, lower: outside_math.d};
-    stored_tick.seconds_growth_outside = outside_downcast;
-    storage.ticks.insert(next, stored_tick);
+//     //do the math, downcast to U128, store in storage.ticks
+//     let outside_math: U256 = seconds_growth_global - seconds_growth_outside;
+//     let outside_downcast = U128{upper: outside_math.c, lower: outside_math.d};
+//     stored_tick.seconds_growth_outside = outside_downcast;
+//     storage.ticks.insert(next, stored_tick);
 
-    let modulo_re_to24 = I24::from_uint(2);
-    let i24_zero = I24::from_uint(0);
+//     let modulo_re_to24 = I24::from_uint(2);
+//     let i24_zero = I24::from_uint(0);
 
-    if token_zero_to_one {
-        if ((next / tick_spacing) % modulo_re_to24) == i24_zero {
-            liquidity -= storage.ticks.get(next).read().liquidity;
-        } else{
-            liquidity += storage.ticks.get(next).read().liquidity;
-        }
-        //cast to Q64x64
-        let mut new_stored_tick: Tick = storage.ticks.get(next).read();
+//     if token_zero_to_one {
+//         if ((next / tick_spacing) % modulo_re_to24) == i24_zero {
+//             liquidity -= storage.ticks.get(next).read().liquidity;
+//         } else{
+//             liquidity += storage.ticks.get(next).read().liquidity;
+//         }
+//         //cast to Q64x64
+//         let mut new_stored_tick: Tick = storage.ticks.get(next).read();
 
-        //do the math
-        let fee_g_0 = fee_growth_globalB - new_stored_tick.fee_growth_outside0;
-        let fee_g_1 = fee_growth_globalA - new_stored_tick.fee_growth_outside1;
+//         //do the math
+//         let fee_g_0 = fee_growth_globalB - new_stored_tick.fee_growth_outside0;
+//         let fee_g_1 = fee_growth_globalA - new_stored_tick.fee_growth_outside1;
 
-        //push to new_stored_tick
-        new_stored_tick.fee_growth_outside0 = fee_g_0;
-        new_stored_tick.fee_growth_outside1 = fee_g_1;
+//         //push to new_stored_tick
+//         new_stored_tick.fee_growth_outside0 = fee_g_0;
+//         new_stored_tick.fee_growth_outside1 = fee_g_1;
 
-        next = storage.ticks.get(next).read().prev_tick;    
-    }
+//         next = storage.ticks.get(next).read().prev_tick;    
+//     }
     
-    else {
-        if ((next / tick_spacing) % modulo_re_to24) == i24_zero {
-            liquidity += storage.ticks.get(next).read().liquidity;
-        } else{
-            liquidity -= storage.ticks.get(next).read().liquidity;
-        }
+//     else {
+//         if ((next / tick_spacing) % modulo_re_to24) == i24_zero {
+//             liquidity += storage.ticks.get(next).read().liquidity;
+//         } else{
+//             liquidity -= storage.ticks.get(next).read().liquidity;
+//         }
 
-        let mut new_stored_tick: Tick = storage.ticks.get(next).read();
+//         let mut new_stored_tick: Tick = storage.ticks.get(next).read();
 
-        //do the math
-        let fee_g_0 = fee_growth_globalA - new_stored_tick.fee_growth_outside0;
-        let fee_g_1 = fee_growth_globalB - new_stored_tick.fee_growth_outside1;
+//         //do the math
+//         let fee_g_0 = fee_growth_globalA - new_stored_tick.fee_growth_outside0;
+//         let fee_g_1 = fee_growth_globalB - new_stored_tick.fee_growth_outside1;
 
-        //push to new_stored_tick
-        new_stored_tick.fee_growth_outside0 = fee_g_0;
-        new_stored_tick.fee_growth_outside1 = fee_g_1;
+//         //push to new_stored_tick
+//         new_stored_tick.fee_growth_outside0 = fee_g_0;
+//         new_stored_tick.fee_growth_outside1 = fee_g_1;
 
-        //push onto storagemap
-        storage.ticks.insert(next, new_stored_tick);
+//         //push onto storagemap
+//         storage.ticks.insert(next, new_stored_tick);
 
-        //change input tick to previous tick
-        next = storage.ticks.get(next).read().prev_tick;
-    }
-    (liquidity, next)
-}
+//         //change input tick to previous tick
+//         next = storage.ticks.get(next).read().prev_tick;
+//     }
+//     (liquidity, next)
+// }
 
 // #[storage(read, write)]
 // fn tick_insert(

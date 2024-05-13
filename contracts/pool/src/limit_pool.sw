@@ -157,27 +157,27 @@ storage {
 impl ConcentratedLiquidityPool for Contract {
     #[storage(read, write)]
     fn inititalize(start_price: U128) {
-        require(storage.sqrt_price.read() == Q64x64{value: U128{upper:0,lower:0}}, ConcentratedLiquidityPoolErrors::AlreadyInitialized);
-        require(swap_fee <= storage.max_fee.read().as_u64(), ConcentratedLiquidityPoolErrors::InvalidSwapFee);
-        require(first_token != second_token, ConcentratedLiquidityPoolErrors::InvalidToken);
-        storage.token0.write(if first_token < second_token { first_token }  else { second_token });
-        storage.token1.write(if first_token < second_token { second_token } else { first_token });
-        storage.nearest_tick.write(get_tick_at_price(sqrt_price));
-        storage.sqrt_price.write(sqrt_price);
-        storage.swap_fee.write(swap_fee.as_u32());
-        storage.tick_spacing.write(tick_spacing);
-        storage.unlocked.write(true);
+        // require(storage.sqrt_price.read() == Q64x64{value: U128{upper:0,lower:0}}, ConcentratedLiquidityPoolErrors::AlreadyInitialized);
+        // require(swap_fee <= storage.max_fee.read().as_u64(), ConcentratedLiquidityPoolErrors::InvalidSwapFee);
+        // require(first_token != second_token, ConcentratedLiquidityPoolErrors::InvalidToken);
+        // storage.token0.write(if first_token < second_token { first_token }  else { second_token });
+        // storage.token1.write(if first_token < second_token { second_token } else { first_token });
+        // storage.nearest_tick.write(get_tick_at_price(sqrt_price));
+        // storage.sqrt_price.write(sqrt_price);
+        // storage.swap_fee.write(swap_fee.as_u32());
+        // storage.tick_spacing.write(tick_spacing);
+        // storage.unlocked.write(true);
 
-        log(InitEvent {
-            pool_id: contract_id(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee,
-            tick_spacing: tick_spacing,
-            init_price_upper: sqrt_price.value.upper,
-            init_price_lower: sqrt_price.value.lower,
-            init_tick: storage.nearest_tick.underlying.read()
-        });
+        // log(InitEvent {
+        //     pool_id: contract_id(),
+        //     token0: storage.token0.read(),
+        //     token1: storage.token1.read(),
+        //     swap_fee,
+        //     tick_spacing: tick_spacing,
+        //     init_price_upper: sqrt_price.value.upper,
+        //     init_price_lower: sqrt_price.value.lower,
+        //     init_tick: storage.nearest_tick.underlying.read()
+        // });
     }
     // #[storage(read, write)]
     // fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64 {

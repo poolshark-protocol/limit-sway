@@ -305,8 +305,8 @@ impl ConcentratedLiquidityPool for Contract {
 
         let new_nearest_tick = if token_zero_to_one { next_tick_to_cross } else { storage.ticks.get(next_tick_to_cross).read().prev_tick };
 
-        if storage.nearest_tick != new_nearest_tick {
-            storage.nearest_tick = new_nearest_tick;
+        if storage.nearest_tick.read() != new_nearest_tick {
+            storage.nearest_tick.read() = new_nearest_tick;
             storage.liquidity = current_liquidity;
         }
         // // handle case where not all liquidity is used
@@ -360,7 +360,7 @@ impl ConcentratedLiquidityPool for Contract {
 //         let mut amount_out_no_fee = ((U128{upper: 0, lower: amount_out}) * one_e_6_u128) / (one_e_6_u128 - swap_fee) + one_u128;
 //         let mut current_price = storage.sqrt_price;
 //         let mut current_liquidity = storage.liquidity;
-//         let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick } else { storage.ticks.get(storage.nearest_tick).next_tick };
+//         let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.read() } else { storage.ticks.get(storage.nearest_tick).next_tick };
 //         let mut next_tick: I24 = I24::new();
 //         let tick_spacing = storage.tick_spacing;
 
@@ -472,7 +472,7 @@ impl ConcentratedLiquidityPool for Contract {
 //             storage.liquidity += liquidity_minted;
 //         }
 
-//         storage.nearest_tick = tick_insert(
+//         storage.nearest_tick.read() = tick_insert(
 //             liquidity_minted,
 //             upper, lower,
 //             upper_old, lower_old
@@ -539,7 +539,7 @@ impl ConcentratedLiquidityPool for Contract {
 //         });
 
 //         let mut nearest_tick = storage.nearest_tick;
-//         storage.nearest_tick = tick_remove(lower, upper, liquidity_amount, nearest_tick);
+//         storage.nearest_tick.read() = tick_remove(lower, upper, liquidity_amount, nearest_tick);
         
 //         (token0_amount, token1_amount, amount0_fees, amount1_fees)
 //     }

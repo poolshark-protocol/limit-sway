@@ -156,7 +156,7 @@ storage {
 
 impl ConcentratedLiquidityPool for Contract {
     #[storage(read, write)]
-    fn inititalize(start_price: U128, second_token: AssetId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32) {
+    fn inititalize(start_price: U128) {
         require(storage.sqrt_price.read() == Q64x64{value: U128{upper:0,lower:0}}, ConcentratedLiquidityPoolErrors::AlreadyInitialized);
         require(swap_fee <= storage.max_fee.read().as_u64(), ConcentratedLiquidityPoolErrors::InvalidSwapFee);
         require(first_token != second_token, ConcentratedLiquidityPoolErrors::InvalidToken);

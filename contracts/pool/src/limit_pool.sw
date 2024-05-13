@@ -75,46 +75,49 @@ struct Tick {
 abi ConcentratedLiquidityPool {
     // Core functions
     #[storage(read, write)]
-    fn init(token0: AssetId, token1: AssetId, swap_fee: u64, sqrt_price: Q64x64, tick_spacing: u32);
+    fn initialize(start_price: Q64x64);
 
     // alphak3y
     #[storage(read, write)]
-    fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64;
+    fn mintRange(params: MintRangeParams) -> (I64, I64);
+
+    // alphak3y
+    #[storage(read, write)]
+    fn burnRange(params: BurnRangeParams) -> (I64, I64);
+
+    // alphak3y
+    #[storage(read, write)]
+    fn mintLimit(params: MintLimitParams) -> (I64, I64);
+
+    // alphak3y
+    #[storage(read, write)]
+    fn burnLimit(params: BurnLimitParams) -> (I64, I64);
 
     // // alphak3y
-    // #[storage(read, write)]
-    // fn swap(sqrt_price_limit: Q64x64, recipient: Identity) -> u64;
+    #[storage(read, write)]
+    fn swap(params: SwapParams) -> (I64, I64);
 
     #[storage(read, write)]
-    fn set_price(price : Q64x64);
+    fn increase_sample_count(new_sample_count: u16);
+
+    // alphak3y
+    #[storage(read, write)]
+    fn fees(params: FeeParams) -> (U128, U128);
+
+    // alphak3y
+    #[storage(read, write)]
+    fn quote(params: QuoteParams) -> (u64, u64, Q64x64);
 
     // // alphak3y
     // #[storage(read, write)]
-    // fn mint(lower_old: I24, lower: I24, upper_old: I24, upper: I24, amount0_desired: u64, amount1_desired: u64, recipient: Identity) -> U128;
-
-    // // alphak3y
-    // #[storage(read, write)]
-    // fn collect(tickLower: I24, tickUpper: I24) -> (u64, u64);
-
-    // // alphak3y
-    // #[storage(read, write)]
-    // fn burn(recipient: Identity, lower: I24, upper: I24, liquidity_amount: U128) -> (u64, u64, u64, u64);
+    // fn sample(secondsAgo: Vec<u32>) -> (Vec<I24>, Vec<U128>, Q64x64, U128, I24);
 
     // // alphak3y
     // #[storage(read)]
-    // fn quote_amount_in(token_zero_to_one: bool, amount_out: u64) -> u64;
+    // fn snapshot_range(positionId: u32) -> (I24, Q64x64, u64, u64);
 
-    #[storage(read, write)]
-    fn collect_protocol_fee() -> (u64, u64);
-
-    #[storage(read)]
-    fn get_price_and_nearest_tick() -> (Q64x64, I24);
-
-    #[storage(read)]
-    fn get_protocol_fees() -> (u64, u64);
-
-    #[storage(read)]
-    fn get_reserves() -> (u64, u64);
+    // #[storage(read, write)]
+    // fn snapshot_limit(params: SnapshotLimitParams) -> (u64, u64);
 }
 
 // Should be all storage variables
@@ -307,7 +310,7 @@ impl ConcentratedLiquidityPool for Contract {
 
         if storage.nearest_tick.read() != new_nearest_tick {
             storage.nearest_tick.read() = new_nearest_tick;
-            storage.liquidity = current_liquidity;
+            storage.liquidity.write(current_liquidity);
         }
         // // handle case where not all liquidity is used
         let amount_in_left = amount_in_left.lower;

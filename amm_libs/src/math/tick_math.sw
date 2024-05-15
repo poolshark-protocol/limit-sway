@@ -1,11 +1,11 @@
 library;
 
 use std::{result::Result, u128::U128, u256::U256};
-use ::math::types::I24::I24;
-use ::math::types::SQ63x64::*;
-use ::math::types::Q64x64::{full_multiply, Q64x64};
-use ::math::types::Q128x128::Q128x128;
-use ::math::types::SQ63x64::SQ63x64;
+use ::types::I24::I24;
+use ::types::SQ63x64::*;
+use ::types::Q64x64::{full_multiply, Q64x64};
+use ::types::Q128x128::Q128x128;
+use ::types::SQ63x64::SQ63x64;
 
 pub enum TickMathErrors {
     PriceTooHigh: (),

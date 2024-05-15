@@ -8,7 +8,7 @@ use ::math::full_math::{
     mul_div_rounding_up_u256,
     mul_div_u256,
 };
-use ::math::types::Q64x64::Q64x64;
+use ::types::Q64x64::Q64x64;
 use std::u256::U256;
 use std::u128::U128;
 

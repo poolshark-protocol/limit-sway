@@ -1,4 +1,4 @@
 library;
 
-pub mod math;
 pub mod types;
+pub mod math;

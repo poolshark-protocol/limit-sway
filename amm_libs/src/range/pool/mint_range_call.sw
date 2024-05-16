@@ -9,6 +9,12 @@ struct Balances {
     amount1: u64,
 }
 
+struct Sample {
+    block_timestamp: u32,
+    tick_seconds_accum: I64,
+    seconds_per_liquidity_accum: u256,
+}
+
 pub fn perform(
     positions: StorageKey<StorageMap<u256, RangePosition>>,
     ticks: StorageKey<StorageMap<I24, Tick>>,

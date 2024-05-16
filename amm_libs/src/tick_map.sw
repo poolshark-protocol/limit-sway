@@ -1,6 +1,7 @@
 library;
 
 use std::hash::*;
+use ::math::types::I24::I24;
 
 pub struct TickMap {
   blocks: u256,
@@ -13,7 +14,7 @@ pub struct TickMap {
 #[storage(read, write)]
 pub fn set_tick(
   tick_map: StorageKey<TickMap>,
-  tick: u32, // @TODO: i24
+  tick: I24,
   tick_spacing: u32, // @TODO: i24
 ) {
   

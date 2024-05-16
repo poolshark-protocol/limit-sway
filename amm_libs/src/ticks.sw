@@ -5,7 +5,10 @@ use std::u128::U128;
 use std::logging::log;
 use std::storage::storage_vec::*;
 
+use ::math::tick_math::MIN_TICK;
+use ::math::types::I24::I24;
 use ::tick_map::*;
+use ::constants::{TICK_SPACING};
 
 pub struct SampleState {
   index: u16,
@@ -61,18 +64,13 @@ pub fn tick_initialize(
   // immutables_data,
   start_price: U128
 ) {
-  
-  // range_tick_map.write(TickMap {
-  //   blocks: 1
-  // });
-
-  // limit_tick_map.read();
-
   // TickMap.set(
   //   rangeTickMap,
   //   ConstantProduct.minTick(constants.tickSpacing),
   //   constants.tickSpacing
   // );
 
-  set_tick(range_tick_map, 1u32, 1u32);
+  let min_tick = MIN_TICK();
+
+  set_tick(range_tick_map, min_tick, TICK_SPACING);
 }

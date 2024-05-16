@@ -31,6 +31,9 @@ use amm_libs::math::dydx_math::*;
 use amm_libs::math::tick_math::*;
 use amm_libs::math::full_math::*;
 use amm_libs::math::swap_fees::*;
+use std::storage::storage_vec::*;
+
+use amm_libs::ticks::*;
 
 impl core::ops::Ord for AssetId {
     fn lt(self, other: Self) -> bool {
@@ -152,6 +155,58 @@ storage {
 
     ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
+
+    range_tick_map: TickMap = TickMap {
+        blocks: 0,
+        words: StorageMap::<u256, u256> {},
+        ticks: StorageMap::<u256, u256> {},
+        epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
+        epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
+    },
+    limit_tick_map: TickMap = TickMap {
+        blocks: 0,
+        words: StorageMap::<u256, u256> {},
+        ticks: StorageMap::<u256, u256> {},
+        epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
+        epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
+    },
+    samples: StorageVec<Sample> = StorageVec {},
+    global_state: GlobalState = GlobalState {
+        pool: RangePoolState {
+            samples: SampleState {
+                index: 0u16,
+                count: 0u16,
+                count_max: 0u16,
+            },
+            fee_growth_global0: 0x0u256,
+            fee_growth_global1: 0x0u256,
+            seconds_per_liquidity_accum: 0x0u256,
+            price: 0x0u256,
+            liquidity: U128{upper: 0, lower: 0},
+            tick_seconds_accum: 0u64, // @TODO: change to i56
+            tick_at_price: 0u32, // @TODO: change to i24
+            protocol_swap_fee0: 0u16,
+            protocol_swap_fee1: 0u16,
+        },
+        pool_0: LimitPoolState {
+            price: 0x0u256,
+            liquidity: U128{upper: 0, lower: 0},
+            protocol_fees: U128{upper: 0, lower: 0},
+            protocol_fill_fee: 0u16,
+            tick_at_price: 0u32, // @TODO: change to i24
+        },
+        pool_1: LimitPoolState {
+            price: 0x0u256,
+            liquidity: U128{upper: 0, lower: 0},
+            protocol_fees: U128{upper: 0, lower: 0},
+            protocol_fill_fee: 0u16,
+            tick_at_price: 0u32, // @TODO: change to i24
+        },
+        liquidity_global: U128{upper: 0, lower: 0},
+        position_id_next: 0u32,
+        epoch: 0u32,
+        unlocked: 0u8,
+    }
 }
 
 impl ConcentratedLiquidityPool for Contract {
@@ -164,9 +219,20 @@ impl ConcentratedLiquidityPool for Contract {
         // storage.token1.write(if first_token < second_token { second_token } else { first_token });
         // storage.nearest_tick.write(get_tick_at_price(sqrt_price));
         // storage.sqrt_price.write(sqrt_price);
-        // storage.swap_fee.write(swap_fee.as_u32());
+        // storage.swap_fee.write(swap_fee.as_0());
         // storage.tick_spacing.write(tick_spacing);
         // storage.unlocked.write(true);
+
+        let global_state = tick_initialize(
+            storage.range_tick_map,
+            storage.limit_tick_map,
+            storage.samples,
+            // global_state,
+            // immutables_data,
+            start_price
+        );
+
+        // @TODO: set storage.global_state to tick_initialize return val
 
         // log(InitEvent {
         //     pool_id: contract_id(),

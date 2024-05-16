@@ -5,13 +5,7 @@ use std::u128::U128;
 use std::logging::log;
 use std::storage::storage_vec::*;
 
-pub struct TickMap {
-  blocks: u256,
-  words: StorageMap<u256, u256>,
-  ticks: StorageMap<u256, u256>,
-  epochs0: StorageMap<u256, StorageMap<u256, StorageMap<u256, u256>>>,
-  epochs1: StorageMap<u256, StorageMap<u256, StorageMap<u256, u256>>>,
-}
+use ::tick_map::*;
 
 pub struct SampleState {
   index: u16,
@@ -73,4 +67,12 @@ pub fn tick_initialize(
   // });
 
   // limit_tick_map.read();
+
+  // TickMap.set(
+  //   rangeTickMap,
+  //   ConstantProduct.minTick(constants.tickSpacing),
+  //   constants.tickSpacing
+  // );
+
+  set_tick(range_tick_map, 1u32, 1u32);
 }

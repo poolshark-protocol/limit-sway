@@ -34,6 +34,7 @@ use amm_libs::math::swap_fees::*;
 use std::storage::storage_vec::*;
 
 use amm_libs::ticks::*;
+use amm_libs::tick_map::TickMap;
 
 impl core::ops::Ord for AssetId {
     fn lt(self, other: Self) -> bool {
@@ -203,8 +204,8 @@ storage {
             tick_at_price: 0u32, // @TODO: change to i24
         },
         liquidity_global: U128{upper: 0, lower: 0},
-        position_id_next: 0u32,
-        epoch: 0u32,
+        position_id_next: 1u32,
+        epoch: 1u32,
         unlocked: 0u8,
     }
 }
@@ -215,8 +216,10 @@ impl ConcentratedLiquidityPool for Contract {
         // require(storage.sqrt_price.read() == Q64x64{value: U128{upper:0,lower:0}}, ConcentratedLiquidityPoolErrors::AlreadyInitialized);
         // require(swap_fee <= storage.max_fee.read().as_u64(), ConcentratedLiquidityPoolErrors::InvalidSwapFee);
         // require(first_token != second_token, ConcentratedLiquidityPoolErrors::InvalidToken);
+
         // storage.token0.write(if first_token < second_token { first_token }  else { second_token });
         // storage.token1.write(if first_token < second_token { second_token } else { first_token });
+
         // storage.nearest_tick.write(get_tick_at_price(sqrt_price));
         // storage.sqrt_price.write(sqrt_price);
         // storage.swap_fee.write(swap_fee.as_0());

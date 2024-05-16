@@ -4,6 +4,9 @@ use std::{
     context::{this_balance},
 };
 
+use amm_libs::types::I24::*;
+use amm_libs::types::I64::*;
+
 struct Balances {
     amount0: u64,
     amount1: u64,
@@ -19,7 +22,7 @@ pub fn perform(
     positions: StorageKey<StorageMap<u256, RangePosition>>,
     ticks: StorageKey<StorageMap<I24, Tick>>,
     tick_map: StorageKey<TickMap>,
-    samples: StorageKey<Vec<Sample>>,
+    samples: StorageVec<Sample>,
     global_state: StorageKey<GlobalState>,
     cache: MintRangeCache,
     params: MintRangeParms,

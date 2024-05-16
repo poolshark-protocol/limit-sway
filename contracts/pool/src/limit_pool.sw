@@ -32,6 +32,8 @@ use amm_libs::math::tick_math::*;
 use amm_libs::math::full_math::*;
 use amm_libs::math::swap_fees::*;
 
+use amm_libs::range::pool::mint_range_call::*;
+
 impl core::ops::Ord for AssetId {
     fn lt(self, other: Self) -> bool {
         self.value < other.value

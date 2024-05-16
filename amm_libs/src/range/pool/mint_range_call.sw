@@ -19,7 +19,7 @@ pub fn perform(
     positions: StorageKey<StorageMap<u256, RangePosition>>,
     ticks: StorageKey<StorageMap<I24, Tick>>,
     tick_map: StorageKey<TickMap>,
-    samples: StorageKey<Sample[65535]>,
+    samples: StorageKey<Vec<Sample>,
     global_state: StorageKey<GlobalState>,
     cache: MintRangeCache,
     params: MintRangeParms,

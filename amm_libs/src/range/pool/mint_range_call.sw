@@ -4,6 +4,11 @@ use std::{
     context::{this_balance},
 };
 
+struct Balances {
+    amount0: u64,
+    amount1: u64,
+}
+
 pub fn perform(
     StorageKey<StorageMap<u256, RangePosition>> positions,
     StorageKey<StorageMap<I24, Tick>> ticks,
@@ -98,9 +103,16 @@ pub fn perform(
     }
 
     let mut start_balances = Balances {
-        amount0: cache.amount0 < 0 ? balance0(cache) : 0,
-        amount1: cache.amount1 < 0 ? balance1(cache) : 0
+        amount0: 0,
+        amount1: 0
     };
+
+    if cache.amount0 < 0 {
+        start_balances.amount0 = balance0(cache);
+    }
+    if cache.amount1 < 0 {
+        start_balances.amount1 = balance1(cache);
+    }
 
     abi(ILimitPoolMintRangeCallback, msg_sender().unwrap()).limit_pool_mint_range_callback(
         cache.amount0,

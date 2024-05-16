@@ -10,13 +10,13 @@ struct Balances {
 }
 
 pub fn perform(
-    StorageKey<StorageMap<u256, RangePosition>> positions,
-    StorageKey<StorageMap<I24, Tick>> ticks,
-    StorageKey<tick_map> tick_map,
-    StorageKey<Sample[65535]> samples,
-    StorageKey<GlobalState> global_state,
-    MintRangeCache cache,
-    MintRangeParms params,
+    positions: StorageKey<StorageMap<u256, RangePosition>>,
+    ticks: StorageKey<StorageMap<I24, Tick>>,
+    tick_map: StorageKey<tick_map>,
+    samples: StorageKey<Sample[65535]>,
+    global_state: StorageKey<GlobalState>,
+    cache: MintRangeCache,
+    params: MintRangeParms,
 ) -> (I64, I64) {
     // if params.to == zero address, revert CollectToZeroAddress
 

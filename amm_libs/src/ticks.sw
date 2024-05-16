@@ -62,7 +62,7 @@ pub struct Sample {
 pub fn tick_initialize(
   range_tick_map: StorageKey<TickMap>,
   limit_tick_map: StorageKey<TickMap>,
-  samples: StorageVec<Sample>,
+  samples: StorageKey<StorageVec<Sample>>,
   // global_state,
   // immutables_data,
   start_price: U128

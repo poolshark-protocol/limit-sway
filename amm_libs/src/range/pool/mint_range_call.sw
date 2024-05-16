@@ -18,7 +18,7 @@ struct Sample {
 pub fn perform(
     positions: StorageKey<StorageMap<u256, RangePosition>>,
     ticks: StorageKey<StorageMap<I24, Tick>>,
-    tick_map: StorageKey<tick_map>,
+    tick_map: StorageKey<TickMap>,
     samples: StorageKey<Sample[65535]>,
     global_state: StorageKey<GlobalState>,
     cache: MintRangeCache,

@@ -4,6 +4,7 @@ use std::u128::U128;
 
 use ::types::I24::*;
 use ::types::I64::*;
+use ::types::ticks::tick::*;
 
 pub struct RangePosition {
     fee_growth_inside_last_0: u256,

@@ -2,6 +2,7 @@ library;
 
 use std::{
     context::{this_balance},
+    hash::*,
 };
 
 use amm_libs::types::I24::*;

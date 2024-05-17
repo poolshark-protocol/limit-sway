@@ -17,10 +17,24 @@ pub enum I64Error {
     DivisionByZero: (),
 }
 
+impl std::hash::Hash for I64 {
+    fn hash(self, ref mut state: Hasher) {
+        self.underlying.hash(state);
+    }
+}
+
+impl I64 {
+    /// The underlying value that corresponds to zero signed value
+    pub fn zero() -> u64 {
+        // Zero value is 2^63 since the 64th bit is the signed bit
+        9223372036854775808u64
+    }
+}
+
 impl From<u64> for I64 {
     /// Helper function to get a signed number from with an underlying
     fn from(underlying: u64) -> I64 {
-        require(underlying < 9223372036854775808u64, I64Error::Overflow);
+        require(underlying < Self::zero(), I64Error::Overflow);
         I64 { underlying }
     }
 
@@ -42,15 +56,15 @@ impl core::ops::Ord for I64 {
         // >=0 vs. >=0
         (
             self.underlying > other.underlying &&
-            self.underlying <= 9223372036854775808u64 &&
-            other.underlying <= 9223372036854775808u64
+            self.underlying <= Self::zero() &&
+            other.underlying <= Self::zero()
         ) ||
         // <0 vs. <0
         (
             self.underlying < other.underlying &&
             (
-                self.underlying > 9223372036854775808u64 || 
-                other.underlying > 9223372036854775808u64
+                self.underlying > Self::zero() || 
+                other.underlying > Self::zero()
             )
         )
     }
@@ -58,31 +72,17 @@ impl core::ops::Ord for I64 {
         // >=0 vs. >=0
         (
             self.underlying < other.underlying &&
-            self.underlying <= 9223372036854775808u64 &&
-            other.underlying <= 9223372036854775808u64
+            self.underlying <= Self::zero() &&
+            other.underlying <= Self::zero()
         ) ||
         // <0 vs. <0
         (
             self.underlying > other.underlying &&
             (
-                self.underlying > 9223372036854775808u64 || 
-                other.underlying > 9223372036854775808u64
+                self.underlying > Self::zero() || 
+                other.underlying > Self::zero()
             )
         )
-    }
-}
-
-impl std::hash::Hash for I64 {
-    fn hash(self, ref mut state: Hasher) {
-        self.underlying.hash(state);
-    }
-}
-
-impl I64 {
-    /// The underlying value that corresponds to zero signed value
-    pub fn zero() -> u64 {
-        // Zero value is 2^63 since the 64th bit is the signed bit
-        9223372036854775808u64
     }
 }
 

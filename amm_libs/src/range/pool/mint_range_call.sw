@@ -4,6 +4,7 @@ use std::{
     context::{this_balance},
     hash::*,
     storage::storage_vec::*,
+    u128::*,
 };
 
 use ::types::{
@@ -33,7 +34,7 @@ struct Sample {
     seconds_per_liquidity_accum: u256,
 }
 
-#[storage(read, )]
+#[storage(read,write)]
 pub fn perform(
     positions: StorageKey<StorageMap<u256, RangePosition>>,
     ticks: StorageKey<StorageMap<I24, Tick>>,

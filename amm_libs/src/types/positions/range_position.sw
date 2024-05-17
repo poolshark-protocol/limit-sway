@@ -9,7 +9,7 @@ use ::types::{
     I24::*,
     I64::*,
     ticks::tick::*,
-    state::global_state::*,
+    state::*,
 };
 
 pub struct RangePosition {

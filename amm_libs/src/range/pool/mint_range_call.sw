@@ -10,8 +10,8 @@ use ::types::{
     I64::*,
     state::{
         global_state::*,
-        cache::*,
     },
+    cache::*,
     positions::range_position::*,
 };
 

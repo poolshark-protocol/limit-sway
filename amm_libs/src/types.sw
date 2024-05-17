@@ -10,3 +10,4 @@ pub mod SQ63x64;
 pub mod state;
 pub mod ticks;
 pub mod positions;
+pub mod cache;

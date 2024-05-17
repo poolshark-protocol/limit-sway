@@ -14,7 +14,7 @@ use ::types::{
     cache::*,
     positions::range_position::*,
     ticks::{
-        ticks::*,
+        tick::*,
         tick_map::*,
     },
 };

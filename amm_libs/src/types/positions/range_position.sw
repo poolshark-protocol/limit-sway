@@ -3,6 +3,7 @@ library;
 use std::u128::U128;
 
 use ::types::I24::*;
+use ::types::I64::*;
 
 pub struct RangePosition {
     fee_growth_inside_last_0: u256,
@@ -16,7 +17,7 @@ pub struct RangeUpdateParams {
     lower: I24,
     upper: I24,
     position_id: u32,
-    burn_percent: U128
+    burn_percent: U128,
 }
 
 impl RangePosition {
@@ -26,5 +27,17 @@ impl RangePosition {
         state: GlobalState,
         constants: LimitImmutables,
         params: RangeUpdateParams
-    )
+    ) -> (RangePosition, I64, I64) {
+        (
+            RangePosition {
+                fee_growth_inside_last_0: 0,
+                fee_growth_inside_last_1: 0,
+                liquidity: U128::from((0,0)),
+                lower: I24::new(),
+                upper: I24::new(),
+            },
+            I64::from_uint(0),
+            I64::from_uint(0)
+        )
+    }
 }

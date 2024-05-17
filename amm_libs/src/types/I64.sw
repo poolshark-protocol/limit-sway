@@ -132,7 +132,7 @@ impl I64 {
     pub fn from_uint(value: u64) -> I64 {
         // as the minimal value of I64 is 2147483648 (1 << 31) we should add I64::zero() (1 << 31) 
         let underlying: u64 = value;
-        require(underlying < 8388608u64, I64Error::Overflow);
+        require(underlying < I64::zero(), I64Error::Overflow);
         I64 { underlying }
     }
     pub fn from_uint_bool(value: u64, is_neg: bool) -> I64 {
@@ -143,7 +143,7 @@ impl I64 {
             };
         } else {
             let underlying: u64 = value;
-            require(underlying < 8388608u64, I64Error::Overflow);
+            require(underlying < I64::zero(), I64Error::Overflow);
             return I64 { underlying };
         }
     }

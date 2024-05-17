@@ -12,7 +12,7 @@ use ::types::{
     state::{
         global_state::*,
         immutables::*,
-    }
+    },
 };
 
 pub struct RangePosition {

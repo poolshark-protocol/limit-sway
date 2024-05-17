@@ -7,12 +7,12 @@ use std::{
 use ::types::I24::*;
 use ::types::I64::*;
 
-struct PriceBounds {
+pub struct PriceBounds {
     min: u256,
     max: u256,
 }
 
-struct LimitImmutables {
+pub struct LimitImmutables {
     owner: Address,
     pool_impl: Address,
     factory: Address,

@@ -49,7 +49,7 @@ pub fn perform(
     cache.state = global_state.read();
 
     if params.position_id > 0 {
-        cache.position = positions.get(params.position_id).read();
+        cache.position = positions.get(params.position_id.as_u256()).read();
         if (cache.position.liquidity == 0) {
             // revert PositionNotFound
         }

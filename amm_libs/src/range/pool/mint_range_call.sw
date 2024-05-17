@@ -3,6 +3,7 @@ library;
 use std::{
     context::{this_balance},
     hash::*,
+    storage::storage_vec::*,
 };
 
 use ::types::{

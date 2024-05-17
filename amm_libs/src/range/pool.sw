@@ -1,3 +1,3 @@
 library;
 
-// pub mod mint_range_call;
+pub mod mint_range_call;

@@ -131,12 +131,14 @@ pub fn perform(
     );
 
     if cache.amount0 < 0 {
-        if balance0(cache) < start_balances.amount0 + (-cache.amount0) {
+        // revert if cache.amount0 > start_balances.amount0
+        if balance0(cache) < start_balances.amount0 + cache.amount0.abs() {
             // revert MintInputAmount0TooLow
         }
     }
     if cache.amount1 < 0 {
-        if balance1(cache) < start_balances.amount1 + (-cache.amount1) {
+                // revert if cache.amount1 > start_balances.amount1
+        if balance1(cache) < start_balances.amount1 + cache.amount1.abs() {
             // revert MintInputAmount1TooLow
         }
     }

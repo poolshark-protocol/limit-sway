@@ -163,7 +163,7 @@ fn save(
    cache: MintRangeCache,
    position_id: u32 
 ) {
-    positions.insert(position_id, cache.position);
+    positions.insert(position_id.as_u256(), cache.position);
     global_state.write(cache.state);
 }
 

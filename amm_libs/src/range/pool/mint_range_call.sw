@@ -8,7 +8,10 @@ use std::{
 use ::types::{
     I24::*,
     I64::*,
-    state::global_state::*,
+    state::{
+        global_state::*,
+        cache::*,
+    },
     positions::range_position::*,
 };
 

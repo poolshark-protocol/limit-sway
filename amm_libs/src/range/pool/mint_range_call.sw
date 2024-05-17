@@ -38,7 +38,7 @@ pub fn perform(
     tick_map: StorageKey<TickMap>,
     samples: StorageVec<Sample>,
     global_state: StorageKey<GlobalState>,
-    cache: MintRangeCache,
+    ref mut cache: MintRangeCache,
     params: MintRangeParams,
 ) -> (I64, I64) {
     // if params.to == zero address, revert CollectToZeroAddress

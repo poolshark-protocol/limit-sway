@@ -5,9 +5,12 @@ use std::{
     hash::*,
 };
 
-use ::types::I24::*;
-use ::types::I64::*;
-use ::types::ticks::tick::*;
+use ::types::{
+    I24::*,
+    I64::*,
+    ticks::tick::*,
+    state::global_state::*,
+};
 
 pub struct RangePosition {
     fee_growth_inside_last_0: u256,

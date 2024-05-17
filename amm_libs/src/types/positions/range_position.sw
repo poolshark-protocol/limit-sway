@@ -1,6 +1,9 @@
 library;
 
-use std::u128::U128;
+use std::{
+    u128::U128,
+    hash::*,
+};
 
 use ::types::I24::*;
 use ::types::I64::*;

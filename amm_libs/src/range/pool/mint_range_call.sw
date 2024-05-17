@@ -32,6 +32,7 @@ struct Sample {
     seconds_per_liquidity_accum: u256,
 }
 
+#[storage(read, )]
 pub fn perform(
     positions: StorageKey<StorageMap<u256, RangePosition>>,
     ticks: StorageKey<StorageMap<I24, Tick>>,

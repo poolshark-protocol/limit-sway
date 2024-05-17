@@ -12,7 +12,7 @@ use ::types::{
         global_state::*,
     },
     cache::*,
-    params::*,
+    params::MintRangeParams,
     positions::range_position::*,
     ticks::{
         tick::*,

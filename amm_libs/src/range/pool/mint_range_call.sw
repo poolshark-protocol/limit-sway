@@ -5,8 +5,11 @@ use std::{
     hash::*,
 };
 
-use ::types::I24::*;
-use ::types::I64::*;
+use ::types::{
+    I24::*,
+    I64::*,
+    positions::range_position::*,
+};
 
 struct Balances {
     amount0: u64,

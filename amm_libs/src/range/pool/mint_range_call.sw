@@ -9,6 +9,7 @@ use std::{
 use ::types::{
     I24::*,
     I64::*,
+    U128::*,
     state::{
         global_state::*,
     },
@@ -50,7 +51,7 @@ pub fn perform(
 
     if params.position_id > 0 {
         cache.position = positions.get(params.position_id.as_u256()).read();
-        if (cache.position.liquidity == 0) {
+        if (cache.position.liquidity == U128::zero()) {
             // revert PositionNotFound
         }
         if (PositionTokens::balanceOf(

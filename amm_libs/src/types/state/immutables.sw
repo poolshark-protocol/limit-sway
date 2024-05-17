@@ -7,6 +7,11 @@ use std::{
 use ::types::I24::*;
 use ::types::I64::*;
 
+struct PriceBounds {
+    min: u256,
+    max: u256,
+}
+
 struct LimitImmutables {
     owner: Address,
     pool_impl: Address,

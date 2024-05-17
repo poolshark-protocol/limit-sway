@@ -51,22 +51,22 @@ pub fn perform(
         params.lower = cache.position.lower;
         params.upper = cache.position.upper;
         // update existing position
-        (
-            cache.position,
-            cache.fees_accrued_0,
-            cache.fees_accrued_1
-        ) = RangePositions::update(
-            ticks,
-            cache.position,
-            cache.state,
-            cache.constants,
-            RangePoolStructs::UpdateParams(
-                params.lower,
-                params.upper,
-                params.position_id,
-                0
-            )
-        );
+        // (
+        //     cache.position,
+        //     cache.fees_accrued_0,
+        //     cache.fees_accrued_1
+        // ) = RangePositions::update(
+        //     ticks,
+        //     cache.position,
+        //     cache.state,
+        //     cache.constants,
+        //     RangePoolStructs::UpdateParams(
+        //         params.lower,
+        //         params.upper,
+        //         params.position_id,
+        //         0
+        //     )
+        // );
     } else {
         params.position_id = cache.state.position_id_next;
         cache.state.position_id_next = cache.state.position_id_next + 1;

@@ -1,8 +1,8 @@
 library;
 
-use ::math::types::U64::*;
-use ::math::types::Q64x64::Q64x64;
-use ::math::types::Q128x128::Q128x128;
+use ::types::U64::*;
+use ::types::Q64x64::Q64x64;
+use ::types::Q128x128::Q128x128;
 use std::{result::Result, u128::U128, u256::U256};
 use std::revert::revert;
 

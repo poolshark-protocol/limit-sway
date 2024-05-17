@@ -1,7 +1,7 @@
 library;
 
-use ::math::types::Q64x64::*;
-use ::math::types::Q128x128::*;
+use ::types::Q64x64::*;
+use ::types::Q128x128::*;
 use std::u128::U128;
 use ::math::full_math::*;
     

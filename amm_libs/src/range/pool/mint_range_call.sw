@@ -13,7 +13,10 @@ use ::types::{
     },
     cache::*,
     positions::range_position::*,
-    ticks::tick::*,
+    ticks::{
+        ticks::*,
+        tick_map::*,
+    },
 };
 
 struct Balances {

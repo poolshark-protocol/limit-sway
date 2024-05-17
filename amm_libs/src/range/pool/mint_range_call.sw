@@ -5,8 +5,8 @@ use std::{
     hash::*,
 };
 
-use ::amm_libs::types::I24::*;
-use ::amm_libs::types::I64::*;
+use ::types::I24::*;
+use ::types::I64::*;
 
 struct Balances {
     amount0: u64,

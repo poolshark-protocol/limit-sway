@@ -3,7 +3,7 @@ library;
 use core::primitives::*;
 use std::{revert::require, math::*, revert::revert, u128::*, u256::*};
 
-use ::types::Q128x128::Q128x128;
+use Q128x128::Q128x128;
 
 pub enum Q64x64Error {
     DivisionByZero: (),

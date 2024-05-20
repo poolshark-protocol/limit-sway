@@ -6,7 +6,7 @@ use std::{
 
 use ::types::{
     I64::*,
-    Q64x64:*,
+    Q64x64::*,
     positions::{
         range_position::*,
     },

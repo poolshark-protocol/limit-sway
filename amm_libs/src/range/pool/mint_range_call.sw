@@ -110,18 +110,18 @@ pub fn perform(
     cache.amount1 = cache.amount1 - params.amount1;
 
     log(MintRange {
-        recipient: contract_id(),
-        lower: storage.token0.read(),
-        upper: storage.token1.read(),
-        position_id,
-        liquidity_minted: tick_spacing,
-        amount_0_delta: sqrt_price.value.upper,
-        amount_1_delta: sqrt_price.value.lower
+        recipient: params.to,
+        lower: params.lower,
+        upper: params.upper,
+        position_id: params.position_id,
+        liquidity_minted: cache.liquidity_minted,
+        amount_0_delta: cache.amount0 + cache.fees_accrued_0,
+        amount_1_delta: cache.amount1 + cache.fees_accrued_1,
     });
 
     // cache = RangePositions::add(ticks, samples, tick_map, cache, params);
 
-    save(position, global_state, cache, params.position_id);
+    save(cache.position, global_state, cache, params.position_id);
 
     if cache.fees_accrued_0 > I64::zero() || cache.fees_accrued_1 > I64::zero() {
         // CollectLib::range(
@@ -159,7 +159,7 @@ pub fn perform(
         }
     }
     if cache.amount1 < I64::zero() {
-                // revert if cache.amount1 > start_balances.amount1
+        // revert if cache.amount1 > start_balances.amount1
         if balance1(cache) < start_balances.amount1 + cache.amount1.abs() {
             // revert MintInputAmount1TooLow
         }

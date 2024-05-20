@@ -20,7 +20,7 @@ pub struct MintRangeCache {
    state: GlobalState,
    position: RangePosition,
    constants: LimitImmutables,
-   owner: Address,
+   owner: Identity,
    liquidity_minted: U128,
    price_lower: Q64x64,
    price_upper: Q64x64,

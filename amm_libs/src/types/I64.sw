@@ -25,7 +25,7 @@ impl std::hash::Hash for I64 {
 
 impl I64 {
     /// The underlying value that corresponds to zero signed value
-    pub fn zero() -> u64 {
+    pub fn zero_u64() -> u64 {
         // Zero value is 2^63 since the 64th bit is the signed bit
         9223372036854775808u64
     }

@@ -160,8 +160,8 @@ pub fn perform(
     }
 
     (
-        I64::from_uint(cache.amount0 + cache.fees_accrued_0),
-        I64::from_uint(cache.amount1 + cache.fees_accrued_1)
+        cache.amount0 + cache.fees_accrued_0,
+        cache.amount1 + cache.fees_accrued_1
     )
 }
 

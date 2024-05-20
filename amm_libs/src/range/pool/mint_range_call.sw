@@ -64,6 +64,7 @@ pub fn perform(
         cache.position = positions.get(params.position_id.as_u256()).read();
         if (cache.position.liquidity == U128::zero()) {
             // revert PositionNotFound
+            revert("CollectToZeroAddress()");
         }
         // if (PositionTokens::balanceOf(
         //     cache.constants,

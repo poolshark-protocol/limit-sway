@@ -1,5 +1,14 @@
 library;
 
+use std::{
+    u128::*,
+};
+
+use ::types::{
+    I24::*,
+    I64::*,
+};
+
 pub struct MintRange {
     recipient: Identity,
     lower: I24,

@@ -1,5 +1,7 @@
 library;
 
+use std::address::*;
+
 impl Identity {
     /// Returns the underlying raw `b256` data of the identity.
     ///

@@ -29,6 +29,8 @@ use ::math::{
     tick_math::get_price_at_tick,
 };
 
+use ::events::MintRange;
+
 struct Balances {
     amount0: u64,
     amount1: u64,

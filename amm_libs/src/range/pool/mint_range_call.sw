@@ -55,14 +55,14 @@ pub fn perform(
         if (cache.position.liquidity == U128::zero()) {
             // revert PositionNotFound
         }
-        if (PositionTokens::balanceOf(
-            cache.constants,
-            params.to,
-            params.position_id
-        ) == 0
-        ) {
-            // revert PositionOwnerMismatch
-        }
+        // if (PositionTokens::balanceOf(
+        //     cache.constants,
+        //     params.to,
+        //     params.position_id
+        // ) == 0
+        // ) {
+        //     // revert PositionOwnerMismatch
+        // }
         cache.owner = params.to;
         params.lower = cache.position.lower;
         params.upper = cache.position.upper;

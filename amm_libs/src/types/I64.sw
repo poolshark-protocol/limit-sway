@@ -171,7 +171,7 @@ impl core::ops::Add for I64 {
 impl core::ops::Subtract for I64 {
     /// Subtract a I64 from a I64. Panics of overflow.
     fn subtract(self, other: Self) -> Self {
-        let mut res = Self::new();
+        let mut res = Self::zero();
         if self.underlying > Self::zero_u64() {
             // add 1 << 31 to avoid loosing the move
             res = Self::from(self.underlying - other.underlying + Self::zero_u64());
@@ -186,7 +186,7 @@ impl core::ops::Subtract for I64 {
 impl core::ops::Multiply for I64 {
     /// Multiply a I64 with a I64. Panics of overflow.
     fn multiply(self, other: Self) -> Self {
-        let mut res = Self::new();
+        let mut res = Self::zero();
         if self.underlying >= Self::zero_u64()
             && other.underlying >= Self::zero_u64()
         {
@@ -215,8 +215,8 @@ impl core::ops::Multiply for I64 {
 impl core::ops::Divide for I64 {
     /// Divide a I64 by a I64. Panics if divisor is zero.
     fn divide(self, divisor: Self) -> Self {
-        require(divisor != Self::new(), I64Error::DivisionByZero);
-        let mut res = Self::new();
+        require(divisor != Self::zero(), I64Error::DivisionByZero);
+        let mut res = Self::zero();
         if self.underlying >= Self::zero_u64()
             && divisor.underlying > Self::zero_u64()
         {

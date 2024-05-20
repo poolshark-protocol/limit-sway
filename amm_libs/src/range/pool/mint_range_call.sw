@@ -121,7 +121,7 @@ pub fn perform(
 
     // cache = RangePositions::add(ticks, samples, tick_map, cache, params);
 
-    save(cache.position, global_state, cache, params.position_id);
+    save(positions, global_state, cache, params.position_id);
 
     if cache.fees_accrued_0 > I64::zero() || cache.fees_accrued_1 > I64::zero() {
         // CollectLib::range(

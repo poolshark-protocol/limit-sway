@@ -148,13 +148,11 @@ pub fn perform(
         start_balances.amount1 = balance1(cache);
     }
 
-    let my_b256: b256 = msg_sender().unwrap().bits();
-
-    // abi(ILimitPoolMintRangeCallback, msg_sender().unwrap().bits()).limit_pool_mint_range_callback(
-    //     cache.amount0,
-    //     cache.amount1,
-    //     params.callback_data
-    // );
+    abi(ILimitPoolMintRangeCallback, msg_sender().unwrap().bits()).limit_pool_mint_range_callback(
+        cache.amount0,
+        cache.amount1,
+        params.callback_data
+    );
 
     if cache.amount0 < I64::zero() {
         // revert if cache.amount0 > start_balances.amount0

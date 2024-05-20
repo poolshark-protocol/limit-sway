@@ -18,7 +18,7 @@ impl ContractId {
     /// }
     /// ```
     pub fn bits(self) -> b256 {
-        self.bits
+        self.value
     }
 }
 
@@ -40,7 +40,7 @@ impl Address {
     /// }
     /// ```
     pub fn bits(self) -> b256 {
-        self.bits
+        self.value
     }
 }
 

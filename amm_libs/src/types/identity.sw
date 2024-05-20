@@ -1,6 +1,48 @@
 library;
 
-use std::address::*;
+impl ContractId {
+    /// Returns the underlying raw `b256` data of the contract id.
+    ///
+    /// # Returns
+    ///
+    /// * [b256] - The raw data of the contract id.
+    ///
+    /// # Examples
+    ///
+    /// ```sway
+    /// use std::constants::ZERO_B256;
+    ///
+    /// fn foo() -> {
+    ///     let my_contract = ContractId::from(ZERO_B256);
+    ///     assert(my_contract.bits() == ZERO_B256);
+    /// }
+    /// ```
+    pub fn bits(self) -> b256 {
+        self.bits
+    }
+}
+
+impl Address {
+    /// Returns the underlying raw `b256` data of the address.
+    ///
+    /// # Returns
+    ///
+    /// * [b256] - The raw data of the address.
+    ///
+    /// # Examples
+    ///
+    /// ```sway
+    /// use std::constants::ZERO_B256;
+    ///
+    /// fn foo() -> {
+    ///     let my_address = Address::from(ZERO_B256);
+    ///     assert(my_address.bits() == ZERO_B256);
+    /// }
+    /// ```
+    pub fn bits(self) -> b256 {
+        self.bits
+    }
+}
 
 impl Identity {
     /// Returns the underlying raw `b256` data of the identity.

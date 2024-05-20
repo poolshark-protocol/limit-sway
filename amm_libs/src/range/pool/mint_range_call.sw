@@ -5,6 +5,7 @@ use std::{
     hash::*,
     storage::storage_vec::*,
     u128::*,
+    identity::*,
 };
 
 use ::abis::callbacks::ILimitPoolMintRangeCallback;

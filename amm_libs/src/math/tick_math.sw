@@ -49,7 +49,7 @@ pub fn check_sqrt_price_bounds(sqrt_price: Q64x64) {
     require(sqrt_price > MAX_SQRT_PRICE() || sqrt_price == MAX_SQRT_PRICE(), TickMathErrors::PriceTooHigh);
 }
 
-pub fn get_price_at_tick(tick: I24) -> Q64x64 {
+pub fn get_price_at_tick(tick: I24, constants: LimitImmutables) -> Q64x64 {
     let zero: U256 = U256 {
         a: 0,
         b: 0,

@@ -1,5 +1,7 @@
 library;
 
+use std::constants::ZERO_B256;
+
 impl ContractId {
     /// Returns the underlying raw `b256` data of the contract id.
     ///
@@ -65,6 +67,12 @@ impl Identity {
         match self {
             Self::Address(address) => address.bits(),
             Self::ContractId(contract_id) => contract_id.bits(),
+        }
+    }
+
+    pub fn zero() -> Self {
+        Self {
+            value: ZERO_B256
         }
     }
 }

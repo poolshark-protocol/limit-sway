@@ -53,6 +53,7 @@ pub fn perform(
     ref mut params: MintRangeParams,
 ) -> (I64, I64) {
     // if params.to == zero address, revert CollectToZeroAddress
+    if params.to == 
 
     // check ticks match spacing
 

@@ -96,11 +96,11 @@ pub fn perform(
         cache.position.upper = params.upper;
         cache.owner = params.to;
     }
-    cache.price_lower = tick_math::get_price_at_tick(
+    cache.price_lower = get_price_at_tick(
         cache.position.lower,
         cache.constants
     );
-    cache.price_upper = tick_math::get_price_at_tick(
+    cache.price_upper = get_price_at_tick(
         cache.position.upper,
         cache.constants
     );

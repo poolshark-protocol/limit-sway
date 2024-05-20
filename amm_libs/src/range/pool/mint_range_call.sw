@@ -119,19 +119,19 @@ pub fn perform(
         amount_1_delta: sqrt_price.value.lower
     });
 
-    cache = RangePositions::add(ticks, samples, tick_map, cache, params);
+    // cache = RangePositions::add(ticks, samples, tick_map, cache, params);
 
     save(position, global_state, cache, params.position_id);
 
     if cache.fees_accrued_0 > I64::zero() || cache.fees_accrued_1 > I64::zero() {
-        CollectLib::range(
-            cache.position,
-            cache.constants,
-            cache.owner,
-            cache.owner,
-            cache.fees_accrued_0,
-            cache.fees_accrued_1
-        );
+        // CollectLib::range(
+        //     cache.position,
+        //     cache.constants,
+        //     cache.owner,
+        //     cache.owner,
+        //     cache.fees_accrued_0,
+        //     cache.fees_accrued_1
+        // );
     }
 
     let mut start_balances = Balances {

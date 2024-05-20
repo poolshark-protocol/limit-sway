@@ -92,11 +92,11 @@ pub fn perform(
         cache.position.upper = params.upper;
         cache.owner = params.to;
     }
-    cache.priceLower = constant_product::get_price_at_tick(
+    cache.price_lower = constant_product::get_price_at_tick(
         cache.position.lower,
         cache.constants
     );
-    cache.priceUpper = constant_product::get_price_at_tick(
+    cache.price_upper = constant_product::get_price_at_tick(
         cache.position.upper,
         cache.constants
     );

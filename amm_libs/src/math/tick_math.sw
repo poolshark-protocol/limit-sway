@@ -6,7 +6,7 @@ use ::types::SQ63x64::*;
 use ::types::Q64x64::{full_multiply, Q64x64};
 use ::types::Q128x128::Q128x128;
 use ::types::SQ63x64::SQ63x64;
-use ::types::state::immutables;
+use ::types::state::immutables::*;
 
 pub enum TickMathErrors {
     PriceTooHigh: (),

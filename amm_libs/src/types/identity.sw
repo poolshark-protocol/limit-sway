@@ -71,8 +71,6 @@ impl Identity {
     }
 
     pub fn zero() -> Identity {
-        Identity {
-            value: ZERO_B256
-        }
+        Identity::ContractId(ContractId::from(ZERO_B256));
     }
 }

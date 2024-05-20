@@ -34,7 +34,7 @@ impl I64 {
 impl From<u64> for I64 {
     /// Helper function to get a signed number from with an underlying
     fn from(underlying: u64) -> I64 {
-        require(underlying < Self::zero(), I64Error::Overflow);
+        require(underlying < Self::zero_u64(), I64Error::Overflow);
         I64 { underlying }
     }
 
@@ -56,15 +56,15 @@ impl core::ops::Ord for I64 {
         // >=0 vs. >=0
         (
             self.underlying > other.underlying &&
-            self.underlying <= Self::zero() &&
-            other.underlying <= Self::zero()
+            self.underlying <= Self::zero_u64() &&
+            other.underlying <= Self::zero_u64()
         ) ||
         // <0 vs. <0
         (
             self.underlying < other.underlying &&
             (
-                self.underlying > Self::zero() || 
-                other.underlying > Self::zero()
+                self.underlying > Self::zero_u64() || 
+                other.underlying > Self::zero_u64()
             )
         )
     }
@@ -72,15 +72,15 @@ impl core::ops::Ord for I64 {
         // >=0 vs. >=0
         (
             self.underlying < other.underlying &&
-            self.underlying <= Self::zero() &&
-            other.underlying <= Self::zero()
+            self.underlying <= Self::zero_u64() &&
+            other.underlying <= Self::zero_u64()
         ) ||
         // <0 vs. <0
         (
             self.underlying > other.underlying &&
             (
-                self.underlying > Self::zero() || 
-                other.underlying > Self::zero()
+                self.underlying > Self::zero_u64() || 
+                other.underlying > Self::zero_u64()
             )
         )
     }
@@ -88,15 +88,15 @@ impl core::ops::Ord for I64 {
 
 impl I64 {
     /// Initializes a new, zeroed I64.
-    pub fn new() -> I64 {
+    pub fn zero() -> I64 {
         I64 {
-            underlying: I64::zero(),
+            underlying: I64::zero_u64(),
         }
     }
     pub fn abs(self) -> u64 {
-        let is_gt_zero: bool = (self.underlying > I64::zero()) || (self.underlying == I64::zero());
-        let abs_pos = self.underlying - I64::zero();
-        let abs_neg = I64::zero() + (I64::zero() - self.underlying);
+        let is_gt_zero: bool = (self.underlying > I64::zero_u64()) || (self.underlying == I64::zero_u64());
+        let abs_pos = self.underlying - I64::zero_u64();
+        let abs_neg = I64::zero_u64() + (I64::zero_u64() - self.underlying);
         let abs_value = if is_gt_zero {
             abs_pos
         } else {
@@ -125,25 +125,25 @@ impl I64 {
     /// Helper function to get a negative value of unsigned numbers
     pub fn from_neg(value: u64) -> I64 {
         I64 {
-            underlying: I64::zero() + value,
+            underlying: I64::zero_u64() + value,
         }
     }
     /// Helper function to get a positive value from unsigned number
     pub fn from_uint(value: u64) -> I64 {
-        // as the minimal value of I64 is 2147483648 (1 << 31) we should add I64::zero() (1 << 31) 
+        // as the minimal value of I64 is 2147483648 (1 << 31) we should add I64::zero_u64() (1 << 31) 
         let underlying: u64 = value;
-        require(underlying < I64::zero(), I64Error::Overflow);
+        require(underlying < I64::zero_u64(), I64Error::Overflow);
         I64 { underlying }
     }
     pub fn from_uint_bool(value: u64, is_neg: bool) -> I64 {
-        // as the minimal value of I64 is 2147483648 (1 << 31) we should add I64::zero() (1 << 31) 
+        // as the minimal value of I64 is 2147483648 (1 << 31) we should add I64::zero_u64() (1 << 31) 
         if is_neg {
             return I64 {
-                underlying: I64::zero() + value,
+                underlying: I64::zero_u64() + value,
             };
         } else {
             let underlying: u64 = value;
-            require(underlying < I64::zero(), I64Error::Overflow);
+            require(underlying < I64::zero_u64(), I64Error::Overflow);
             return I64 { underlying };
         }
     }
@@ -152,7 +152,7 @@ impl I64 {
 impl core::ops::Mod for I64 {
     fn modulo(self, other: Self) -> Self {
         let remainder = self.abs() % other.abs();
-        if (self.underlying > Self::zero() && other.underlying > Self::zero()) || (self.underlying < Self::zero() && other.underlying < Self::zero()) {
+        if (self.underlying > Self::zero_u64() && other.underlying > Self::zero_u64()) || (self.underlying < Self::zero_u64() && other.underlying < Self::zero_u64()) {
             return I64::from_uint(remainder);
         } else {
             return I64::from_neg(remainder);
@@ -164,7 +164,7 @@ impl core::ops::Add for I64 {
     /// Add a I64 to a I64. Panics on overflow.
     fn add(self, other: Self) -> Self {
         // subtract 1 << 24 to avoid a double move, then from will perform the overflow check
-        Self::from(self.underlying - Self::zero() + other.underlying)
+        Self::from(self.underlying - Self::zero_u64() + other.underlying)
     }
 }
 
@@ -172,12 +172,12 @@ impl core::ops::Subtract for I64 {
     /// Subtract a I64 from a I64. Panics of overflow.
     fn subtract(self, other: Self) -> Self {
         let mut res = Self::new();
-        if self.underlying > Self::zero() {
+        if self.underlying > Self::zero_u64() {
             // add 1 << 31 to avoid loosing the move
-            res = Self::from(self.underlying - other.underlying + Self::zero());
+            res = Self::from(self.underlying - other.underlying + Self::zero_u64());
         } else {
             // subtract from 1 << 31 as we are getting a negative value
-            res = Self::from(Self::zero() - (other.underlying - self.underlying));
+            res = Self::from(Self::zero_u64() - (other.underlying - self.underlying));
         }
         res
     }
@@ -187,22 +187,22 @@ impl core::ops::Multiply for I64 {
     /// Multiply a I64 with a I64. Panics of overflow.
     fn multiply(self, other: Self) -> Self {
         let mut res = Self::new();
-        if self.underlying >= Self::zero()
-            && other.underlying >= Self::zero()
+        if self.underlying >= Self::zero_u64()
+            && other.underlying >= Self::zero_u64()
         {
-            res = Self::from((self.underlying - Self::zero()) * (other.underlying - Self::zero()) + Self::zero());
-        } else if self.underlying < Self::zero()
-            && other.underlying < Self::zero()
+            res = Self::from((self.underlying - Self::zero_u64()) * (other.underlying - Self::zero_u64()) + Self::zero_u64());
+        } else if self.underlying < Self::zero_u64()
+            && other.underlying < Self::zero_u64()
         {
-            res = Self::from((Self::zero() - self.underlying) * (Self::zero() - other.underlying) + Self::zero());
-        } else if self.underlying >= Self::zero()
-            && other.underlying < Self::zero()
+            res = Self::from((Self::zero_u64() - self.underlying) * (Self::zero_u64() - other.underlying) + Self::zero_u64());
+        } else if self.underlying >= Self::zero_u64()
+            && other.underlying < Self::zero_u64()
         {
-            res = Self::from(Self::zero() - (self.underlying - Self::zero()) * (Self::zero() - other.underlying));
-        } else if self.underlying < Self::zero()
-            && other.underlying >= Self::zero()
+            res = Self::from(Self::zero_u64() - (self.underlying - Self::zero_u64()) * (Self::zero_u64() - other.underlying));
+        } else if self.underlying < Self::zero_u64()
+            && other.underlying >= Self::zero_u64()
         {
-            res = Self::from(Self::zero() - (other.underlying - Self::zero()) * (Self::zero() - self.underlying));
+            res = Self::from(Self::zero_u64() - (other.underlying - Self::zero_u64()) * (Self::zero_u64() - self.underlying));
         }
 
         // Overflow protection
@@ -217,22 +217,22 @@ impl core::ops::Divide for I64 {
     fn divide(self, divisor: Self) -> Self {
         require(divisor != Self::new(), I64Error::DivisionByZero);
         let mut res = Self::new();
-        if self.underlying >= Self::zero()
-            && divisor.underlying > Self::zero()
+        if self.underlying >= Self::zero_u64()
+            && divisor.underlying > Self::zero_u64()
         {
-            res = Self::from((self.underlying - Self::zero()) / (divisor.underlying - Self::zero()) + Self::zero());
-        } else if self.underlying < Self::zero()
-            && divisor.underlying < Self::zero()
+            res = Self::from((self.underlying - Self::zero_u64()) / (divisor.underlying - Self::zero_u64()) + Self::zero_u64());
+        } else if self.underlying < Self::zero_u64()
+            && divisor.underlying < Self::zero_u64()
         {
-            res = Self::from((Self::zero() - self.underlying) / (Self::zero() - divisor.underlying) + Self::zero());
-        } else if self.underlying >= Self::zero()
-            && divisor.underlying < Self::zero()
+            res = Self::from((Self::zero_u64() - self.underlying) / (Self::zero_u64() - divisor.underlying) + Self::zero_u64());
+        } else if self.underlying >= Self::zero_u64()
+            && divisor.underlying < Self::zero_u64()
         {
-            res = Self::from(Self::zero() - (self.underlying - Self::zero()) / (Self::zero() - divisor.underlying));
-        } else if self.underlying < Self::zero()
-            && divisor.underlying > Self::zero()
+            res = Self::from(Self::zero_u64() - (self.underlying - Self::zero_u64()) / (Self::zero_u64() - divisor.underlying));
+        } else if self.underlying < Self::zero_u64()
+            && divisor.underlying > Self::zero_u64()
         {
-            res = Self::from(Self::zero() - (Self::zero() - self.underlying) / (divisor.underlying - Self::zero()));
+            res = Self::from(Self::zero_u64() - (Self::zero_u64() - self.underlying) / (divisor.underlying - Self::zero_u64()));
         }
         res
     }

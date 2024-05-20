@@ -139,10 +139,10 @@ pub fn perform(
         amount1: 0
     };
 
-    if cache.amount0 < 0 {
+    if cache.amount0 < I64::zero() {
         start_balances.amount0 = balance0(cache);
     }
-    if cache.amount1 < 0 {
+    if cache.amount1 < I64::zero() {
         start_balances.amount1 = balance1(cache);
     }
 

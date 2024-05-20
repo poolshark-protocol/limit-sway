@@ -2,7 +2,6 @@ library;
 
 use std::{
     bytes::*,
-    address::Address,
 };
 
 use ::types::{
@@ -10,7 +9,7 @@ use ::types::{
 };
 
 pub struct MintRangeParams {
-    to: Address,
+    to: Identity,
     lower: I24,
     upper: I24,
     position_id: u32,

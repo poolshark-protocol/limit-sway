@@ -105,7 +105,7 @@ pub fn perform(
         cache.constants
     );
 
-    save(positions, globalState, cache, params.position_id);
+    save(positions, global_state, cache, params.position_id);
     cache.amount0 = cache.amount0 - I64::from_uint(params.amount0);
     cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
 

@@ -1,3 +1,5 @@
+library;
+
 impl Identity {
     /// Returns the underlying raw `b256` data of the identity.
     ///

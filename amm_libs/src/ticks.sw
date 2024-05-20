@@ -1,11 +1,11 @@
 library;
 
 use std::hash::*;
-use std::u128::U128;
+use std::u128::*;
 use std::logging::log;
 use std::storage::storage_vec::*;
 
-use ::math::tick_math::MIN_TICK;
+use ::math::tick_math::{MIN_TICK, get_tick_at_price};
 use ::math::types::I24::I24;
 use ::tick_map::*;
 use ::constants::{TICK_SPACING};
@@ -60,17 +60,34 @@ pub fn tick_initialize(
   range_tick_map: StorageKey<TickMap>,
   limit_tick_map: StorageKey<TickMap>,
   samples: StorageKey<StorageVec<Sample>>,
-  // global_state,
+  global_state: StorageKey<GlobalState>,
   // immutables_data,
-  start_price: U128
+  start_price: u256
 ) {
-  // TickMap.set(
-  //   rangeTickMap,
-  //   ConstantProduct.minTick(constants.tickSpacing),
-  //   constants.tickSpacing
-  // );
 
   let min_tick = MIN_TICK();
+  let tick_spacing = I24::from(TICK_SPACING);
 
-  set_tick(range_tick_map, min_tick, TICK_SPACING);
+  // @REVIEW:
+  // how to write to storage?
+  let mut range = range_tick_map.read();
+  range.set(min_tick, tick_spacing);
+  range_tick_map.write(range);
+
+  // let mut state: GlobalState = global_state.read();
+
+  // state.pool.price = start_price;
+  // state.pool0.price = start_price;
+  // state.pool1.price = start_price;
+
+  // // @REVIEW: 
+  // // start_price = u256, get_tick_at_price takes Q64x64
+
+  // let start_tick = get_tick_at_price(start_price);
+ 
+  // state.pool.tick_at_price = start_tick;
+  // state.pool0.tick_at_price = start_tick;
+  // state.pool1.tick_at_price = start_tick;
+
+  // global_state.write(state);
 }

@@ -1,11 +1,11 @@
 [[package]]
-name = "core"
-source = "path+from-root-566CA1D5F8BEAFBF"
-
-[[package]]
-name = "libs"
+name = "amm_libs"
 source = "member"
 dependencies = ["std"]
+
+[[package]]
+name = "core"
+source = "path+from-root-566CA1D5F8BEAFBF"
 
 [[package]]
 name = "std"

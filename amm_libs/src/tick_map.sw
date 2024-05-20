@@ -19,14 +19,19 @@ pub enum TickKMapError {
   BlockIndexOverflow: (),
 }
 
-#[storage(read, write)]
-pub fn set_tick(
-  tick_map: StorageKey<TickMap>,
-  tick: I24,
-  tick_spacing: u32, // @TODO: i24
-) {
-  
-  tick_map.read();
+impl TickMap {
+  #[storage(read, write)]
+  pub fn set(
+    ref mut self, 
+    tick: I24, 
+    tick_spacing: I24,
+  ) {
+    let (tick_index, word_index, block_index) = get_indices(tick, tick_spacing);
+
+    // @stormcloud: left off -> how to write to storage?
+    self.blocks = 1;
+
+  }
 }
 
 #[storage(read, write)]
@@ -53,7 +58,6 @@ pub fn get_indices(
   require(block_index > 0xffu256, TickKMapError::BlockIndexOverflow);
 
   (tick_index, word_index, block_index)
-  
 }
 
 fn round(

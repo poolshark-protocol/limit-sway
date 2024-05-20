@@ -44,7 +44,7 @@ pub fn perform(
     samples: StorageVec<Sample>,
     global_state: StorageKey<GlobalState>,
     ref mut cache: MintRangeCache,
-    params: MintRangeParams,
+    ref mut params: MintRangeParams,
 ) -> (I64, I64) {
     // if params.to == zero address, revert CollectToZeroAddress
 

@@ -70,8 +70,8 @@ impl Identity {
         }
     }
 
-    pub fn zero() -> Self {
-        Self {
+    pub fn zero() -> Identity {
+        Identity {
             value: ZERO_B256
         }
     }

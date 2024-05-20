@@ -208,7 +208,7 @@ impl ConcentratedLiquidityPool for Contract {
 //         let mut final_amount_out: U128 = U128{upper: 0, lower: amount_out};
 
 //         while amount_out_no_fee != zero_u128 {
-//             let mut next_tick_price = get_price_sqrt_at_tick(next_tick_to_cross);
+//             let mut next_tick_price = get_price_at_tick(next_tick_to_cross);
 //             if token_zero_to_one {
 //                 let mut max_dy = get_dy(current_liquidity, next_tick_price, current_price, false).u128();
 //                 if amount_out_no_fee < max_dy || amount_out_no_fee == max_dy {
@@ -277,8 +277,8 @@ impl ConcentratedLiquidityPool for Contract {
 //     fn mint(lower_old: I24, lower: I24, upper_old: I24, upper: I24, amount0_desired: u64, amount1_desired: u64, recipient: Identity) -> U128 {
 //         _ensure_tick_spacing(upper, lower).unwrap();
 
-//         let price_lower = get_price_sqrt_at_tick(lower);
-//         let price_upper = get_price_sqrt_at_tick(upper);
+//         let price_lower = get_price_at_tick(lower);
+//         let price_upper = get_price_at_tick(upper);
 //         let current_price = storage.sqrt_price;
 
 //         let liquidity_minted = get_liquidity_for_amounts(price_lower, price_upper, current_price, U128{upper: 0, lower: amount1_desired}, U128{upper: 0, lower: amount0_desired});
@@ -332,8 +332,8 @@ impl ConcentratedLiquidityPool for Contract {
 //     fn burn(recipient: Identity, lower: I24, upper: I24, liquidity_amount: U128) -> (u64, u64, u64, u64) {
 
 //         // get prices
-//         let price_lower = get_price_sqrt_at_tick(lower);
-//         let price_upper = get_price_sqrt_at_tick(upper);
+//         let price_lower = get_price_at_tick(lower);
+//         let price_upper = get_price_at_tick(upper);
 //         let current_price = storage.sqrt_price;
 
 //         // _updateSecondsPerLiquidity(uint256(liquidity));

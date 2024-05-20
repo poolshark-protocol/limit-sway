@@ -142,7 +142,7 @@ pub fn perform(
         start_balances.amount1 = balance1(cache);
     }
 
-    abi(ILimitPoolMintRangeCallback, msg_sender().unwrap()).limit_pool_mint_range_callback(
+    abi(ILimitPoolMintRangeCallback, msg_sender().unwrap().into()).limit_pool_mint_range_callback(
         cache.amount0,
         cache.amount1,
         params.callback_data

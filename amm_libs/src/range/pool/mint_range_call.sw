@@ -123,7 +123,7 @@ pub fn perform(
 
     save(position, global_state, cache, params.position_id);
 
-    if cache.fees_accrued_0 > 0 || cache.fees_accrued_1 > 0 {
+    if cache.fees_accrued_0 > I64::zero() || cache.fees_accrued_1 > I64::zero() {
         CollectLib::range(
             cache.position,
             cache.constants,

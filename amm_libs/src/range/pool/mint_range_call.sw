@@ -23,13 +23,11 @@ use ::types::{
         tick::*,
         tick_map::*,
     },
+    events::MintRange,
 };
-
 use ::math::{
     tick_math::get_price_at_tick,
 };
-
-use ::events::MintRange;
 
 struct Balances {
     amount0: u64,

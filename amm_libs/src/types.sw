@@ -14,3 +14,4 @@ pub mod positions;
 pub mod cache;
 pub mod params;
 pub mod events;
+pub mod identity;

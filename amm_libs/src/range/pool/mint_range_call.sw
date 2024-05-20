@@ -52,8 +52,9 @@ pub fn perform(
     ref mut cache: MintRangeCache,
     ref mut params: MintRangeParams,
 ) -> (I64, I64) {
-    // if params.to == zero address, revert CollectToZeroAddress
-    if params.to == 
+    if params.to == Identity::zero() {
+        // revert CollectToZeroAddress
+    }
 
     // check ticks match spacing
 

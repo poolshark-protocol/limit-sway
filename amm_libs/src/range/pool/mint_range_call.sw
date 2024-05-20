@@ -106,8 +106,8 @@ pub fn perform(
     );
 
     save(positions, globalState, cache, params.position_id);
-    cache.amount0 = cache.amount0 - params.amount0;
-    cache.amount1 = cache.amount1 - params.amount1;
+    cache.amount0 = cache.amount0 - I64::from_uint(params.amount0);
+    cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
 
     log(MintRange {
         recipient: params.to,

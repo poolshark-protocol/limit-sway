@@ -5,9 +5,10 @@ use std::u128::*;
 use std::logging::log;
 use std::storage::storage_vec::*;
 
-use ::math::tick_math::{MIN_TICK, get_tick_at_price};
+use ::math::tick_math::{MIN_TICK, MAX_TICK, get_tick_at_price};
 use ::math::types::I24::I24;
 use ::math::types::Q64x64::Q64x64;
+use ::math::types::Q128x128::Q128x128;
 use ::tick_map::*;
 use ::constants::{TICK_SPACING};
 
@@ -27,8 +28,8 @@ pub struct LimitPoolState {
 
 pub struct RangePoolState {
   samples: SampleState,
-  fee_growth_global0: u256,
-  fee_growth_global1: u256,
+  fee_growth_global0: Q128x128,
+  fee_growth_global1: Q128x128,
   seconds_per_liquidity_accum: u256,
   price: Q64x64,                
   liquidity: U128,            
@@ -67,23 +68,34 @@ pub fn tick_initialize(
 ) {
 
   let min_tick = MIN_TICK();
+  let max_tick = MAX_TICK();
   let tick_spacing = I24::from(TICK_SPACING);
 
   let mut range = range_tick_map.read();
+  // let mut limit = limit_tick_map.read();
+
   range.set(min_tick, tick_spacing);
+  range.set(max_tick, tick_spacing);
   range_tick_map.write(range);
 
-  let mut state: GlobalState = global_state.read();
+  // limit.set(min_tick, tick_spacing);
+  // limit.set(max_tick, tick_spacing);
+  // limit_tick_map.write(limit);
 
-  state.pool.price = start_price;
-  state.pool_0.price = start_price;
-  state.pool_1.price = start_price;
+  // let mut state: GlobalState = global_state.read();
 
-  let start_tick = get_tick_at_price(start_price);
+  // state.pool.price = start_price;
+  // state.pool_0.price = start_price;
+  // state.pool_1.price = start_price;
+
+  // let start_tick = get_tick_at_price(start_price);
  
-  state.pool.tick_at_price = start_tick;
-  state.pool_0.tick_at_price = start_tick;
-  state.pool_1.tick_at_price = start_tick;
+  // state.pool.tick_at_price = start_tick;
+  // state.pool_0.tick_at_price = start_tick;
+  // state.pool_1.tick_at_price = start_tick;
 
-  global_state.write(state);
+  // // @TODO: samples
+
+  // global_state.write(state);
+
 }

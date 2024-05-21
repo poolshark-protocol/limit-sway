@@ -179,29 +179,29 @@ storage {
                 count: 0u16,
                 count_max: 0u16,
             },
-            fee_growth_global0: 0x0u256,
-            fee_growth_global1: 0x0u256,
+            fee_growth_global0: Q128x128,
+            fee_growth_global1: Q128x128,
             seconds_per_liquidity_accum: 0x0u256,
-            price: 0x0u256,
+            price: Q64x64,
             liquidity: U128{upper: 0, lower: 0},
             tick_seconds_accum: 0u64, // @TODO: change to i56
-            tick_at_price: 0u32, // @TODO: change to i24
+            tick_at_price: I24,
             protocol_swap_fee0: 0u16,
             protocol_swap_fee1: 0u16,
         },
         pool_0: LimitPoolState {
-            price: 0x0u256,
+            price: Q64x64,
             liquidity: U128{upper: 0, lower: 0},
             protocol_fees: U128{upper: 0, lower: 0},
             protocol_fill_fee: 0u16,
-            tick_at_price: 0u32, // @TODO: change to i24
+            tick_at_price: I24,
         },
         pool_1: LimitPoolState {
-            price: 0x0u256,
+            price: Q64x64,
             liquidity: U128{upper: 0, lower: 0},
             protocol_fees: U128{upper: 0, lower: 0},
             protocol_fill_fee: 0u16,
-            tick_at_price: 0u32, // @TODO: change to i24
+            tick_at_price: I24,
         },
         liquidity_global: U128{upper: 0, lower: 0},
         position_id_next: 1u32,
@@ -212,7 +212,7 @@ storage {
 
 impl ConcentratedLiquidityPool for Contract {
     #[storage(read, write)]
-    fn initialize(start_price: u256) {
+    fn initialize(start_price: Q64x64) {
         // require(storage.sqrt_price.read() == Q64x64{value: U128{upper:0,lower:0}}, ConcentratedLiquidityPoolErrors::AlreadyInitialized);
         // require(swap_fee <= storage.max_fee.read().as_u64(), ConcentratedLiquidityPoolErrors::InvalidSwapFee);
         // require(first_token != second_token, ConcentratedLiquidityPoolErrors::InvalidToken);

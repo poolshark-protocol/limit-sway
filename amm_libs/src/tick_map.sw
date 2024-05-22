@@ -4,6 +4,7 @@ use std::hash::*;
 use ::math::types::I24::I24;
 use ::math::tick_math::{MIN_TICK, MAX_TICK};
 use std::{primitive_conversions::{u32::*,},}; 
+use std::storage::storage_map::*;
 
 pub struct TickMap {
   blocks: u256,
@@ -28,9 +29,18 @@ impl TickMap {
   ) {
     let (tick_index, word_index, block_index) = get_indices(tick, tick_spacing);
 
-    // @stormcloud: left off -> how to write to storage?
-    self.blocks = 1;
+    let mut word = self.ticks.get(word_index).read();
+    let new_word = word | (1 << (tick_index & 0xFF));
 
+    if new_word != word {
+      self.ticks.insert(word_index, new_word);
+
+      let mut block = self.words.get(block_index).read();
+      block |= 1 << (word_index & 0xFF);
+      self.words.insert(block_index, block);
+      
+      self.blocks |= 1 << block_index;
+    }
   }
 }
 

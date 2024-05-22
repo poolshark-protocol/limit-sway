@@ -4,6 +4,8 @@ use std::hash::*;
 use std::u128::*;
 use std::logging::log;
 use std::storage::storage_vec::*;
+use std::storage::storage_map::*;
+use std::storage::storage_key::*;
 
 use ::math::tick_math::{MIN_TICK, MAX_TICK, get_tick_at_price};
 use ::math::types::I24::I24;
@@ -66,17 +68,20 @@ pub fn tick_initialize(
   // immutables_data,
   start_price: Q64x64
 ) {
-
   let min_tick = MIN_TICK();
   let max_tick = MAX_TICK();
   let tick_spacing = I24::from(TICK_SPACING);
 
   let mut range = range_tick_map.read();
-  // let mut limit = limit_tick_map.read();
-
+  let original_range_blocks = range.blocks;
   range.set(min_tick, tick_spacing);
   range.set(max_tick, tick_spacing);
-  range_tick_map.write(range);
+
+  if range.blocks != original_range_blocks {
+    range_tick_map.write(range);
+  }
+
+  // let mut limit = limit_tick_map.read();
 
   // limit.set(min_tick, tick_spacing);
   // limit.set(max_tick, tick_spacing);

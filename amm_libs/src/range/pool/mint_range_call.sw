@@ -52,20 +52,20 @@ pub fn perform(
     ref mut cache: MintRangeCache,
     ref mut params: MintRangeParams,
 ) -> (I64, I64) {
-    if params.to == Identity::zero() {
-        // revert CollectToZeroAddress
-    }
+    require(params.to != Identity::zero(), "INPUT ERROR: Cannot collect to zero address.");
 
     // check ticks match spacing
+    ConstantProduct::check_ticks(
+        params.lower,
+        params.upper,
+        constants.tick_spacing
+    );
 
     cache.state = global_state.read();
 
     if params.position_id > 0 {
         cache.position = positions.get(params.position_id.as_u256()).read();
-        if (cache.position.liquidity == U128::zero()) {
-            // revert PositionNotFound
-            revert(0);
-        }
+        require(cache.position.liquidity != U128::zero(), "INPUT ERROR: No position with liquidity found.");
         // if (PositionTokens::balanceOf(
         //     cache.constants,
         //     params.to,

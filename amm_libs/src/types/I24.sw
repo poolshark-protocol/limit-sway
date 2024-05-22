@@ -20,7 +20,7 @@ pub enum I24Error {
 impl From<u32> for I24 {
     /// Helper function to get a signed number from with an underlying
     fn from(underlying: u32) -> I24 {
-        require(underlying < 16777216u32, I24Error::Overflow);
+        require(underlying < Self::zero_u32(), I24Error::Overflow);
         I24 { underlying }
     }
 
@@ -39,10 +39,68 @@ impl core::ops::Eq for I24 {
 
 impl core::ops::Ord for I24 {
     fn gt(self, other: Self) -> bool {
-        self.underlying > other.underlying && self.underlying < 8388608u32
+        // >=0 vs. >=0
+        (
+            self.underlying > other.underlying &&
+            self.underlying <= Self::zero_u32() &&
+            other.underlying <= Self::zero_u32()
+        ) ||
+        // <0 vs. <0
+        (
+            self.underlying < other.underlying &&
+            (
+                self.underlying > Self::zero_u32() || 
+                other.underlying > Self::zero_u32()
+            )
+        )
     }
     fn lt(self, other: Self) -> bool {
-        self.underlying < other.underlying && self.underlying > 8388608u32
+        // >=0 vs. >=0
+        (
+            self.underlying < other.underlying &&
+            self.underlying <= Self::zero_u32() &&
+            other.underlying <= Self::zero_u32()
+        ) ||
+        // <0 vs. <0
+        (
+            self.underlying > other.underlying &&
+            (
+                self.underlying > Self::zero_u32() || 
+                other.underlying > Self::zero_u32()
+            )
+        )
+    }
+    fn ge(self, other: Self) -> bool {
+        // >=0 vs. >=0
+        (
+            self.underlying >= other.underlying &&
+            self.underlying <= Self::zero_u32() &&
+            other.underlying <= Self::zero_u32()
+        ) ||
+        // <0 vs. <0
+        (
+            self.underlying <= other.underlying &&
+            (
+                self.underlying > Self::zero_u32() || 
+                other.underlying > Self::zero_u32()
+            )
+        )
+    }
+    fn le(self, other: Self) -> bool {
+        // >=0 vs. >=0
+        (
+            self.underlying <= other.underlying &&
+            self.underlying <= Self::zero_u32() &&
+            other.underlying <= Self::zero_u32()
+        ) ||
+        // <0 vs. <0
+        (
+            self.underlying >= other.underlying &&
+            (
+                self.underlying > Self::zero_u32() || 
+                other.underlying > Self::zero_u32()
+            )
+        )
     }
 }
 
@@ -54,9 +112,7 @@ impl std::hash::Hash for I24 {
 
 impl I24 {
     /// The underlying value that corresponds to zero signed value
-    pub fn indent() -> u32 {
-        // With 24 bits max value that can be expressed is 16,777,215
-        // i24 required values are from −8,388,608 to 8,388,607
+    pub fn zero_u32() -> u32 {
         // So zero value must be 8,388,608 to cover the full range
         8388608u32
     }
@@ -64,15 +120,15 @@ impl I24 {
 
 impl I24 {
     /// Initializes a new, zeroed I24.
-    pub fn new() -> I24 {
+    pub fn zero() -> I24 {
         I24 {
-            underlying: I24::indent(),
+            underlying: I24::zero_u32(),
         }
     }
     pub fn abs(self) -> u32 {
-        let is_gt_zero: bool = (self.underlying > I24::indent()) || (self.underlying == I24::indent());
-        let abs_pos = self.underlying - I24::indent();
-        let abs_neg = I24::indent() + (I24::indent() - self.underlying);
+        let is_gt_zero: bool = (self.underlying > I24::zero_u32()) || (self.underlying == I24::zero_u32());
+        let abs_pos = self.underlying - I24::zero_u32();
+        let abs_neg = I24::zero_u32() + (I24::zero_u32() - self.underlying);
         let abs_value = if is_gt_zero {
             abs_pos
         } else {
@@ -101,21 +157,21 @@ impl I24 {
     /// Helper function to get a negative value of unsigned numbers
     pub fn from_neg(value: u32) -> I24 {
         I24 {
-            underlying: I24::indent() + value,
+            underlying: I24::zero_u32() + value,
         }
     }
     /// Helper function to get a positive value from unsigned number
     pub fn from_uint(value: u32) -> I24 {
-        // as the minimal value of I24 is 2147483648 (1 << 31) we should add I24::indent() (1 << 31) 
+        // as the minimal value of I24 is 2147483648 (1 << 31) we should add I24::zero_u32() (1 << 31) 
         let underlying: u32 = value;
         require(underlying < 8388608u32, I24Error::Overflow);
         I24 { underlying }
     }
     pub fn from_uint_bool(value: u32, is_neg: bool) -> I24 {
-        // as the minimal value of I24 is 2147483648 (1 << 31) we should add I24::indent() (1 << 31) 
+        // as the minimal value of I24 is 2147483648 (1 << 31) we should add I24::zero_u32() (1 << 31) 
         if is_neg {
             return I24 {
-                underlying: I24::indent() + value,
+                underlying: I24::zero_u32() + value,
             };
         } else {
             let underlying: u32 = value;
@@ -128,7 +184,7 @@ impl I24 {
 impl core::ops::Mod for I24 {
     fn modulo(self, other: Self) -> Self {
         let remainder = self.abs() % other.abs();
-        if (self.underlying > Self::indent() && other.underlying > Self::indent()) || (self.underlying < Self::indent() && other.underlying < Self::indent()) {
+        if (self.underlying > Self::zero_u32() && other.underlying > Self::zero_u32()) || (self.underlying < Self::zero_u32() && other.underlying < Self::zero_u32()) {
             return I24::from_uint(remainder);
         } else {
             return I24::from_neg(remainder);
@@ -140,7 +196,7 @@ impl core::ops::Add for I24 {
     /// Add a I24 to a I24. Panics on overflow.
     fn add(self, other: Self) -> Self {
         // subtract 1 << 24 to avoid a double move, then from will perform the overflow check
-        Self::from(self.underlying - Self::indent() + other.underlying)
+        Self::from(self.underlying - Self::zero_u32() + other.underlying)
     }
 }
 
@@ -148,12 +204,12 @@ impl core::ops::Subtract for I24 {
     /// Subtract a I24 from a I24. Panics of overflow.
     fn subtract(self, other: Self) -> Self {
         let mut res = Self::new();
-        if self.underlying > Self::indent() {
+        if self.underlying > Self::zero_u32() {
             // add 1 << 31 to avoid loosing the move
-            res = Self::from(self.underlying - other.underlying + Self::indent());
+            res = Self::from(self.underlying - other.underlying + Self::zero_u32());
         } else {
             // subtract from 1 << 31 as we are getting a negative value
-            res = Self::from(Self::indent() - (other.underlying - self.underlying));
+            res = Self::from(Self::zero_u32() - (other.underlying - self.underlying));
         }
         res
     }
@@ -163,22 +219,22 @@ impl core::ops::Multiply for I24 {
     /// Multiply a I24 with a I24. Panics of overflow.
     fn multiply(self, other: Self) -> Self {
         let mut res = Self::new();
-        if self.underlying >= Self::indent()
-            && other.underlying >= Self::indent()
+        if self.underlying >= Self::zero_u32()
+            && other.underlying >= Self::zero_u32()
         {
-            res = Self::from((self.underlying - Self::indent()) * (other.underlying - Self::indent()) + Self::indent());
-        } else if self.underlying < Self::indent()
-            && other.underlying < Self::indent()
+            res = Self::from((self.underlying - Self::zero_u32()) * (other.underlying - Self::zero_u32()) + Self::zero_u32());
+        } else if self.underlying < Self::zero_u32()
+            && other.underlying < Self::zero_u32()
         {
-            res = Self::from((Self::indent() - self.underlying) * (Self::indent() - other.underlying) + Self::indent());
-        } else if self.underlying >= Self::indent()
-            && other.underlying < Self::indent()
+            res = Self::from((Self::zero_u32() - self.underlying) * (Self::zero_u32() - other.underlying) + Self::zero_u32());
+        } else if self.underlying >= Self::zero_u32()
+            && other.underlying < Self::zero_u32()
         {
-            res = Self::from(Self::indent() - (self.underlying - Self::indent()) * (Self::indent() - other.underlying));
-        } else if self.underlying < Self::indent()
-            && other.underlying >= Self::indent()
+            res = Self::from(Self::zero_u32() - (self.underlying - Self::zero_u32()) * (Self::zero_u32() - other.underlying));
+        } else if self.underlying < Self::zero_u32()
+            && other.underlying >= Self::zero_u32()
         {
-            res = Self::from(Self::indent() - (other.underlying - Self::indent()) * (Self::indent() - self.underlying));
+            res = Self::from(Self::zero_u32() - (other.underlying - Self::zero_u32()) * (Self::zero_u32() - self.underlying));
         }
 
         // Overflow protection
@@ -193,22 +249,22 @@ impl core::ops::Divide for I24 {
     fn divide(self, divisor: Self) -> Self {
         require(divisor != Self::new(), I24Error::DivisionByZero);
         let mut res = Self::new();
-        if self.underlying >= Self::indent()
-            && divisor.underlying > Self::indent()
+        if self.underlying >= Self::zero_u32()
+            && divisor.underlying > Self::zero_u32()
         {
-            res = Self::from((self.underlying - Self::indent()) / (divisor.underlying - Self::indent()) + Self::indent());
-        } else if self.underlying < Self::indent()
-            && divisor.underlying < Self::indent()
+            res = Self::from((self.underlying - Self::zero_u32()) / (divisor.underlying - Self::zero_u32()) + Self::zero_u32());
+        } else if self.underlying < Self::zero_u32()
+            && divisor.underlying < Self::zero_u32()
         {
-            res = Self::from((Self::indent() - self.underlying) / (Self::indent() - divisor.underlying) + Self::indent());
-        } else if self.underlying >= Self::indent()
-            && divisor.underlying < Self::indent()
+            res = Self::from((Self::zero_u32() - self.underlying) / (Self::zero_u32() - divisor.underlying) + Self::zero_u32());
+        } else if self.underlying >= Self::zero_u32()
+            && divisor.underlying < Self::zero_u32()
         {
-            res = Self::from(Self::indent() - (self.underlying - Self::indent()) / (Self::indent() - divisor.underlying));
-        } else if self.underlying < Self::indent()
-            && divisor.underlying > Self::indent()
+            res = Self::from(Self::zero_u32() - (self.underlying - Self::zero_u32()) / (Self::zero_u32() - divisor.underlying));
+        } else if self.underlying < Self::zero_u32()
+            && divisor.underlying > Self::zero_u32()
         {
-            res = Self::from(Self::indent() - (Self::indent() - self.underlying) / (divisor.underlying - Self::indent()));
+            res = Self::from(Self::zero_u32() - (Self::zero_u32() - self.underlying) / (divisor.underlying - Self::zero_u32()));
         }
         res
     }

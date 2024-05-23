@@ -61,10 +61,10 @@ pub struct Sample {
 
 #[storage(read, write)]
 pub fn tick_initialize(
-  range_tick_map: StorageKey<TickMap>,
-  limit_tick_map: StorageKey<TickMap>,
-  samples: StorageKey<StorageVec<Sample>>,
-  global_state: StorageKey<GlobalState>,
+  range_tick_map: TickMapKeys,
+  limit_tick_map: TickMapKeys,
+  // samples: StorageKey<StorageVec<Sample>>,
+  // global_state: StorageKey<GlobalState>,
   // immutables_data,
   start_price: Q64x64
 ) {
@@ -72,20 +72,11 @@ pub fn tick_initialize(
   let max_tick = MAX_TICK();
   let tick_spacing = I24::from(TICK_SPACING);
 
-  let mut range = range_tick_map.read();
-  let original_range_blocks = range.blocks;
-  range.set(min_tick, tick_spacing);
-  range.set(max_tick, tick_spacing);
+  range_tick_map.set(min_tick, tick_spacing);
+  range_tick_map.set(max_tick, tick_spacing);
 
-  if range.blocks != original_range_blocks {
-    range_tick_map.write(range);
-  }
-
-  // let mut limit = limit_tick_map.read();
-
-  // limit.set(min_tick, tick_spacing);
-  // limit.set(max_tick, tick_spacing);
-  // limit_tick_map.write(limit);
+  limit_tick_map.set(min_tick, tick_spacing);
+  limit_tick_map.set(max_tick, tick_spacing);
 
   // let mut state: GlobalState = global_state.read();
 

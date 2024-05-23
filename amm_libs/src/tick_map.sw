@@ -14,37 +14,45 @@ pub struct TickMap {
   epochs1: StorageMap<u256, StorageMap<u256, StorageMap<u256, u256>>>,
 }
 
+pub struct TickMapKeys {
+  blocks: StorageKey<u256>,
+  words: StorageKey<StorageMap<u256, u256>>,
+  ticks: StorageKey<StorageMap<u256, u256>>,
+  // epochs0: StorageKey<StorageMap<u256, StorageMap<u256, StorageMap<u256, u256>>>>,
+  // epochs1: StorageKey<StorageMap<u256, StorageMap<u256, StorageMap<u256, u256>>>>,
+}
+
 pub enum TickKMapError {
   TickIndexOverflow: (),
   TickIndexUnderflow: (),
   BlockIndexOverflow: (),
 }
 
-impl TickMap {
+impl TickMapKeys {
   #[storage(read, write)]
   pub fn set(
-    ref mut self, 
+    self, 
     tick: I24, 
     tick_spacing: I24,
   ) {
     let (tick_index, word_index, block_index) = get_indices(tick, tick_spacing);
 
-    let mut word = self.ticks.get(word_index).read();
-    let new_word = word | (1 << (tick_index & 0xFF));
+    // let mut word = self.ticks.get(word_index).read();
+    // let new_word = word | (1 << (tick_index & 0xFF));
 
-    if new_word != word {
-      self.ticks.insert(word_index, new_word);
+    // if new_word != word {
+    //   self.ticks.insert(word_index, new_word);
 
-      let mut block = self.words.get(block_index).read();
-      block |= 1 << (word_index & 0xFF);
-      self.words.insert(block_index, block);
+    //   let mut block = self.words.get(block_index).read();
+    //   block = block | 1 << (word_index & 0xFF);
+    //   self.words.insert(block_index, block);
       
-      self.blocks |= 1 << block_index;
-    }
+    //   let current_blocks: u256 = self.blocks.read();
+    //   self.blocks.write(current_blocks | (1 << block_index));
+    // }
   }
 }
 
-#[storage(read, write)]
 pub fn get_indices(
   tick_param: I24,
   tick_spacing: I24,

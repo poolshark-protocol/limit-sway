@@ -34,7 +34,7 @@ use amm_libs::math::swap_fees::*;
 use std::storage::storage_vec::*;
 
 use amm_libs::ticks::*;
-use amm_libs::tick_map::TickMap;
+use amm_libs::tick_map::{TickMap, TickMapKeys};
 
 impl core::ops::Ord for AssetId {
     fn lt(self, other: Self) -> bool {
@@ -158,14 +158,14 @@ storage {
     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
 
     range_tick_map: TickMap = TickMap {
-        blocks: 0,
+        blocks: 0x0u256,
         words: StorageMap::<u256, u256> {},
         ticks: StorageMap::<u256, u256> {},
         epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
         epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
     },
     limit_tick_map: TickMap = TickMap {
-        blocks: 0,
+        blocks: 0x0u256,
         words: StorageMap::<u256, u256> {},
         ticks: StorageMap::<u256, u256> {},
         epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
@@ -226,11 +226,23 @@ impl ConcentratedLiquidityPool for Contract {
         // storage.tick_spacing.write(tick_spacing);
         // storage.unlocked.write(true);
 
+        let range_tick_map_keys = TickMapKeys {
+            blocks: storage.range_tick_map.blocks,
+            words: storage.range_tick_map.words,
+            ticks: storage.range_tick_map.ticks,
+        };
+
+        let limit_tick_map_keys = TickMapKeys {
+            blocks: storage.range_tick_map.blocks,
+            words: storage.range_tick_map.words,
+            ticks: storage.range_tick_map.ticks,
+        };
+
         let global_state = tick_initialize(
-            storage.range_tick_map,
-            storage.limit_tick_map,
-            storage.samples,
-            storage.global_state,
+            range_tick_map_keys,
+            limit_tick_map_keys,
+            // storage.samples,
+            // storage.global_state,
             // immutables_data,
             start_price
         );

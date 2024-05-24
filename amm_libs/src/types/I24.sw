@@ -1,7 +1,7 @@
 library;
 
 use core::primitives::*;
-use core::ops::OrdEq;
+// use core::ops::OrdEq;
 use std::revert::require;
 use std::hash::*;
 
@@ -251,7 +251,7 @@ impl core::ops::Multiply for I24 {
 impl core::ops::Divide for I24 {
     /// Divide a I24 by a I24. Panics if divisor is zero.
     fn divide(self, divisor: Self) -> Self {
-        require(divisor != Self::new(), I24Error::DivisionByZero);
+        require(divisor != Self::zero(), I24Error::DivisionByZero);
         let mut res = Self::zero();
         if self.underlying >= Self::zero_u32()
             && divisor.underlying > Self::zero_u32()

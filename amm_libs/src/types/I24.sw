@@ -21,7 +21,7 @@ impl I24 {
     /// The underlying value that corresponds to zero signed value
     pub fn zero_u32() -> u32 {
         // So zero value must be 8,388,608 to cover the full range
-        I24::zero_u32()
+        8388608u32
     }
 }
 
@@ -97,7 +97,7 @@ impl I24 {
             )
         )
     }
-    pub fn le(self, other: Self) -> bool {
+    pubfn le(self, other: Self) -> bool {
         // >=0 vs. >=0
         (
             self.underlying <= other.underlying &&

@@ -80,7 +80,7 @@ impl core::ops::Ord for I24 {
     }
 }
 
-impl core::ops::OrdEq for I24 {
+impl I24 {
     fn ge(self, other: Self) -> bool {
         // >=0 vs. >=0
         (

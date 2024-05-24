@@ -201,7 +201,7 @@ impl ConcentratedLiquidityPool for Contract {
 //         let mut current_price = storage.sqrt_price;
 //         let mut current_liquidity = storage.liquidity;
 //         let mut next_tick_to_cross = if token_zero_to_one { storage.nearest_tick.read() } else { storage.ticks.get(storage.nearest_tick).next_tick };
-//         let mut next_tick: I24 = I24::new();
+//         let mut next_tick: I24 = I24::zero();
 //         let tick_spacing = storage.tick_spacing;
 
 //         let mut final_amount_in: U128 = U128{upper: 0, lower: 0};
@@ -220,7 +220,7 @@ impl ConcentratedLiquidityPool for Contract {
 //                     final_amount_in += get_dx(current_liquidity, new_price, current_price, false).u128() + one_u128;
 //                     break;
 //                 } else {
-//                     if next_tick_to_cross / I24::from_uint(tick_spacing) % I24::from_uint(2) == I24::new(){
+//                     if next_tick_to_cross / I24::from_uint(tick_spacing) % I24::from_uint(2) == I24::zero(){
 //                         current_liquidity -= storage.ticks.get(next_tick_to_cross).liquidity;
 //                     } else {
 //                         current_liquidity += storage.ticks.get(next_tick_to_cross).liquidity;
@@ -251,7 +251,7 @@ impl ConcentratedLiquidityPool for Contract {
 //                     break;
 //                 } else {
 //                     final_amount_in += get_dy(current_liquidity, current_price, next_tick_price, false).u128();
-//                     if next_tick_to_cross / I24::from_uint(tick_spacing) % I24::from_uint(2) == I24::new(){
+//                     if next_tick_to_cross / I24::from_uint(tick_spacing) % I24::from_uint(2) == I24::zero(){
 //                         current_liquidity += storage.ticks.get(next_tick_to_cross).liquidity;
 //                     } else {
 //                         current_liquidity -= storage.ticks.get(next_tick_to_cross).liquidity;

@@ -43,8 +43,8 @@ impl RangePosition {
                 fee_growth_inside_last_0: 0,
                 fee_growth_inside_last_1: 0,
                 liquidity: U128::from((0,0)),
-                lower: I24::new(),
-                upper: I24::new(),
+                lower: I24::zero(),
+                upper: I24::zero(),
             },
             I64::from_uint(0),
             I64::from_uint(0)

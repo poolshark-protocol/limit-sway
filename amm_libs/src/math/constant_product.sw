@@ -1,6 +1,6 @@
 library;
 
-use types::I24::*;
+use ::types::I24::*;
 
 struct ConstantProduct {}
 

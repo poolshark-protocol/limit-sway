@@ -97,7 +97,7 @@ impl I24 {
             )
         )
     }
-    pubfn le(self, other: Self) -> bool {
+    pub fn le(self, other: Self) -> bool {
         // >=0 vs. >=0
         (
             self.underlying <= other.underlying &&

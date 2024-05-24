@@ -58,7 +58,7 @@ pub fn perform(
     ConstantProduct::check_ticks(
         params.lower,
         params.upper,
-        constants.tick_spacing
+        cache.constants.tick_spacing
     );
 
     cache.state = global_state.read();

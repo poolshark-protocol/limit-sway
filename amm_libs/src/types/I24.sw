@@ -207,7 +207,7 @@ impl core::ops::Add for I24 {
 impl core::ops::Subtract for I24 {
     /// Subtract a I24 from a I24. Panics of overflow.
     fn subtract(self, other: Self) -> Self {
-        let mut res = Self::new();
+        let mut res = Self::zero();
         if self.underlying > Self::zero_u32() {
             // add 1 << 31 to avoid loosing the move
             res = Self::from(self.underlying - other.underlying + Self::zero_u32());
@@ -222,7 +222,7 @@ impl core::ops::Subtract for I24 {
 impl core::ops::Multiply for I24 {
     /// Multiply a I24 with a I24. Panics of overflow.
     fn multiply(self, other: Self) -> Self {
-        let mut res = Self::new();
+        let mut res = Self::zero();
         if self.underlying >= Self::zero_u32()
             && other.underlying >= Self::zero_u32()
         {
@@ -252,7 +252,7 @@ impl core::ops::Divide for I24 {
     /// Divide a I24 by a I24. Panics if divisor is zero.
     fn divide(self, divisor: Self) -> Self {
         require(divisor != Self::new(), I24Error::DivisionByZero);
-        let mut res = Self::new();
+        let mut res = Self::zero();
         if self.underlying >= Self::zero_u32()
             && divisor.underlying > Self::zero_u32()
         {

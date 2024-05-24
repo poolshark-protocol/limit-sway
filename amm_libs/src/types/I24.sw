@@ -81,39 +81,39 @@ impl core::ops::Ord for I24 {
     }
 }
 
-impl core::ops::OrdEq for I24 {
-    // fn ge(self, other: Self) -> bool {
-    //     // >=0 vs. >=0
-    //     (
-    //         self.underlying >= other.underlying &&
-    //         self.underlying <= Self::zero_u32() &&
-    //         other.underlying <= Self::zero_u32()
-    //     ) ||
-    //     // <0 vs. <0
-    //     (
-    //         self.underlying <= other.underlying &&
-    //         (
-    //             self.underlying > Self::zero_u32() || 
-    //             other.underlying > Self::zero_u32()
-    //         )
-    //     )
-    // }
-    // fn le(self, other: Self) -> bool {
-    //     // >=0 vs. >=0
-    //     (
-    //         self.underlying <= other.underlying &&
-    //         self.underlying <= Self::zero_u32() &&
-    //         other.underlying <= Self::zero_u32()
-    //     ) ||
-    //     // <0 vs. <0
-    //     (
-    //         self.underlying >= other.underlying &&
-    //         (
-    //             self.underlying > Self::zero_u32() || 
-    //             other.underlying > Self::zero_u32()
-    //         )
-    //     )
-    // }
+impl I24 {
+    fn ge(self, other: Self) -> bool {
+        // >=0 vs. >=0
+        (
+            self.underlying >= other.underlying &&
+            self.underlying <= Self::zero_u32() &&
+            other.underlying <= Self::zero_u32()
+        ) ||
+        // <0 vs. <0
+        (
+            self.underlying <= other.underlying &&
+            (
+                self.underlying > Self::zero_u32() || 
+                other.underlying > Self::zero_u32()
+            )
+        )
+    }
+    fn le(self, other: Self) -> bool {
+        // >=0 vs. >=0
+        (
+            self.underlying <= other.underlying &&
+            self.underlying <= Self::zero_u32() &&
+            other.underlying <= Self::zero_u32()
+        ) ||
+        // <0 vs. <0
+        (
+            self.underlying >= other.underlying &&
+            (
+                self.underlying > Self::zero_u32() || 
+                other.underlying > Self::zero_u32()
+            )
+        )
+    }
 }
 
 impl std::hash::Hash for I24 {

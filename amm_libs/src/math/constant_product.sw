@@ -9,7 +9,9 @@ struct ConstantProduct {
 // @dev - tick for price of 2^-128
 const MIN_TICK: I24 = I24::from_neg(887272);
 // @dev - tick for price of 2^128
-const MAX_TICK: I24 = I24::from_uint(887272);
+const MAX_TICK: I24 = I24{
+    underlying: 887272
+};
 
 impl ConstantProduct {
     

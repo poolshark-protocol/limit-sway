@@ -2,6 +2,8 @@ library;
 
 use types::I24::*;
 
+struct ConstantProduct {};
+
 impl ConstantProduct {
     pub fn check_ticks(
         lower: I24,

@@ -1,7 +1,6 @@
 library;
 
 use core::primitives::*;
-// use core::ops::OrdEq;
 use std::revert::require;
 use std::hash::*;
 
@@ -22,7 +21,7 @@ impl I24 {
     /// The underlying value that corresponds to zero signed value
     pub fn zero_u32() -> u32 {
         // So zero value must be 8,388,608 to cover the full range
-        8388608u32
+        I24::zero_u32()
     }
 }
 
@@ -168,7 +167,7 @@ impl I24 {
     pub fn from_uint(value: u32) -> I24 {
         // as the minimal value of I24 is 2147483648 (1 << 31) we should add I24::zero_u32() (1 << 31) 
         let underlying: u32 = value;
-        require(underlying < 8388608u32, I24Error::Overflow);
+        require(underlying < I24::zero_u32(), I24Error::Overflow);
         I24 { underlying }
     }
     pub fn from_uint_bool(value: u32, is_neg: bool) -> I24 {
@@ -179,7 +178,7 @@ impl I24 {
             };
         } else {
             let underlying: u32 = value;
-            require(underlying < 8388608u32, I24Error::Overflow);
+            require(underlying < I24::zero_u32(), I24Error::Overflow);
             return I24 { underlying };
         }
     }

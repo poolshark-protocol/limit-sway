@@ -158,16 +158,16 @@ storage {
     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
 
     range_tick_map: TickMap = TickMap {
-        blocks: 0x0u256,
-        words: StorageMap::<u256, u256> {},
-        ticks: StorageMap::<u256, u256> {},
+        blocks: 0,
+        words: StorageMap::<u64, u64> {},
+        ticks: StorageMap::<u64, u64> {},
         epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
         epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
     },
     limit_tick_map: TickMap = TickMap {
-        blocks: 0x0u256,
-        words: StorageMap::<u256, u256> {},
-        ticks: StorageMap::<u256, u256> {},
+        blocks: 0,
+        words: StorageMap::<u64, u64> {},
+        ticks: StorageMap::<u64, u64> {},
         epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
         epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
     },

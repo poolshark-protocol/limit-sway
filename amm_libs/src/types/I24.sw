@@ -81,7 +81,7 @@ impl core::ops::Ord for I24 {
 }
 
 impl I24 {
-    fn ge(self, other: Self) -> bool {
+    pub fn ge(self, other: Self) -> bool {
         // >=0 vs. >=0
         (
             self.underlying >= other.underlying &&
@@ -97,7 +97,7 @@ impl I24 {
             )
         )
     }
-    fn le(self, other: Self) -> bool {
+    pub fn le(self, other: Self) -> bool {
         // >=0 vs. >=0
         (
             self.underlying <= other.underlying &&

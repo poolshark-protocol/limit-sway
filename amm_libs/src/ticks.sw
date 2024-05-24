@@ -64,7 +64,7 @@ pub fn tick_initialize(
   range_tick_map: TickMapKeys,
   limit_tick_map: TickMapKeys,
   // samples: StorageKey<StorageVec<Sample>>,
-  // global_state: StorageKey<GlobalState>,
+  global_state: StorageKey<GlobalState>,
   // immutables_data,
   start_price: Q64x64
 ) {
@@ -78,20 +78,20 @@ pub fn tick_initialize(
   limit_tick_map.set(min_tick, tick_spacing);
   limit_tick_map.set(max_tick, tick_spacing);
 
-  // let mut state: GlobalState = global_state.read();
+  let mut state: GlobalState = global_state.read();
 
-  // state.pool.price = start_price;
-  // state.pool_0.price = start_price;
-  // state.pool_1.price = start_price;
+  state.pool.price = start_price;
+  state.pool_0.price = start_price;
+  state.pool_1.price = start_price;
 
-  // let start_tick = get_tick_at_price(start_price);
+  let start_tick = get_tick_at_price(start_price);
  
-  // state.pool.tick_at_price = start_tick;
-  // state.pool_0.tick_at_price = start_tick;
-  // state.pool_1.tick_at_price = start_tick;
+  state.pool.tick_at_price = start_tick;
+  state.pool_0.tick_at_price = start_tick;
+  state.pool_1.tick_at_price = start_tick;
 
-  // // @TODO: samples
+  // @TODO: samples
 
-  // global_state.write(state);
+  global_state.write(state);
 
 }

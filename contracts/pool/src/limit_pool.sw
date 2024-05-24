@@ -242,7 +242,7 @@ impl ConcentratedLiquidityPool for Contract {
             range_tick_map_keys,
             limit_tick_map_keys,
             // storage.samples,
-            // storage.global_state,
+            storage.global_state,
             // immutables_data,
             start_price
         );

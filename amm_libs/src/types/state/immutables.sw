@@ -21,6 +21,6 @@ pub struct LimitImmutables {
     token1: AssetId,
     pool_token: AssetId,
     genesis_time: u32,
-    tick_spacing: I24,
+    tick_spacing: u32,
     swap_fee: u16
 }

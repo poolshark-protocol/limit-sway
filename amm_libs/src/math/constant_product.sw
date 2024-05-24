@@ -2,7 +2,7 @@ library;
 
 use ::types::I24::*;
 
-struct ConstantProduct {
+pub struct ConstantProduct {
     test: u32,
 }
 

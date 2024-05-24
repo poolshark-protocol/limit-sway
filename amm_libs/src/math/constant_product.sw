@@ -2,7 +2,9 @@ library;
 
 use ::types::I24::*;
 
-struct ConstantProduct {}
+struct ConstantProduct {
+    test: u32,
+}
 
 // @dev - tick for price of 2^-128
 const MIN_TICK: I24 = I24::from_neg(887272);

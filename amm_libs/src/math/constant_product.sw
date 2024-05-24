@@ -2,7 +2,7 @@ library;
 
 use types::I24::*;
 
-struct ConstantProduct {};
+struct ConstantProduct {}
 
 impl ConstantProduct {
     pub fn check_ticks(

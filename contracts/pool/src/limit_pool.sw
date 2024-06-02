@@ -4,7 +4,7 @@ pub mod errors;
 pub mod events;
 
 use ::errors::ConcentratedLiquidityPoolErrors;
-use ::events::{BurnEvent, InitEvent, SwapEvent, MintEvent, FlashEvent};
+use ::events::{InitPoolEvent};
 
 use std::{
     revert::require,

@@ -132,7 +132,7 @@ storage {
 
     unlocked: bool = false,
 
-    tick_spacing: u16 = 10u16,
+    tick_spacing: u8 = 10u8,
 
     ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
@@ -214,9 +214,8 @@ impl ConcentratedLiquidityPool for Contract {
             token1: storage.token1.read(),
             swap_fee: storage.global_state.pool.swap_fee.read(),
             tick_spacing: storage.tick_spacing.read(),
-            start_price_upper: start_price.value.upper,
-            start_price_lower: start_price.value.lower,
-            start_tick: storage.global_state.pool.tick_at_price.read(),
+            start_price,
+            start_tick: get_tick_at_price(start_price),
         });
     }
 

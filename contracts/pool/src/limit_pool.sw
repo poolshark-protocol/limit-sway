@@ -25,6 +25,7 @@ use std::{
 };
 
 use amm_libs::types::I24::*;
+use amm_libs::types::I64::*;
 use amm_libs::types::Q64x64::*;
 use amm_libs::types::Q128x128::*;
 use amm_libs::math::dydx_math::*;
@@ -79,23 +80,23 @@ abi ConcentratedLiquidityPool {
     #[storage(read, write)]
     fn initialize(start_price: U128);
 
-    // alphak3y
-    #[storage(read, write)]
-    fn mintRange(params: MintRangeParams) -> (I64, I64);
+    // // alphak3y
+    // #[storage(read, write)]
+    // fn mint_range(params: MintRangeParams) -> (I64, I64);
 
     // // alphak3y
     // #[storage(read, write)]
-    // fn burnRange(params: BurnRangeParams) -> (I64, I64);
+    // fn burn_range(params: BurnRangeParams) -> (I64, I64);
 
     // // alphak3y
     // #[storage(read, write)]
-    // fn mintLimit(params: MintLimitParams) -> (I64, I64);
+    // fn mint_limit(params: MintLimitParams) -> (I64, I64);
 
     // // alphak3y
     // #[storage(read, write)]
-    // fn burnLimit(params: BurnLimitParams) -> (I64, I64);
+    // fn burn_limit(params: BurnLimitParams) -> (I64, I64);
 
-    // // // alphak3y
+    // // alphak3y
     // #[storage(read, write)]
     // fn swap(params: SwapParams) -> (I64, I64);
 
@@ -170,22 +171,22 @@ impl ConcentratedLiquidityPool for Contract {
         // storage.tick_spacing.write(tick_spacing);
         // storage.unlocked.write(true);
 
-        // log(InitEvent {
-        //     pool_id: contract_id(),
-        //     token0: storage.token0.read(),
-        //     token1: storage.token1.read(),
-        //     swap_fee,
-        //     tick_spacing: tick_spacing,
-        //     init_price_upper: sqrt_price.value.upper,
-        //     init_price_lower: sqrt_price.value.lower,
-        //     init_tick: storage.nearest_tick.underlying.read()
-        // });
+        log(InitEvent {
+            pool_id: contract_id(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
+            swap_fee,
+            tick_spacing: tick_spacing,
+            init_price_upper: sqrt_price.value.upper,
+            init_price_lower: sqrt_price.value.lower,
+            init_tick: storage.nearest_tick.underlying.read()
+        });
     }
 
-    #[storage(read, write)]
-    fn mint_range(params: SwapParams) -> (I64, I64) {
-        
-    }
+    // #[storage(read, write)]
+    // fn mint_range(params: MintRangeParams) -> (I64, I64) {
+    //     (I64::zero(), I64::zero())
+    // }
 
 
 //     #[storage(read)]

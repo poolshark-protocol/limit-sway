@@ -172,14 +172,14 @@ storage {
             liquidity: U128{upper: 0, lower: 0},
             protocol_fees: U128{upper: 0, lower: 0},
             protocol_fill_fee: 0u16,
-            tick_at_price: 0u32, // @TODO: change to i24
+            tick_at_price: I24::zero(), // @TODO: change to i24
         },
         pool_1: LimitPoolState {
             price: 0x0u256,
             liquidity: U128{upper: 0, lower: 0},
             protocol_fees: U128{upper: 0, lower: 0},
             protocol_fill_fee: 0u16,
-            tick_at_price: 0u32, // @TODO: change to i24
+            tick_at_price: I24::zero(), // @TODO: change to i24
         },
         liquidity_global: U128{upper: 0, lower: 0},
         position_id_next: 0u32,

@@ -80,7 +80,7 @@ struct Tick {
 abi ConcentratedLiquidityPool {
     // Core functions
     #[storage(read, write)]
-    fn initialize(start_price: U128);
+    fn initialize(start_price: Q64x64);
 
     // // alphak3y
     // #[storage(read, write)]

@@ -126,7 +126,10 @@ abi ConcentratedLiquidityPool {
 }
 
 // Should be all storage variables
-storage { 
+storage {
+    token0: AssetId = AssetId{ value: 0x0000000000000000000000000000000000000000000000000000000000000000 },
+    token1: AssetId = AssetId{ value: 0x0000000000000000000000000000000000000000000000000000000000000000 },
+
     unlocked: bool = false,
 
     ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},

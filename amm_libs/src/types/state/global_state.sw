@@ -18,7 +18,7 @@ pub struct LimitPoolState {
   liquidity: U128,            
   protocol_fees: U128,
   protocol_fill_fee: u16,
-  tick_at_price: I24, // @TODO: i24,
+  tick_at_price: I24,
 }
 
 pub struct RangePoolState {
@@ -29,7 +29,7 @@ pub struct RangePoolState {
   price: u256,                
   liquidity: U128,            
   tick_seconds_accum: I64, // @TODO: i56,
-  tick_at_price: I24, // @TODO: i24,
+  tick_at_price: I24,
   protocol_swap_fee0: u16,
   protocol_swap_fee1: u16,
 }

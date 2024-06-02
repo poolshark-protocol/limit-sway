@@ -82,9 +82,9 @@ abi ConcentratedLiquidityPool {
     #[storage(read, write)]
     fn initialize(start_price: Q64x64);
 
-    // // alphak3y
-    // #[storage(read, write)]
-    // fn mint_range(params: MintRangeParams) -> (I64, I64);
+    // alphak3y
+    #[storage(read, write)]
+    fn mint_range(params: MintRangeParams) -> (I64, I64);
 
     // // alphak3y
     // #[storage(read, write)]
@@ -219,10 +219,10 @@ impl ConcentratedLiquidityPool for Contract {
         });
     }
 
-    // #[storage(read, write)]
-    // fn mint_range(params: MintRangeParams) -> (I64, I64) {
-    //     (I64::zero(), I64::zero())
-    // }
+    #[storage(read, write)]
+    fn mint_range(params: MintRangeParams) -> (I64, I64) {
+        (I64::zero(), I64::zero())
+    }
 
 
 //     #[storage(read)]

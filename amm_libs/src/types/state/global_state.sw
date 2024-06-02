@@ -7,6 +7,14 @@ use std::{
 use ::types::I24::*;
 use ::types::I64::*;
 
+pub struct Sample {
+  blockTimestamp: u32,
+  // @TODO: int56
+  tickSecondsAccum: u64,
+  // @TODO: u256?
+  secondsPerLiquidityAccum: u256
+}
+
 pub struct SampleState {
   index: u16,
   count: u16,

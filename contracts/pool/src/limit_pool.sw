@@ -167,6 +167,7 @@ storage {
             liquidity: U128{upper: 0, lower: 0},
             tick_seconds_accum: I64::zero(), // @TODO: change to i56
             tick_at_price: I24::zero(), // @TODO: change to i24
+            swap_fee: 0u16,
             protocol_swap_fee0: 0u16,
             protocol_swap_fee1: 0u16,
         },
@@ -209,11 +210,11 @@ impl ConcentratedLiquidityPool for Contract {
             pool: contract_id(),
             token0: storage.token0.read(),
             token1: storage.token1.read(),
-            swap_fee,
-            tick_spacing: tick_spacing,
-            init_price_upper: sqrt_price.value.upper,
-            init_price_lower: sqrt_price.value.lower,
-            init_tick: storage.nearest_tick.underlying.read()
+            swap_fee: storage.global_state.pool.swap_fee.read(),
+            tick_spacing: storage.tick_spacing.read(),
+            start_price_upper: start_price.value.upper,
+            start_price_lower: start_price.value.lower,
+            start_tick: storage.global_state.pool.tick_at_price.read(),
         });
     }
 

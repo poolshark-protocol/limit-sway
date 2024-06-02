@@ -38,6 +38,7 @@ pub struct RangePoolState {
   liquidity: U128,            
   tick_seconds_accum: I64, // @TODO: i56,
   tick_at_price: I24,
+  swap_fee: u16,
   protocol_swap_fee0: u16,
   protocol_swap_fee1: u16,
 }

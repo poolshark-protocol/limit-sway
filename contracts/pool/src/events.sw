@@ -10,9 +10,9 @@ pub struct InitPoolEvent {
     token1: AssetId,
     swap_fee: u64,
     tick_spacing: u32,
-    init_price_upper: u64,
-    init_price_lower: u64,
-    init_tick: u32
+    start_price_upper: u64,
+    start_price_lower: u64,
+    start_tick: u32
 }
 
 pub struct SwapEvent {

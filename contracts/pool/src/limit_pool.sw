@@ -163,7 +163,7 @@ storage {
             price: 0x0u256,
             liquidity: U128{upper: 0, lower: 0},
             tick_seconds_accum: I64::zero(), // @TODO: change to i56
-            tick_at_price: 0u32, // @TODO: change to i24
+            tick_at_price: I24::zero(), // @TODO: change to i24
             protocol_swap_fee0: 0u16,
             protocol_swap_fee1: 0u16,
         },

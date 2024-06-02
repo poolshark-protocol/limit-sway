@@ -2,6 +2,7 @@ library;
 
 use std::{
     bytes::*,
+    u128::*,
 };
 
 use ::types::{
@@ -28,7 +29,7 @@ pub struct BurnRangeParams {
 pub struct MintLimitParams {
     to: Identity,
     amount: u64,
-    mint_percent: U128
+    mint_percent: U128,
     position_id: u32,
     lower: I24,
     upper: I24,

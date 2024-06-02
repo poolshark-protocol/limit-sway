@@ -132,6 +132,8 @@ storage {
 
     unlocked: bool = false,
 
+    tick_spacing: 10u16,
+
     ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
 

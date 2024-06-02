@@ -32,6 +32,7 @@ use amm_libs::math::dydx_math::*;
 use amm_libs::math::tick_math::*;
 use amm_libs::math::full_math::*;
 use amm_libs::math::swap_fees::*;
+use amm_libs::types::state::global_state::*;
 
 use amm_libs::range::pool::mint_range_call::*;
 
@@ -125,36 +126,65 @@ abi ConcentratedLiquidityPool {
 
 // Should be all storage variables
 storage { 
-    token0: AssetId = AssetId{ value: 0x0000000000000000000000000000000000000000000000000000000000000000 },
-    token1: AssetId = AssetId{ value: 0x0000000000000000000000000000000000000000000000000000000000000000 },
-
-    max_fee: u32 = 100000,
-    tick_spacing: u32 = 10, // implicitly a u24
-    swap_fee: u32 = 2500,
-
-    liquidity: U128 = U128{upper: 0, lower: 0},
-
-    seconds_growth_global: U256 = U256{a: 0, b: 0, c: 0, d:0},
-    last_observation: u32 = 0,
-
-    fee_growth_global0: Q64x64 = Q64x64{value : U128{upper:0,lower:0}},
-    fee_growth_global1: Q64x64 = Q64x64{value : U128{upper:0,lower:0}},
-
-    token0_protocol_fee: u64 = 0,
-    token1_protocol_fee: u64 = 0,
-
-    reserve0: u64 = 0,
-    reserve1: u64 = 0,
-
-    // Orginally Sqrt of price aka. √(y/x), multiplied by 2^64.
-    sqrt_price: Q64x64 = Q64x64{value : U128{upper:0,lower:0}}, 
-    
-    nearest_tick: I24 = I24 { underlying: 2147483648u32}, // Zero
-
     unlocked: bool = false,
 
     ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
     positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
+
+    range_tick_map: TickMap = TickMap {
+        blocks: 0,
+        words: StorageMap::<u256, u256> {},
+        ticks: StorageMap::<u256, u256> {},
+        epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
+        epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
+    },
+
+    limit_tick_map: TickMap = TickMap {
+        blocks: 0,
+        words: StorageMap::<u256, u256> {},
+        ticks: StorageMap::<u256, u256> {},
+        epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
+        epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
+    },
+
+    samples: StorageVec<Sample> = StorageVec {},
+
+    global_state: GlobalState = GlobalState {
+        pool: RangePoolState {
+            samples: SampleState {
+                index: 0u16,
+                count: 0u16,
+                count_max: 0u16,
+            },
+            fee_growth_global0: 0x0u256,
+            fee_growth_global1: 0x0u256,
+            seconds_per_liquidity_accum: 0x0u256,
+            price: 0x0u256,
+            liquidity: U128{upper: 0, lower: 0},
+            tick_seconds_accum: 0u64, // @TODO: change to i56
+            tick_at_price: 0u32, // @TODO: change to i24
+            protocol_swap_fee0: 0u16,
+            protocol_swap_fee1: 0u16,
+        },
+        pool_0: LimitPoolState {
+            price: 0x0u256,
+            liquidity: U128{upper: 0, lower: 0},
+            protocol_fees: U128{upper: 0, lower: 0},
+            protocol_fill_fee: 0u16,
+            tick_at_price: 0u32, // @TODO: change to i24
+        },
+        pool_1: LimitPoolState {
+            price: 0x0u256,
+            liquidity: U128{upper: 0, lower: 0},
+            protocol_fees: U128{upper: 0, lower: 0},
+            protocol_fill_fee: 0u16,
+            tick_at_price: 0u32, // @TODO: change to i24
+        },
+        liquidity_global: U128{upper: 0, lower: 0},
+        position_id_next: 0u32,
+        epoch: 0u32,
+        unlocked: 0u8,
+    }
 }
 
 impl ConcentratedLiquidityPool for Contract {

@@ -8,7 +8,7 @@ pub struct InitPoolEvent {
     pool: ContractId,
     token0: AssetId,
     token1: AssetId,
-    swap_fee: u64,
+    swap_fee: u16,
     tick_spacing: u32,
     start_price_upper: u64,
     start_price_lower: u64,

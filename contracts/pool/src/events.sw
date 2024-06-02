@@ -4,8 +4,8 @@ use std::{identity::Identity, contract_id::ContractId, u128::U128};
 use amm_libs::types::Q64x64::Q64x64;
 use amm_libs::types::I24::I24;
 
-pub struct InitEvent {
-    pool_id: ContractId,
+pub struct InitPoolEvent {
+    pool: ContractId,
     token0: AssetId,
     token1: AssetId,
     swap_fee: u64,

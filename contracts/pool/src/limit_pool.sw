@@ -171,8 +171,8 @@ impl ConcentratedLiquidityPool for Contract {
         // storage.tick_spacing.write(tick_spacing);
         // storage.unlocked.write(true);
 
-        log(InitEvent {
-            pool_id: contract_id(),
+        log(InitPoolEvent {
+            pool: contract_id(),
             token0: storage.token0.read(),
             token1: storage.token1.read(),
             swap_fee,

@@ -11,7 +11,7 @@ use ::types::{
 
 pub struct InitPoolEvent {
     pool_id: b256,
-    mint_tick: I24,
+    min_tick: I24,
     max_tick: I24,
     start_price: Q64x64,
     start_tick: I24,

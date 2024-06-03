@@ -213,13 +213,11 @@ impl ConcentratedLiquidityPool for Contract {
     fn initialize(start_price: Q64x64) {
 
         log(InitPoolEvent {
-            pool: contract_id(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee: storage.global_state.pool.swap_fee.read(),
-            tick_spacing: storage.tick_spacing.read(),
-            start_price,
-            start_tick: get_tick_at_price(start_price),
+            pool_id: contract_id(),
+            min_tick: I24::zero(),
+            max_tick: I24::zero(),
+            start_price:: Q64x64::zero(),
+            start_tick:: I24::zero(),
         });
     }
 

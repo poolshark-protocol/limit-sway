@@ -4,7 +4,6 @@ pub mod errors;
 pub mod events;
 
 use ::errors::ConcentratedLiquidityPoolErrors;
-use ::events::{InitPoolEvent};
 
 use std::{
     revert::require,
@@ -49,6 +48,7 @@ use amm_libs::{
             mint_range_call::*,
         },
     },
+    events::*,
 };
 
 impl core::ops::Ord for AssetId {

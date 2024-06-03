@@ -100,9 +100,9 @@ abi ConcentratedLiquidityPool {
     #[storage(read, write)]
     fn mint_range(params: MintRangeParams) -> (I64, I64);
 
-    // alphak3y
-    #[storage(read, write)]
-    fn burn_range(params: BurnRangeParams) -> (I64, I64);
+    // // alphak3y
+    // #[storage(read, write)]
+    // fn burn_range(params: BurnRangeParams) -> (I64, I64);
 
     // // alphak3y
     // #[storage(read, write)]
@@ -226,32 +226,34 @@ impl ConcentratedLiquidityPool for Contract {
 
         log(MintRangeEvent {
             pool_id: contract_id().into(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee: storage.global_state.pool.swap_fee.read(),
-            tick_spacing: storage.tick_spacing.read(),
+            recipient: params.to,
+            lower: params.lower,
+            upper: params.upper,
+            position_id: storage.position_id_next.read(),
             start_price,
             start_tick: get_tick_at_price(start_price),
         });
 
-        (I64::zero(), I64::zero())
-    }
-
-    #[storage(read, write)]
-    fn burn_range(params: BurnRangeParams) -> (I64, I64) {
-
-        log(BurnRangeEvent {
-            pool: contract_id(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee: storage.global_state.pool.swap_fee.read(),
-            tick_spacing: storage.tick_spacing.read(),
-            start_price,
-            start_tick: get_tick_at_price(start_price),
-        });
+        write(storage.)
 
         (I64::zero(), I64::zero())
     }
+
+    // #[storage(read, write)]
+    // fn burn_range(params: BurnRangeParams) -> (I64, I64) {
+
+    //     log(BurnRangeEvent {
+    //         pool: contract_id(),
+    //         token0: storage.token0.read(),
+    //         token1: storage.token1.read(),
+    //         swap_fee: storage.global_state.pool.swap_fee.read(),
+    //         tick_spacing: storage.tick_spacing.read(),
+    //         start_price,
+    //         start_tick: get_tick_at_price(start_price),
+    //     });
+
+    //     (I64::zero(), I64::zero())
+    // }
 
     // #[storage(read, write)]
     // fn mint_limit(params: MintLimitParams) -> (I64, I64) {

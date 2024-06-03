@@ -100,9 +100,9 @@ abi ConcentratedLiquidityPool {
     #[storage(read, write)]
     fn mint_range(params: MintRangeParams) -> (I64, I64);
 
-    // // alphak3y
-    // #[storage(read, write)]
-    // fn burn_range(params: BurnRangeParams) -> (I64, I64);
+    // alphak3y
+    #[storage(read, write)]
+    fn burn_range(params: BurnRangeParams) -> (I64, I64);
 
     // // alphak3y
     // #[storage(read, write)]
@@ -255,75 +255,75 @@ impl ConcentratedLiquidityPool for Contract {
         (I64::zero(), I64::zero())
     }
 
-    #[storage(read, write)]
-    fn mint_limit(params: MintLimitParams) -> (I64, I64) {
+    // #[storage(read, write)]
+    // fn mint_limit(params: MintLimitParams) -> (I64, I64) {
 
-        log(MintLimitEvent {
-            pool: contract_id(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee: storage.global_state.pool.swap_fee.read(),
-            tick_spacing: storage.tick_spacing.read(),
-            start_price,
-            start_tick: get_tick_at_price(start_price),
-        });
+    //     log(MintLimitEvent {
+    //         pool: contract_id(),
+    //         token0: storage.token0.read(),
+    //         token1: storage.token1.read(),
+    //         swap_fee: storage.global_state.pool.swap_fee.read(),
+    //         tick_spacing: storage.tick_spacing.read(),
+    //         start_price,
+    //         start_tick: get_tick_at_price(start_price),
+    //     });
 
-        (I64::zero(), I64::zero())
-    }
+    //     (I64::zero(), I64::zero())
+    // }
 
-    #[storage(read, write)]
-    fn burn_limit(params: BurnLimitParams) -> (I64, I64) {
+    // #[storage(read, write)]
+    // fn burn_limit(params: BurnLimitParams) -> (I64, I64) {
 
-        log(BurnLimitEvent {
-            pool: contract_id(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee: storage.global_state.pool.swap_fee.read(),
-            tick_spacing: storage.tick_spacing.read(),
-            start_price,
-            start_tick: get_tick_at_price(start_price),
-        });
+    //     log(BurnLimitEvent {
+    //         pool: contract_id(),
+    //         token0: storage.token0.read(),
+    //         token1: storage.token1.read(),
+    //         swap_fee: storage.global_state.pool.swap_fee.read(),
+    //         tick_spacing: storage.tick_spacing.read(),
+    //         start_price,
+    //         start_tick: get_tick_at_price(start_price),
+    //     });
 
-        (I64::zero(), I64::zero())
-    }
+    //     (I64::zero(), I64::zero())
+    // }
 
-    #[storage(read, write)]
-    fn swap(params: SwapParams) -> (I64, I64) {
+    // #[storage(read, write)]
+    // fn swap(params: SwapParams) -> (I64, I64) {
 
-        log(SwapEvent {
-            pool: contract_id(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee: storage.global_state.pool.swap_fee.read(),
-            tick_spacing: storage.tick_spacing.read(),
-            start_price,
-            start_tick: get_tick_at_price(start_price),
-        });
+    //     log(SwapEvent {
+    //         pool: contract_id(),
+    //         token0: storage.token0.read(),
+    //         token1: storage.token1.read(),
+    //         swap_fee: storage.global_state.pool.swap_fee.read(),
+    //         tick_spacing: storage.tick_spacing.read(),
+    //         start_price,
+    //         start_tick: get_tick_at_price(start_price),
+    //     });
 
-        (I64::zero(), I64::zero())
-    }
+    //     (I64::zero(), I64::zero())
+    // }
 
-    #[storage(read, write)]
-    fn increase_sample_count(new_sample_count_max: u16) {
+    // #[storage(read, write)]
+    // fn increase_sample_count(new_sample_count_max: u16) {
 
-        log(SwapEvent {
-            pool: contract_id(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee: storage.global_state.pool.swap_fee.read(),
-            tick_spacing: storage.tick_spacing.read(),
-            start_price,
-            start_tick: get_tick_at_price(start_price),
-        });
+    //     log(SwapEvent {
+    //         pool: contract_id(),
+    //         token0: storage.token0.read(),
+    //         token1: storage.token1.read(),
+    //         swap_fee: storage.global_state.pool.swap_fee.read(),
+    //         tick_spacing: storage.tick_spacing.read(),
+    //         start_price,
+    //         start_tick: get_tick_at_price(start_price),
+    //     });
 
-        (I64::zero(), I64::zero())
-    }
+    //     (I64::zero(), I64::zero())
+    // }
 
-    #[storage(read, write)]
-    fn fees(params: FeesParams) -> (u64, u64) {
+    // #[storage(read, write)]
+    // fn fees(params: FeesParams) -> (u64, u64) {
 
-        (I64::zero(), I64::zero())
-    }
+    //     (I64::zero(), I64::zero())
+    // }
 
 
 //     #[storage(read)]

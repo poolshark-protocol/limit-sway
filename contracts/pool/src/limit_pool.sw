@@ -211,16 +211,6 @@ storage {
 impl ConcentratedLiquidityPool for Contract {
     #[storage(read, write)]
     fn initialize(start_price: Q64x64) {
-        // require(storage.sqrt_price.read() == Q64x64{value: U128{upper:0,lower:0}}, ConcentratedLiquidityPoolErrors::AlreadyInitialized);
-        // require(swap_fee <= storage.max_fee.read().as_u64(), ConcentratedLiquidityPoolErrors::InvalidSwapFee);
-        // require(first_token != second_token, ConcentratedLiquidityPoolErrors::InvalidToken);
-        // storage.token0.write(if first_token < second_token { first_token }  else { second_token });
-        // storage.token1.write(if first_token < second_token { second_token } else { first_token });
-        // storage.nearest_tick.write(get_tick_at_price(sqrt_price));
-        // storage.sqrt_price.write(sqrt_price);
-        // storage.swap_fee.write(swap_fee.as_u32());
-        // storage.tick_spacing.write(tick_spacing);
-        // storage.unlocked.write(true);
 
         log(InitPoolEvent {
             pool: contract_id(),
@@ -235,6 +225,103 @@ impl ConcentratedLiquidityPool for Contract {
 
     #[storage(read, write)]
     fn mint_range(params: MintRangeParams) -> (I64, I64) {
+
+        log(MintRangeEvent {
+            pool: contract_id(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
+            swap_fee: storage.global_state.pool.swap_fee.read(),
+            tick_spacing: storage.tick_spacing.read(),
+            start_price,
+            start_tick: get_tick_at_price(start_price),
+        });
+
+        (I64::zero(), I64::zero())
+    }
+
+    #[storage(read, write)]
+    fn burn_range(params: BurnRangeParams) -> (I64, I64) {
+
+        log(BurnRangeEvent {
+            pool: contract_id(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
+            swap_fee: storage.global_state.pool.swap_fee.read(),
+            tick_spacing: storage.tick_spacing.read(),
+            start_price,
+            start_tick: get_tick_at_price(start_price),
+        });
+
+        (I64::zero(), I64::zero())
+    }
+
+    #[storage(read, write)]
+    fn mint_limit(params: MintLimitParams) -> (I64, I64) {
+
+        log(MintLimitEvent {
+            pool: contract_id(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
+            swap_fee: storage.global_state.pool.swap_fee.read(),
+            tick_spacing: storage.tick_spacing.read(),
+            start_price,
+            start_tick: get_tick_at_price(start_price),
+        });
+
+        (I64::zero(), I64::zero())
+    }
+
+    #[storage(read, write)]
+    fn burn_limit(params: BurnLimitParams) -> (I64, I64) {
+
+        log(BurnLimitEvent {
+            pool: contract_id(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
+            swap_fee: storage.global_state.pool.swap_fee.read(),
+            tick_spacing: storage.tick_spacing.read(),
+            start_price,
+            start_tick: get_tick_at_price(start_price),
+        });
+
+        (I64::zero(), I64::zero())
+    }
+
+    #[storage(read, write)]
+    fn swap(params: SwapParams) -> (I64, I64) {
+
+        log(SwapEvent {
+            pool: contract_id(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
+            swap_fee: storage.global_state.pool.swap_fee.read(),
+            tick_spacing: storage.tick_spacing.read(),
+            start_price,
+            start_tick: get_tick_at_price(start_price),
+        });
+
+        (I64::zero(), I64::zero())
+    }
+
+    #[storage(read, write)]
+    fn increase_sample_count(new_sample_count_max: u16) {
+
+        log(SwapEvent {
+            pool: contract_id(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
+            swap_fee: storage.global_state.pool.swap_fee.read(),
+            tick_spacing: storage.tick_spacing.read(),
+            start_price,
+            start_tick: get_tick_at_price(start_price),
+        });
+
+        (I64::zero(), I64::zero())
+    }
+
+    #[storage(read, write)]
+    fn fees(params: FeesParams) -> (u64, u64) {
+
         (I64::zero(), I64::zero())
     }
 

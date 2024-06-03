@@ -1,6 +1,7 @@
 library;
 
 use std::{
+    call_frames::contract_id,
     context::{this_balance},
     hash::*,
     storage::storage_vec::*,

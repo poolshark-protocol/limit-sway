@@ -232,7 +232,7 @@ impl ConcentratedLiquidityPool for Contract {
             lower: params.lower,
             upper: params.upper,
             position_id: state.position_id_next,
-            liquidity_minted: I64::from_uint(1u64),
+            liquidity_minted: 1u64,
             amount_0_delta: I64::from_uint(1u64),
             amount_1_delta: I64::from_uint(1u64),
         });

@@ -232,8 +232,9 @@ impl ConcentratedLiquidityPool for Contract {
             lower: params.lower,
             upper: params.upper,
             position_id: state.position_id_next,
-            start_price,
-            start_tick: get_tick_at_price(start_price),
+            liquidity_minted: 1u64,
+            amount_0_delta: 1u64,
+            amount_1_delta: 1u64,
         });
 
         state.position_id_next = state.position_id_next + 1;

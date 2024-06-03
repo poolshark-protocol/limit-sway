@@ -37,6 +37,7 @@ use amm_libs::{
         },
         params::*,
         events::*,
+        cache::*,
     },
     math::{
         dydx_math::*,

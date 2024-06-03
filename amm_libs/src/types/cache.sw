@@ -26,3 +26,21 @@ pub struct MintRangeCache {
    fees_accrued_1: I64 
 }
 
+impl MintRangeCache {
+    pub fn new() -> Self {
+        Self {
+            state: GlobalState::new(),
+            position: RangePosition::new(),
+            constants: LimitImmutables::new(),
+            owner: Address::new(),
+            liquidity_minted: 0u64,
+            price_lower: Q64x64::zero(),
+            price_upper: Q64x64::zero(),
+            amount0: I64::zero(),
+            amount1: I64::zero(),
+            fees_accrued_0: I64::zero(),
+            fees_accrued_1: I64::zero(),
+        }
+    }
+}
+

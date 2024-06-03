@@ -19,15 +19,3 @@ pub struct TickMapKeys {
   epochs0: StorageKey<StorageMap<u256, StorageMap<u256, StorageMap<u256, u256>>>>,
   epochs1: StorageKey<StorageMap<u256, StorageMap<u256, StorageMap<u256, u256>>>>,
 }
-
-impl TickMapKeys {
-  pub fn from(tick_map: StorageKey<TickMap>) -> Self {
-    Self {
-      blocks: tick_map.blocks,
-      words: tick_map.words,
-      ticks: tick_map.ticks,
-      epochs0: tick_map.epochs0,
-      epochs1: tick_map.epochs1,
-    }
-  }
-}

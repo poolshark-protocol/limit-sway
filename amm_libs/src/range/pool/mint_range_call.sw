@@ -38,13 +38,13 @@ struct Balances {
     amount1: u64,
 }
 
-struct Sample {
+pub struct Sample {
     block_timestamp: u32,
     tick_seconds_accum: I64,
     seconds_per_liquidity_accum: u256,
 }
 
-struct MintRangeCall {
+pub struct MintRangeCall {
     value: u64,
 }
 

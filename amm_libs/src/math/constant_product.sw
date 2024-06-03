@@ -16,29 +16,29 @@ const MAX_TICK: I24 = I24{
 impl ConstantProduct {
     
     pub fn min_tick(
-        tick_spacing: u32
+        tick_spacing: u8
     ) -> I24 {
         MIN_TICK
-            / I24::from_uint(tick_spacing)
-            * I24::from_uint(tick_spacing)
+            / I24::from_uint(tick_spacing.as_u32())
+            * I24::from_uint(tick_spacing.as_u32())
     }
 
     pub fn max_tick(
-        tick_spacing: u32
+        tick_spacing: u8
     ) -> I24 {
         MAX_TICK
-            / I24::from_uint(tick_spacing)
-            * I24::from_uint(tick_spacing)
+            / I24::from_uint(tick_spacing.as_u32())
+            * I24::from_uint(tick_spacing.as_u32())
     }
 
     pub fn check_ticks(
         lower: I24,
         upper: I24,
-        tick_spacing: u32,
+        tick_spacing: u8,
     ) -> () {
-        require(lower.ge(Self::min_tick(tick_spacing)), "INPUT ERROR: lower tick below minimum.");
-        require(upper.lt(Self::max_tick(tick_spacing)), "INPUT ERROR: upper tick above maximum.");
-        let tick_spacing_i24: I24 = I24::from_uint(tick_spacing);
+        require(lower.ge(Self::min_tick(tick_spacing.as_u32())), "INPUT ERROR: lower tick below minimum.");
+        require(upper.lt(Self::max_tick(tick_spacing.as_u32())), "INPUT ERROR: upper tick above maximum.");
+        let tick_spacing_i24: I24 = I24::from_uint(tick_spacing.as_u32());
         require(lower % tick_spacing_i24 == I24::zero(), "INPUT ERROR: lower tick outside tick spacing.");
         require(upper % tick_spacing_i24 == I24::zero(), "INPUT ERROR: upper tick outside tick spacing.");
         require(lower >= upper, "INPUT ERROR: lower tick must be less than upper tick.");

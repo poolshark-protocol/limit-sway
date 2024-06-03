@@ -37,6 +37,7 @@ use amm_libs::{
             tick_map::*,
         },
         params::*,
+        events::*,
     },
     math::{
         dydx_math::*,
@@ -48,7 +49,6 @@ use amm_libs::{
             mint_range_call::*,
         },
     },
-    events::*,
 };
 
 impl core::ops::Ord for AssetId {

@@ -216,8 +216,8 @@ impl ConcentratedLiquidityPool for Contract {
             pool_id: contract_id(),
             min_tick: I24::zero(),
             max_tick: I24::zero(),
-            start_price:: Q64x64::zero(),
-            start_tick:: I24::zero(),
+            start_price: Q64x64::zero(),
+            start_tick: I24::zero(),
         });
     }
 

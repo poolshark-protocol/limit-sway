@@ -1,9 +1,5 @@
 library;
 
-use std::{
-    u128::U128,
-};
-
 use ::types::{
     I64::*,
     Q64x64::*,
@@ -21,7 +17,7 @@ pub struct MintRangeCache {
    position: RangePosition,
    constants: LimitImmutables,
    owner: Identity,
-   liquidity_minted: U128,
+   liquidity_minted: u64,
    price_lower: Q64x64,
    price_upper: Q64x64,
    amount0: I64,

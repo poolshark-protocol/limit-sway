@@ -72,7 +72,7 @@ impl MintRangeCall {
 
         if params.position_id > 0 {
             cache.position = positions.get(params.position_id.as_u256()).read();
-            require(cache.position.liquidity != U128::zero(), "INPUT ERROR: No position with liquidity found.");
+            require(cache.position.liquidity != 0u64, "INPUT ERROR: No position with liquidity found.");
             // if (PositionTokens::balanceOf(
             //     cache.constants,
             //     params.to,

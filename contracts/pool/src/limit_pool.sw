@@ -225,7 +225,7 @@ impl ConcentratedLiquidityPool for Contract {
     fn mint_range(params: MintRangeParams) -> (I64, I64) {
 
         log(MintRangeEvent {
-            pool: contract_id(),
+            pool_id: contract_id().into(),
             token0: storage.token0.read(),
             token1: storage.token1.read(),
             swap_fee: storage.global_state.pool.swap_fee.read(),

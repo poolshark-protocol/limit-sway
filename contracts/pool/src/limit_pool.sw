@@ -225,6 +225,14 @@ impl ConcentratedLiquidityPool for Contract {
 
         let mut state: GlobalState = storage.global_state.read();
 
+        let tick_map_keys = TickMapKeys::from(storage.range_tick_map);
+
+        let result = MintRangeCall::perform(
+            storage.positions,
+            storage.ticks,
+            storage.tick
+        );
+
         log(MintRangeEvent {
             pool_id: contract_id().into(),
             recipient: params.to,

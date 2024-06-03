@@ -53,8 +53,8 @@ impl MintRangeCall {
     pub fn perform(
         positions: StorageKey<StorageMap<u256, RangePosition>>,
         ticks: StorageKey<StorageMap<I24, Tick>>,
-        tick_map: StorageKey<TickMap>,
-        samples: StorageVec<Sample>,
+        tick_map: TickMapKeys,
+        samples: StorageKey<StorageVec<Sample>>,
         global_state: StorageKey<GlobalState>,
         ref mut cache: MintRangeCache,
         ref mut params: MintRangeParams,

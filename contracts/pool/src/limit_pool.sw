@@ -213,7 +213,7 @@ impl ConcentratedLiquidityPool for Contract {
     fn initialize(start_price: Q64x64) {
 
         log(InitPoolEvent {
-            pool_id: contract_id(),
+            pool_id: contract_id().into(),
             min_tick: I24::zero(),
             max_tick: I24::zero(),
             start_price: Q64x64::zero(),

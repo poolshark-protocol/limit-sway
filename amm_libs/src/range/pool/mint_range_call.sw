@@ -24,7 +24,7 @@ use ::types::{
         tick::*,
         tick_map::*,
     },
-    events::MintRange,
+    events::MintRangeEvent,
     identity::*,
 };
 use ::math::{

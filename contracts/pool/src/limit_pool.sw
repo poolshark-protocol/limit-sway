@@ -236,10 +236,10 @@ impl ConcentratedLiquidityPool for Contract {
         let result = MintRangeCall::perform(
             storage.positions,
             storage.ticks,
-            tick_map: range_tick_map_keys,
-            samples: storage.samples,
-            global_state: storage.global_state,
-            cache: MintRangeCache::new(),
+            range_tick_map_keys,
+            storage.samples,
+            storage.global_state,
+            MintRangeCache::new(),
             params,
         );
 

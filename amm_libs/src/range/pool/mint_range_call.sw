@@ -115,7 +115,7 @@ pub fn perform(
     cache.amount0 = cache.amount0 - I64::from_uint(params.amount0);
     cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
 
-    log(MintRange {
+    log(MintRangeEvent {
         recipient: params.to,
         lower: params.lower,
         upper: params.upper,

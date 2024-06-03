@@ -17,7 +17,7 @@ pub struct TickMapKeys {
 }
 
 impl TickMapKeys {
-  from(tick_map: StorageKey<TickMap>) -> Self {
+  pub fn from(tick_map: StorageKey<TickMap>) -> Self {
     Self {
       blocks: tick_map.blocks,
       words: tick_map.words,

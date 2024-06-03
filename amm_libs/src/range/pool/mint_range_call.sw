@@ -183,27 +183,27 @@ impl MintRangeCall {
             cache.amount1 + cache.fees_accrued_1
         )
     }
+}
 
-    #[storage(write)]
-    fn save(
+#[storage(write)]
+fn save(
     positions: StorageKey<StorageMap<u256, RangePosition>>,
     global_state: StorageKey<GlobalState>,
     cache: MintRangeCache,
     position_id: u32 
-    ) {
-        positions.insert(position_id.as_u256(), cache.position);
-        global_state.write(cache.state);
-    }
+) {
+    positions.insert(position_id.as_u256(), cache.position);
+    global_state.write(cache.state);
+}
 
-    fn balance0(
-        cache: MintRangeCache
-    ) -> u64 {
-        this_balance(cache.constants.token0)
-    }
+fn balance0(
+    cache: MintRangeCache
+) -> u64 {
+    this_balance(cache.constants.token0)
+}
 
-    fn balance1(
-        cache: MintRangeCache
-    ) -> u64 {
-        this_balance(cache.constants.token1)
-    }
+fn balance1(
+    cache: MintRangeCache
+) -> u64 {
+    this_balance(cache.constants.token1)
 }

@@ -18,7 +18,7 @@ use ::types::{
 pub struct RangePosition {
     fee_growth_inside_last_0: u256,
     fee_growth_inside_last_1: u256,
-    liquidity: U128,
+    liquidity: u64,
     lower: I24,
     upper: I24,
 }
@@ -31,6 +31,15 @@ pub struct RangeUpdateParams {
 }
 
 impl RangePosition {
+    pub fn new() -> Self {
+        Self {
+            fee_growth_inside_last_0: 0u256,
+            fee_growth_inside_last_0: 0u256,
+            liquidity: 0u64,
+            lower: I24::zero(),
+            upper: I24::zero()
+        }
+    }
     pub fn update(
         ref mut self,
         ticks: StorageKey<StorageMap<I24, Tick>>,

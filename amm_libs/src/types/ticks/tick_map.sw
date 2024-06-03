@@ -1,5 +1,9 @@
 library;
 
+use std::{
+    hash::*,
+};
+
 pub struct TickMap {
   blocks: u64,
   words: StorageMap<u256, u256>,

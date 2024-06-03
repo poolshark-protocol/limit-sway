@@ -224,17 +224,21 @@ impl ConcentratedLiquidityPool for Contract {
     #[storage(read, write)]
     fn mint_range(params: MintRangeParams) -> (I64, I64) {
 
+        let mut state: GlobalState = storage.global_state.read();
+
         log(MintRangeEvent {
             pool_id: contract_id().into(),
             recipient: params.to,
             lower: params.lower,
             upper: params.upper,
-            position_id: storage.position_id_next.read(),
+            position_id: state.position_id_next,
             start_price,
             start_tick: get_tick_at_price(start_price),
         });
 
-        write(storage.)
+        state.position_id_next = state.position_id_next + 1;
+
+        storage.global_state.write(state);
 
         (I64::zero(), I64::zero())
     }

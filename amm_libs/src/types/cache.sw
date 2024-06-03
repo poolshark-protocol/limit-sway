@@ -32,7 +32,7 @@ impl MintRangeCache {
             state: GlobalState::new(),
             position: RangePosition::new(),
             constants: LimitImmutables::new(),
-            owner: Address::zero(),
+            owner: Identity::zero(),
             liquidity_minted: 0u64,
             price_lower: Q64x64::zero(),
             price_upper: Q64x64::zero(),

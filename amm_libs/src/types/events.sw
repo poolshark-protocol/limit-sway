@@ -4,7 +4,10 @@ use std::{
     identity::Identity,
 };
 use ::types::Q64x64::Q64x64;
-use ::types::I24::I24;
+use ::types::{
+    I24::I24,
+    I64::I64,
+};
 
 pub struct InitPoolEvent {
     pool_id: b256,

@@ -116,6 +116,7 @@ pub fn perform(
     cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
 
     log(MintRangeEvent {
+        pool_id: contract_id(),
         recipient: params.to,
         lower: params.lower,
         upper: params.upper,

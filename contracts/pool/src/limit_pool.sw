@@ -1,7 +1,6 @@
 contract;
 
 pub mod errors;
-pub mod events;
 
 use ::errors::ConcentratedLiquidityPoolErrors;
 

@@ -4,7 +4,11 @@ use std::{
     call_frames::contract_id,
     context::{this_balance},
     hash::*,
-    storage::storage_vec::*,
+    storage::{
+        storage_vec::*,
+        storage_map::*,
+        storage_key::*,
+    },
     u128::*,
     identity::*,
 };

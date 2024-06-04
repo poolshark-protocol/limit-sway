@@ -332,7 +332,7 @@ impl LimitPool for Contract {
     #[storage(read, write)]
     fn fees(params: FeesParams) -> (u64, u64) {
 
-        (I64::zero(), I64::zero())
+        (0u64, 0u64)
     }
 
     #[storage(read, write)]

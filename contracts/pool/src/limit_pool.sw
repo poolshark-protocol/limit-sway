@@ -264,7 +264,7 @@ impl LimitPool for Contract {
             zero_for_one: params.zero_for_one,
             position_id: params.position_id,
             epoch_last: state.epoch,
-            amount_in: I64::from_uint(1u64),
+            amount_in: 1u64,
             liquidity_minted: 1u64,
         });
 
@@ -278,13 +278,13 @@ impl LimitPool for Contract {
     #[storage(read, write)]
     fn burn_limit(params: BurnLimitParams) -> (I64, I64) {
 
-        if zero_for_one {
+        if params.zero_for_one {
             log(BurnLimitEvent {
                 pool_id: contract_id().into(),
                 recipient: params.to,
                 position_id: params.position_id,
-                lower: params.lower,
-                upper: params.upper,
+                lower: I24::zero(),
+                upper: I24::zero(),
                 old_claim: params.lower,
                 new_claim: params.lower, 
                 zero_for_one: params.zero_for_one,

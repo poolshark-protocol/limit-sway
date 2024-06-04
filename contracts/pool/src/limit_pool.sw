@@ -121,7 +121,7 @@ abi LimitPool {
     fn swap(params: SwapParams) -> (I64, I64);
 
     #[storage(read, write)]
-    fn fees(params: FeeParams) -> (U128, U128);
+    fn fees(params: FeesParams) -> (U128, U128);
 
     #[storage(read, write)]
     fn increase_sample_count(new_sample_count: u16);

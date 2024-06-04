@@ -20,7 +20,7 @@ pub struct LimitImmutables {
     token0: AssetId,
     token1: AssetId,
     tick_spacing: u8,
-    swap_fee: u16
+    swap_fee: u16,
 }
 
 impl LimitImmutables {

@@ -8,11 +8,9 @@ use ::types::I24::*;
 use ::types::I64::*;
 
 pub struct Sample {
-  blockTimestamp: u32,
-  // @TODO: int56
-  tickSecondsAccum: u64,
-  // @TODO: u256?
-  secondsPerLiquidityAccum: u256
+  block_timestamp: u32,
+  tick_seconds_accum: I64,
+  seconds_per_liquidity_accum: u256
 }
 
 pub struct SampleState {
@@ -22,9 +20,9 @@ pub struct SampleState {
 }
 
 pub struct LimitPoolState {
-  price: u256,                
-  liquidity: U128,            
-  protocol_fees: U128,
+  price: Q64x64,                
+  liquidity: u64,          
+  protocol_fees: u64,
   protocol_fill_fee: u16,
   tick_at_price: I24,
 }
@@ -35,7 +33,7 @@ pub struct RangePoolState {
   fee_growth_global1: u256,
   seconds_per_liquidity_accum: u256,
   price: u256,                
-  liquidity: U128,            
+  liquidity: u64,            
   tick_seconds_accum: I64, // @TODO: i56,
   tick_at_price: I24,
   swap_fee: u16,
@@ -47,7 +45,7 @@ pub struct GlobalState {
   pool: RangePoolState,
   pool_0: LimitPoolState,
   pool_1: LimitPoolState,
-  liquidity_global: U128,
+  liquidity_global: u64,
   position_id_next: u32,
   epoch: u32,
   unlocked: u8,
@@ -65,8 +63,8 @@ impl GlobalState {
             fee_growth_global0: 0x0u256,
             fee_growth_global1: 0x0u256,
             seconds_per_liquidity_accum: 0x0u256,
-            price: 0x0u256,
-            liquidity: U128{upper: 0, lower: 0},
+            price: Q64x64::zero(),
+            liquidity: 0u64,
             tick_seconds_accum: I64::zero(), // @TODO: change to i56
             tick_at_price: I24::zero(), // @TODO: change to i24
             swap_fee: 0u16,
@@ -75,19 +73,19 @@ impl GlobalState {
         },
         pool_0: LimitPoolState {
             price: 0x0u256,
-            liquidity: U128{upper: 0, lower: 0},
-            protocol_fees: U128{upper: 0, lower: 0},
+            liquidity: 0u64,
+            protocol_fees: u64,
             protocol_fill_fee: 0u16,
             tick_at_price: I24::zero(), // @TODO: change to i24
         },
         pool_1: LimitPoolState {
             price: 0x0u256,
-            liquidity: U128{upper: 0, lower: 0},
-            protocol_fees: U128{upper: 0, lower: 0},
+            liquidity: u64,
+            protocol_fees: u64,
             protocol_fill_fee: 0u16,
             tick_at_price: I24::zero(), // @TODO: change to i24
         },
-        liquidity_global: U128{upper: 0, lower: 0},
+        liquidity_global: u64,
         position_id_next: 0u32,
         epoch: 0u32,
         unlocked: 0u8,

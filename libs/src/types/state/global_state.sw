@@ -35,7 +35,7 @@ pub struct RangePoolState {
   fee_growth_global0: u256,
   fee_growth_global1: u256,
   seconds_per_liquidity_accum: u256,
-  price: u256,                
+  price: Q64x64,                
   liquidity: u64,            
   tick_seconds_accum: I64,
   tick_at_price: I24,

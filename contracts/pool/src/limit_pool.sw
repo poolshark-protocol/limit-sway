@@ -35,6 +35,9 @@ use amm_libs::{
         ticks::{
             tick_map::*,
         },
+        positions::{
+            range_position::*,
+        }
         params::*,
         events::*,
         cache::*,
@@ -149,10 +152,10 @@ storage {
     tick_spacing: u8 = 10u8,
 
     ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
-    positions: StorageMap<(Identity, I24, I24), Position> = StorageMap::<(Identity, I24, I24), Position> {},
+    positions: StorageMap<u32, RangePosition> = StorageMap::<u32, RangePosition> {},
 
     range_tick_map: TickMap = TickMap {
-        blocks: 0,
+        blocks: 0u64,
         words: StorageMap::<u256, u256> {},
         ticks: StorageMap::<u256, u256> {},
         epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
@@ -160,7 +163,7 @@ storage {
     },
 
     limit_tick_map: TickMap = TickMap {
-        blocks: 0,
+        blocks: 0u64,
         words: StorageMap::<u256, u256> {},
         ticks: StorageMap::<u256, u256> {},
         epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
@@ -169,43 +172,7 @@ storage {
 
     samples: StorageVec<Sample> = StorageVec {},
 
-    global_state: GlobalState = GlobalState {
-        pool: RangePoolState {
-            samples: SampleState {
-                index: 0u16,
-                count: 0u16,
-                count_max: 0u16,
-            },
-            fee_growth_global0: 0x0u256,
-            fee_growth_global1: 0x0u256,
-            seconds_per_liquidity_accum: 0x0u256,
-            price: 0x0u256,
-            liquidity: U128{upper: 0, lower: 0},
-            tick_seconds_accum: I64::zero(), // @TODO: change to i56
-            tick_at_price: I24::zero(), // @TODO: change to i24
-            swap_fee: 0u16,
-            protocol_swap_fee0: 0u16,
-            protocol_swap_fee1: 0u16,
-        },
-        pool_0: LimitPoolState {
-            price: 0x0u256,
-            liquidity: U128{upper: 0, lower: 0},
-            protocol_fees: U128{upper: 0, lower: 0},
-            protocol_fill_fee: 0u16,
-            tick_at_price: I24::zero(), // @TODO: change to i24
-        },
-        pool_1: LimitPoolState {
-            price: 0x0u256,
-            liquidity: U128{upper: 0, lower: 0},
-            protocol_fees: U128{upper: 0, lower: 0},
-            protocol_fill_fee: 0u16,
-            tick_at_price: I24::zero(), // @TODO: change to i24
-        },
-        liquidity_global: U128{upper: 0, lower: 0},
-        position_id_next: 0u32,
-        epoch: 0u32,
-        unlocked: 0u8,
-    }
+    global_state: GlobalState = GlobalState::new(),
 }
 
 impl ConcentratedLiquidityPool for Contract {

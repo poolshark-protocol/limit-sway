@@ -51,7 +51,7 @@ pub struct MintRangeCall {
 impl MintRangeCall {
     #[storage(read,write)]
     pub fn perform(
-        positions: StorageKey<StorageMap<u256, RangePosition>>,
+        positions: StorageKey<StorageMap<u32, RangePosition>>,
         ticks: StorageKey<StorageMap<I24, Tick>>,
         tick_map: TickMapKeys,
         samples: StorageKey<StorageVec<Sample>>,

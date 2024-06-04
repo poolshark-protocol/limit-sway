@@ -264,9 +264,8 @@ impl LimitPool for Contract {
             zero_for_one: params.zero_for_one,
             position_id: params.position_id,
             epoch_last: state.epoch,
-            liquidity_burned: 1u64,
-            amount0_delta: I64::from_uint(1u64),
-            amount1_delta: I64::from_uint(1u64),
+            amount_in: I64::from_uint(1u64),
+            liquidity_minted: 1u64,
         });
 
         state.epoch = state.epoch + 1;

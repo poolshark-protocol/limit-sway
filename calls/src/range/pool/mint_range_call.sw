@@ -11,7 +11,7 @@ use std::{
 
 use ::abis::callbacks::ILimitPoolMintRangeCallback;
 
-use amm_libs::types::{
+use limit_libs::types::{
     I24::*,
     I64::*,
     U128::*,
@@ -28,7 +28,7 @@ use amm_libs::types::{
     events::MintRangeEvent,
     identity::*,
 };
-use amm_libs::math::{
+use limit_libs::math::{
     tick_math::get_price_at_tick,
     constant_product::*,
 };

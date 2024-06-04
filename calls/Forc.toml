@@ -1,0 +1,7 @@
+[project]
+authors = ["alphak3y"]
+entry = "calls.sw"
+license = "Apache-2.0"
+name = "limit_calls"
+
+[dependencies]

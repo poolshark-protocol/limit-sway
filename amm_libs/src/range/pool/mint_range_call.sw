@@ -71,7 +71,7 @@ impl MintRangeCall {
         cache.state = global_state.read();
 
         if params.position_id > 0 {
-            cache.position = positions.get(params.position_id.as_u256()).read();
+            cache.position = positions.get(params.position_id).read();
             require(cache.position.liquidity != 0u64, "INPUT ERROR: No position with liquidity found.");
             // if (PositionTokens::balanceOf(
             //     cache.constants,
@@ -187,7 +187,7 @@ impl MintRangeCall {
 
 #[storage(write)]
 fn save(
-    positions: StorageKey<StorageMap<u256, RangePosition>>,
+    positions: StorageKey<StorageMap<u32, RangePosition>>,
     global_state: StorageKey<GlobalState>,
     cache: MintRangeCache,
     position_id: u32 

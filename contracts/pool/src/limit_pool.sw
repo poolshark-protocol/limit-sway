@@ -346,14 +346,15 @@ impl LimitPool for Contract {
 
     #[storage(read)]
     fn quote(params: QuoteParams) -> (u64, u64, Q64x64) {
+        let state: GlobalState = storage.global_state.read();
 
-        (0u64, 0u64, storage.global_state.read().pool.price)
+        (0u64, 0u64, state.pool.price)
     }
 
 
     #[storage(read)]
     fn sample(secondsAgo: Vec<u32>) -> (Vec<I24>, Vec<u256>, Q64x64, u64, I24) {
-        let mut state: GlobalState = storage.global_state.read();
+        let state: GlobalState = storage.global_state.read();
 
         (Vec::new(), Vec::new(), state.pool.price, 0u64, state.pool.tick_at_price)
     }

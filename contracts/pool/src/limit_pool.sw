@@ -20,7 +20,11 @@ use std::{
     call_frames::{contract_id ,msg_asset_id},
     context::msg_amount,
     alias::SubId,
-    storage::storage_vec::*
+    storage::{
+        storage_vec::*,
+        storage_map::*,
+        storage_key::*,
+    },
 };
 
 use limit_libs::{

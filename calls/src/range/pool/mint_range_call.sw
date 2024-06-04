@@ -9,7 +9,7 @@ use std::{
     identity::*,
 };
 
-use ::abis::callbacks::ILimitPoolMintRangeCallback;
+use limit_libs::abis::callbacks::ILimitPoolMintRangeCallback;
 
 use limit_libs::types::{
     I24::*,

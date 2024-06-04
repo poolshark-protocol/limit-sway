@@ -75,7 +75,7 @@ impl GlobalState {
             protocol_swap_fee1: 0u16,
         },
         pool_0: LimitPoolState {
-            price: 0x0u256,
+            price: Q64x64::zero(),
             liquidity: 0u64,
             protocol_fees: 0u64,
             protocol_fill_fee: 0u16,

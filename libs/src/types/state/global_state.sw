@@ -4,8 +4,11 @@ use std::{
     u128::U128,
 };
 
-use ::types::I24::*;
-use ::types::I64::*;
+use ::types::{
+  I24::*,
+  I64::*,
+  Q64x64::*,
+};
 
 pub struct Sample {
   block_timestamp: u32,
@@ -34,7 +37,7 @@ pub struct RangePoolState {
   seconds_per_liquidity_accum: u256,
   price: u256,                
   liquidity: u64,            
-  tick_seconds_accum: I64, // @TODO: i56,
+  tick_seconds_accum: I64,
   tick_at_price: I24,
   swap_fee: u16,
   protocol_swap_fee0: u16,
@@ -74,18 +77,18 @@ impl GlobalState {
         pool_0: LimitPoolState {
             price: 0x0u256,
             liquidity: 0u64,
-            protocol_fees: u64,
+            protocol_fees: 0u64,
             protocol_fill_fee: 0u16,
             tick_at_price: I24::zero(), // @TODO: change to i24
         },
         pool_1: LimitPoolState {
-            price: 0x0u256,
-            liquidity: u64,
-            protocol_fees: u64,
+            price: Q64x64::zero(),
+            liquidity: 0u64,
+            protocol_fees: 0u64,
             protocol_fill_fee: 0u16,
             tick_at_price: I24::zero(), // @TODO: change to i24
         },
-        liquidity_global: u64,
+        liquidity_global: 0u64,
         position_id_next: 0u32,
         epoch: 0u32,
         unlocked: 0u8,

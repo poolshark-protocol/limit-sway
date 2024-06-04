@@ -132,8 +132,8 @@ impl MintRangeCall {
             upper: params.upper,
             position_id: params.position_id,
             liquidity_minted: cache.liquidity_minted,
-            amount_0_delta: cache.amount0 + cache.fees_accrued_0,
-            amount_1_delta: cache.amount1 + cache.fees_accrued_1,
+            amount0_delta: cache.amount0 + cache.fees_accrued_0,
+            amount1_delta: cache.amount1 + cache.fees_accrued_1,
         });
 
         // cache = RangePositions::add(ticks, samples, tick_map, cache, params);

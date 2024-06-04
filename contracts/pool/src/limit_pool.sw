@@ -114,17 +114,17 @@ abi LimitPool {
     #[storage(read, write)]
     fn burn_range(params: BurnRangeParams) -> (I64, I64);
 
-    // // alphak3y
-    // #[storage(read, write)]
-    // fn mint_limit(params: MintLimitParams) -> (I64, I64);
+    // alphak3y
+    #[storage(read, write)]
+    fn mint_limit(params: MintLimitParams) -> (I64, I64);
 
-    // // alphak3y
-    // #[storage(read, write)]
-    // fn burn_limit(params: BurnLimitParams) -> (I64, I64);
+    // alphak3y
+    #[storage(read, write)]
+    fn burn_limit(params: BurnLimitParams) -> (I64, I64);
 
-    // // alphak3y
-    // #[storage(read, write)]
-    // fn swap(params: SwapParams) -> (I64, I64);
+    // alphak3y
+    #[storage(read, write)]
+    fn swap(params: SwapParams) -> (I64, I64);
 
     // #[storage(read, write)]
     // fn increase_sample_count(new_sample_count: u16);

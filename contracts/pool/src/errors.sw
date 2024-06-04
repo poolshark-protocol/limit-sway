@@ -1,6 +1,6 @@
 library;
 
-pub enum ConcentratedLiquidityPoolErrors {
+pub enum LimitPoolErrors {
     Locked: (),
     ZeroAddress: (),
     ZeroAmount: (),

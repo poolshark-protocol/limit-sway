@@ -2,7 +2,7 @@ contract;
 
 pub mod errors;
 
-use ::errors::ConcentratedLiquidityPoolErrors;
+use ::errors::LimitPoolErrors;
 
 use std::{
     revert::require,
@@ -101,7 +101,7 @@ struct Tick {
     seconds_growth_outside: U128
 }
 
-abi ConcentratedLiquidityPool {
+abi LimitPool {
     // Core functions
     #[storage(read, write)]
     fn initialize(start_price: Q64x64);
@@ -182,7 +182,7 @@ storage {
     global_state: GlobalState = GlobalState::new(),
 }
 
-impl ConcentratedLiquidityPool for Contract {
+impl LimitPool for Contract {
     #[storage(read, write)]
     fn initialize(start_price: Q64x64) {
 

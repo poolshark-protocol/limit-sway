@@ -23,7 +23,7 @@ use std::{
     storage::storage_vec::*
 };
 
-use amm_libs::{
+use limit_libs::{
     types::{
         I24::*,
         I64::*,
@@ -49,7 +49,7 @@ use amm_libs::{
     },
 };
 
-use calls::{
+use limit_calls::{
     range::{
         pool::{
             mint_range_call::*,

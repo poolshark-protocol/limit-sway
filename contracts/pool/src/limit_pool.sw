@@ -322,13 +322,13 @@ impl LimitPool for Contract {
                 amount_in: 1u64,
                 amount_out: 1u64,
                 fee_growth_global0: state.pool.fee_growth_global0,
-                fee_growth_global0: state.pool.fee_growth_global1,
-                old_claim: params.upper,
-                new_claim: params.upper, 
+                fee_growth_global1: state.pool.fee_growth_global1,
+                price: Q64x64::zero(),
+                liquidity: 0u64,
+                fee_amount: 1u64,
+                tick_at_price: I24::zero(),
                 zero_for_one: params.zero_for_one,
-                liquidity_burned: 1u64,
-                token_in_claimed: 1u64,
-                token_out_burned: 1u64,
+                exact_in: params.exact_in,
         });
 
         state.pool.fee_growth_global0 = state.pool.fee_growth_global0 + 1;

@@ -251,53 +251,82 @@ impl LimitPool for Contract {
         (I64::zero(), I64::zero())
     }
 
-    // #[storage(read, write)]
-    // fn mint_limit(params: MintLimitParams) -> (I64, I64) {
+    #[storage(read, write)]
+    fn mint_limit(params: MintLimitParams) -> (I64, I64) {
 
-    //     log(MintLimitEvent {
-    //         pool: contract_id(),
-    //         token0: storage.token0.read(),
-    //         token1: storage.token1.read(),
-    //         swap_fee: storage.global_state.pool.swap_fee.read(),
-    //         tick_spacing: storage.tick_spacing.read(),
-    //         start_price,
-    //         start_tick: get_tick_at_price(start_price),
-    //     });
+        let mut state: GlobalState = storage.global_state.read();
 
-    //     (I64::zero(), I64::zero())
-    // }
+        log(MintLimitEvent {
+            pool_id: contract_id().into(),
+            recipient: params.to,
+            lower: params.lower,
+            upper: params.upper,
+            zero_for_one: params.zero_for_one,
+            position_id: params.position_id,
+            epoch_last: state.epoch,
+            liquidity_burned: 1u64,
+            amount_0_delta: I64::from_uint(1u64),
+            amount_1_delta: I64::from_uint(1u64),
+        });
 
-    // #[storage(read, write)]
-    // fn burn_limit(params: BurnLimitParams) -> (I64, I64) {
+        state.epoch = state.epoch + 1;
 
-    //     log(BurnLimitEvent {
-    //         pool: contract_id(),
-    //         token0: storage.token0.read(),
-    //         token1: storage.token1.read(),
-    //         swap_fee: storage.global_state.pool.swap_fee.read(),
-    //         tick_spacing: storage.tick_spacing.read(),
-    //         start_price,
-    //         start_tick: get_tick_at_price(start_price),
-    //     });
+        storage.global_state.write(state);
 
-    //     (I64::zero(), I64::zero())
-    // }
+        (I64::zero(), I64::zero())
+    }
 
-    // #[storage(read, write)]
-    // fn swap(params: SwapParams) -> (I64, I64) {
+    #[storage(read, write)]
+    fn burn_limit(params: BurnLimitParams) -> (I64, I64) {
 
-    //     log(SwapEvent {
-    //         pool: contract_id(),
-    //         token0: storage.token0.read(),
-    //         token1: storage.token1.read(),
-    //         swap_fee: storage.global_state.pool.swap_fee.read(),
-    //         tick_spacing: storage.tick_spacing.read(),
-    //         start_price,
-    //         start_tick: get_tick_at_price(start_price),
-    //     });
+        if zero_for_one {
+            log(BurnLimitEvent {
+                pool_id: contract_id().into(),
+                recipient: params.to,
+                position_id: params.position_id,
+                lower: params.lower,
+                upper: params.upper,
+                old_claim: params.lower,
+                new_claim: params.lower, 
+                zero_for_one: params.zero_for_one,
+                liquidity_burned: 1u64,
+                token_in_claimed: 1u64,
+                token_out_burned: 1u64,
+            });
+        } else {
+            log(BurnLimitEvent {
+                pool_id: contract_id().into(),
+                recipient: params.to,
+                position_id: params.position_id,
+                lower: params.lower,
+                upper: params.upper,
+                old_claim: params.upper,
+                new_claim: params.upper, 
+                zero_for_one: params.zero_for_one,
+                liquidity_burned: 1u64,
+                token_in_claimed: 1u64,
+                token_out_burned: 1u64,
+            });
+        }
 
-    //     (I64::zero(), I64::zero())
-    // }
+        (I64::zero(), I64::zero())
+    }
+
+    #[storage(read, write)]
+    fn swap(params: SwapParams) -> (I64, I64) {
+
+        log(SwapEvent {
+            pool: contract_id(),
+            token0: storage.token0.read(),
+            token1: storage.token1.read(),
+            swap_fee: storage.global_state.pool.swap_fee.read(),
+            tick_spacing: storage.tick_spacing.read(),
+            start_price,
+            start_tick: get_tick_at_price(start_price),
+        });
+
+        (I64::zero(), I64::zero())
+    }
 
     // #[storage(read, write)]
     // fn increase_sample_count(new_sample_count_max: u16) {

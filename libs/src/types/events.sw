@@ -60,7 +60,7 @@ pub struct CompoundRangeEvent {
 
 pub struct MintLimitEvent {
     pool_id: b256,
-    to: Identity,
+    recipient: Identity,
     lower: I24,
     upper: I24,
     zero_for_one: bool,
@@ -72,7 +72,7 @@ pub struct MintLimitEvent {
 
 pub struct BurnLimitEvent {
     pool_id: b256,
-    to: Identity,
+    recipient: Identity,
     position_id: u32,
     lower: I24,
     upper: I24,

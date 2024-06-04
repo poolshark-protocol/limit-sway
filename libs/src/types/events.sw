@@ -17,21 +17,6 @@ pub struct InitPoolEvent {
     start_tick: I24,
 }
 
-pub struct SwapEvent {
-    pool_id: b256,
-    recipient: Identity,
-    amount_in: u64,
-    amount_out: u64,
-    fee_growth_global_0: u256,
-    fee_growth_global_1: u256,
-    price: Q64x64,
-    liquidity: u64,
-    fee_amount: u64,
-    tick_at_price: I24,
-    zero_for_one: bool,
-    exact_in: bool,
-}
-
 pub struct MintRangeEvent {
     pool_id: b256,
     recipient: Identity,
@@ -39,8 +24,8 @@ pub struct MintRangeEvent {
     upper: I24,
     position_id: u32,
     liquidity_minted: u64,
-    amount_0_delta: I64,
-    amount_1_delta: I64,
+    amount0_delta: I64,
+    amount1_delta: I64,
 }
 
 pub struct BurnRangeEvent {
@@ -48,8 +33,8 @@ pub struct BurnRangeEvent {
     recipient: Identity,
     position_id: u32,
     liquidity_burned: u64,
-    amount_0_delta: I64,
-    amount_1_delta: I64,
+    amount0_delta: I64,
+    amount1_delta: I64,
 }
 
 pub struct CompoundRangeEvent {
@@ -84,10 +69,25 @@ pub struct BurnLimitEvent {
     token_out_burned: u64,
 }
 
+pub struct SwapEvent {
+    pool_id: b256,
+    recipient: Identity,
+    amount_in: u64,
+    amount_out: u64,
+    fee_growth_global0: u256,
+    fee_growth_global1: u256,
+    price: Q64x64,
+    liquidity: u64,
+    fee_amount: u64,
+    tick_at_price: I24,
+    zero_for_one: bool,
+    exact_in: bool,
+}
+
 pub struct SyncRangeTickEvent {
     pool_id: b256,
-    fee_growth_global_0: u256,
-    fee_growth_global_1: u256,
+    fee_growth_global0: u256,
+    fee_growth_global1: u256,
     tick: I24,
 }
 
@@ -97,7 +97,7 @@ pub struct SyncLimitPoolEvent {
     liquidity: u64,
     epoch: u32,
     tick_at_price: I24,
-    is_pool_0: bool,
+    is_pool0: bool,
 }
 
 pub struct SyncLimitLiquidityEvent {
@@ -127,14 +127,14 @@ pub struct SampleCountIncreased {
 
 pub struct ProtocolFeesModifiedEvent {
     pool_ids: Vec<b256>,
-    protocol_swap_fees_0: Vec<u16>,
-    protocol_swap_fees_1: Vec<u16>,
-    protocol_fill_fees_0: Vec<u16>,
-    protocol_fill_fees_1: Vec<u16>,
+    protocol_swap_fees0: Vec<u16>,
+    protocol_swap_fees1: Vec<u16>,
+    protocol_fill_fees0: Vec<u16>,
+    protocol_fill_fees1: Vec<u16>,
 }
 
 pub struct ProtocolFeesCollectedEvent {
     pool_ids: Vec<b256>,
-    token_0_fees_collected: Vec<u64>,
-    token_1_fees_collected: Vec<u64>,
+    token0_fees_collected: Vec<u64>,
+    token1_fees_collected: Vec<u64>,
 }

@@ -225,8 +225,8 @@ impl LimitPool for Contract {
             upper: params.upper,
             position_id: state.position_id_next,
             liquidity_minted: 1u64,
-            amount_0_delta: I64::from_uint(1u64),
-            amount_1_delta: I64::from_uint(1u64),
+            amount0_delta: I64::from_uint(1u64),
+            amount1_delta: I64::from_uint(1u64),
         });
 
         state.position_id_next = state.position_id_next + 1;
@@ -244,8 +244,8 @@ impl LimitPool for Contract {
             recipient: params.to,
             position_id: params.position_id,
             liquidity_burned: 1u64,
-            amount_0_delta: I64::from_neg(1u64),
-            amount_1_delta: I64::from_neg(1u64),
+            amount0_delta: I64::from_neg(1u64),
+            amount1_delta: I64::from_neg(1u64),
         });
 
         (I64::zero(), I64::zero())
@@ -265,8 +265,8 @@ impl LimitPool for Contract {
             position_id: params.position_id,
             epoch_last: state.epoch,
             liquidity_burned: 1u64,
-            amount_0_delta: I64::from_uint(1u64),
-            amount_1_delta: I64::from_uint(1u64),
+            amount0_delta: I64::from_uint(1u64),
+            amount1_delta: I64::from_uint(1u64),
         });
 
         state.epoch = state.epoch + 1;
@@ -315,15 +315,27 @@ impl LimitPool for Contract {
     #[storage(read, write)]
     fn swap(params: SwapParams) -> (I64, I64) {
 
+        let mut state: GlobalState = storage.global_state.read();
+
         log(SwapEvent {
-            pool: contract_id(),
-            token0: storage.token0.read(),
-            token1: storage.token1.read(),
-            swap_fee: storage.global_state.pool.swap_fee.read(),
-            tick_spacing: storage.tick_spacing.read(),
-            start_price,
-            start_tick: get_tick_at_price(start_price),
+                pool_id: contract_id().into(),
+                recipient: params.to,
+                amount_in: 1u64,
+                amount_out: 1u64,
+                fee_growth_global0: state.pool.fee_growth_global0,
+                fee_growth_global0: state.pool.fee_growth_global1,
+                old_claim: params.upper,
+                new_claim: params.upper, 
+                zero_for_one: params.zero_for_one,
+                liquidity_burned: 1u64,
+                token_in_claimed: 1u64,
+                token_out_burned: 1u64,
         });
+
+        state.pool.fee_growth_global0 = state.pool.fee_growth_global0 + 1;
+        state.pool.fee_growth_global1 = state.pool.fee_growth_global1 + 1;
+
+        storage.global_state.write(state);
 
         (I64::zero(), I64::zero())
     }

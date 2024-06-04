@@ -242,7 +242,7 @@ impl LimitPool for Contract {
         log(BurnRangeEvent {
             pool_id: contract_id().into(),
             recipient: params.to,
-            position_id: state.position_id_next,
+            position_id: params.position_id,
             liquidity_burned: 1u64,
             amount_0_delta: I64::from_neg(1u64),
             amount_1_delta: I64::from_neg(1u64),

@@ -361,7 +361,7 @@ impl LimitPool for Contract {
     #[storage(read)]
     fn snapshot_range(QuoteParams) -> (I64, u256, u64, u64) {
 
-        (I64::zero(), 0u256, 0u64, 0u64)
+        (I64::zero(), 0x0u256, 0u64, 0u64)
     }
 
     #[storage(read)]

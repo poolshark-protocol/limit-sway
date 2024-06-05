@@ -1,12 +1,17 @@
 library;
 
-use ::types::I24::{I24,I24Error};
-use ::types::U64::*;
-use ::types::Q64x64::Q64x64;
-use ::types::Q128x128::Q128x128;
 use core::primitives::*;
 use std::{primitive_conversions::{u64::*,},};
-use std::{assert::assert, revert::require, math::*, revert::revert, u128::*, u256::*};
+use std::{assert::assert, revert::require, math::*, revert::revert};
+
+use ::types{
+    I24::{I24,I24Error},
+    U64::*,
+    Q64x64::Q64x64,
+    Q128x128::Q128x128,
+    U128::*,
+    U256::*,
+}
 
 pub struct SQ63x64 {
     value: U128,

@@ -4,6 +4,7 @@ use std::{
     result::Result,
 };
 use ::types::{
+    U128::*,
     I24::I24,
     SQ63x64::*,
     Q64x64::{

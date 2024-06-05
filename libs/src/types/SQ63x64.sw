@@ -14,7 +14,7 @@ use ::types::{
 };
 
 pub struct SQ63x64 {
-    value: U128,
+    pub value: U128,
 }
 
 pub enum SQ63x64Error {

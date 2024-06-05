@@ -572,9 +572,12 @@ impl core::ops::Multiply for U256 {
                 let result_d_c = self.d.overflowing_mul(other.c);
                 let result_d_d = self.d.overflowing_mul(other.d);
 
-                let value: U128 = result_d_d.upper.overflowing_add(result_c_d.lower);
+                // let value: U128 = result_d_d.upper.overflowing_add(result_c_d.lower).into();
 
                 // let (overflow_of_c_to_b_1, mut c) = result_d_d.upper.overflowing_add(result_c_d.lower).into();
+                let c_to_b_1 = result_d_d.upper.overflowing_add(result_c_d.lower).into();
+                let overflow_of_c_to_b_1 = c_to_b_1.upper;
+                let mut c = c_to_b_1.lower;
                 // let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
 
                 // let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();

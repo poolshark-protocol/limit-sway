@@ -798,4 +798,4 @@ fn test_u128_zero() {
 
     let other3_u128 = U128::from((1, 1));
     assert(!other3_u128.is_zero());
-}z
+}

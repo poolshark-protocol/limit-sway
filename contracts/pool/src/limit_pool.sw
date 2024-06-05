@@ -12,6 +12,7 @@ use std::{
     address::Address,
     u128::*,
     u256::*,
+    asset_id::*,
     asset::transfer,
     result::*,
     auth::*,
@@ -140,8 +141,8 @@ abi LimitPool {
 }
 
 storage {
-    token0: AssetId = AssetId{ value: 0x0000000000000000000000000000000000000000000000000000000000000000 },
-    token1: AssetId = AssetId{ value: 0x0000000000000000000000000000000000000000000000000000000000000000 },
+    token0: AssetId = AssetId::default(),
+    token1: AssetId = AssetId::default(),
 
     unlocked: bool = false,
 

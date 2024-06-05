@@ -14,14 +14,14 @@ use std::result::Result::{self, *};
 /// Represented as two 64-bit components: `(upper, lower)`, where `value = (upper << 64) + lower`.
 pub struct U128 {
     /// The most significant 64 bits of the `U128`.
-    upper: u64,
+    pub upper: u64,
     /// The least significant 64 bits of the `U128`.
-    lower: u64,
+    pub lower: u64,
 }
 
 impl U128 {
     pub fn zero() -> U128 {
-        U128::from(0)
+        U128::from(0u8)
     }
 }
 

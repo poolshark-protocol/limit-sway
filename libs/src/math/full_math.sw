@@ -6,12 +6,12 @@ use ::types::Q128x128::Q128x128;
 use std::{result::Result};
 use std::revert::revert;
 
-use types::{
+use ::types::{
     U64::*,
     Q64x64::Q64x64,
     Q128x128::Q128x128,
-    U256::U256,
-    U128::U128,
+    U256::*,
+    U128::*,
 };
 
 pub enum FullMathError {

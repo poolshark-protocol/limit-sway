@@ -1,16 +1,13 @@
 library;
 
-use ::math::full_math::{
-    mul_div,
-    mul_div_q64x64,
-    mul_div_rounding_up_u128,
-    mul_div_rounding_up_q64x64,
-    mul_div_rounding_up_u256,
-    mul_div_u256,
+use ::{
+    math::full_math::*,
+    types::{
+        Q64x64::Q64x64,
+        U128::U128,
+        U256::U256,
+    },
 };
-use ::types::Q64x64::Q64x64;
-use std::u256::U256;
-use std::u128::U128;
 
 #[test]
 pub fn dydx_math_get_dy() -> u64 {

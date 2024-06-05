@@ -291,29 +291,29 @@ impl U256 {
     }
 }
 
-// impl core::ops::Ord for U256 {
-//     #[allow(deprecated)]
-//     fn gt(self, other: Self) -> bool {
-//         self.a > other.a
-//             || (self.a == other.a
-//                 && (self.b > other.b
-//                     || (self.b == other.b
-//                         && (self.c > other.c
-//                             || (self.c == other.c
-//                                 && self.d > other.d)))))
-//     }
+impl core::ops::Ord for U256 {
+    #[allow(deprecated)]
+    fn gt(self, other: Self) -> bool {
+        self.a > other.a
+            || (self.a == other.a
+                && (self.b > other.b
+                    || (self.b == other.b
+                        && (self.c > other.c
+                            || (self.c == other.c
+                                && self.d > other.d)))))
+    }
 
-//     #[allow(deprecated)]
-//     fn lt(self, other: Self) -> bool {
-//         self.a < other.a
-//             || (self.a == other.a
-//                 && (self.b < other.b
-//                     || (self.b == other.b
-//                         && (self.c < other.c
-//                             || (self.c == other.c
-//                                 && self.d < other.d)))))
-//     }
-// }
+    #[allow(deprecated)]
+    fn lt(self, other: Self) -> bool {
+        self.a < other.a
+            || (self.a == other.a
+                && (self.b < other.b
+                    || (self.b == other.b
+                        && (self.c < other.c
+                            || (self.c == other.c
+                                && self.d < other.d)))))
+    }
+}
 
 // #[test]
 // fn test_u256_ord() {

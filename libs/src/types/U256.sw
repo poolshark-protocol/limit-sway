@@ -8,13 +8,13 @@ use std::math::Power;
 
 use ::types::U128::*;
 
-// /// Left shift a `u64` and preserve the overflow amount if any.
-// fn lsh_with_carry(word: u64, shift_amount: u64) -> (u64, u64) {
-//     let right_shift_amount = 64 - shift_amount;
-//     let carry = word >> right_shift_amount;
-//     let shifted = word << shift_amount;
-//     (shifted, carry)
-// }
+/// Left shift a `u64` and preserve the overflow amount if any.
+fn lsh_with_carry(word: u64, shift_amount: u64) -> (u64, u64) {
+    let right_shift_amount = 64 - shift_amount;
+    let carry = word >> right_shift_amount;
+    let shifted = word << shift_amount;
+    (shifted, carry)
+}
 
 // /// Right shift a `u64` and preserve the overflow amount if any.
 // fn rsh_with_carry(word: u64, shift_amount: u64) -> (u64, u64) {

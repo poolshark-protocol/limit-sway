@@ -141,7 +141,9 @@ abi LimitPool {
 }
 
 storage {
+
     token0: AssetId = AssetId{ value: ZERO_B256 },
+
     token1: AssetId = AssetId{ value: ZERO_B256 },
 
     unlocked: bool = false,
@@ -149,6 +151,7 @@ storage {
     tick_spacing: u8 = 10u8,
 
     ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
+
     positions: StorageMap<u32, RangePosition> = StorageMap::<u32, RangePosition> {},
 
     range_tick_map: TickMap = TickMap::new(),
@@ -158,6 +161,7 @@ storage {
     samples: StorageVec<Sample> = StorageVec {},
 
     global_state: GlobalState = GlobalState::new(),
+    
 }
 
 impl LimitPool for Contract {

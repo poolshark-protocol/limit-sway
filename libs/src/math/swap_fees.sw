@@ -1,9 +1,15 @@
 library;
 
-use ::types::Q64x64::*;
-use ::types::Q128x128::*;
-use std::u128::U128;
-use ::math::full_math::*;
+use ::{
+    types::{
+        U128::*,
+        Q64x64::*,
+        Q128x128::*,
+    },
+    math::{
+        full_math,
+    },
+};
     
 pub fn handle_fees(
     output: u64,

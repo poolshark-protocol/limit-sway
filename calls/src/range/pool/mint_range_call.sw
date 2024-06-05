@@ -1,7 +1,6 @@
 library;
 
 use std::{
-    call_frames::contract_id,
     context::{this_balance},
     hash::*,
     storage::{
@@ -11,6 +10,10 @@ use std::{
     },
     u128::*,
     identity::*,
+    call_frames::{
+        contract_id,
+        msg_asset_id
+    },
 };
 
 use limit_libs::abis::callbacks::ILimitPoolMintRangeCallback;

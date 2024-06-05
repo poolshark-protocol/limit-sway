@@ -1,8 +1,12 @@
 library;
 
 use core::primitives::*;
-use std::{revert::require, math::*, revert::revert, u128::*, u256::*};
-use ::types::I24::I24;
+use std::{revert::require, math::*, revert::revert};
+use ::types::{
+    I24::I24,
+    U128::*,
+    U256::*,
+};
 
 pub enum Q128x128Error {
     DivisionByZero: (),

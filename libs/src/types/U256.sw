@@ -41,29 +41,29 @@ pub struct U256 {
     pub d: u64,
 }
 
-// /// The error type used for `U256` type errors.
-// pub enum U256Error {
-//     /// This error occurs when a `U256` is attempted to be downcast to a `u64` or `u128` and the conversion would result in a loss of precision.
-//     LossOfPrecision: (),
-// }
+/// The error type used for `U256` type errors.
+pub enum U256Error {
+    /// This error occurs when a `U256` is attempted to be downcast to a `u64` or `u128` and the conversion would result in a loss of precision.
+    LossOfPrecision: (),
+}
 
-// impl From<(u64, u64, u64, u64)> for U256 {
-//     #[allow(deprecated)]
-//     fn from(components: (u64, u64, u64, u64)) -> Self {
-//         Self {
-//             a: components.0,
-//             b: components.1,
-//             c: components.2,
-//             d: components.3,
-//         }
-//     }
+impl From<(u64, u64, u64, u64)> for U256 {
+    #[allow(deprecated)]
+    fn from(components: (u64, u64, u64, u64)) -> Self {
+        Self {
+            a: components.0,
+            b: components.1,
+            c: components.2,
+            d: components.3,
+        }
+    }
 
-//     /// Function for extracting 4 `u64`s from a `U256`.
-//     #[allow(deprecated)]
-//     fn into(self) -> (u64, u64, u64, u64) {
-//         (self.a, self.b, self.c, self.d)
-//     }
-// }
+    /// Function for extracting 4 `u64`s from a `U256`.
+    #[allow(deprecated)]
+    fn into(self) -> (u64, u64, u64, u64) {
+        (self.a, self.b, self.c, self.d)
+    }
+}
 
 // impl core::ops::Eq for U256 {
 //     /// Function for comparing 2 `U256`s for equality.

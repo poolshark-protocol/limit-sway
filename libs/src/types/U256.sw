@@ -545,101 +545,101 @@ impl core::ops::Add for U256 {
 //     }
 // }
 
-impl core::ops::Multiply for U256 {
-    /// Multiply a `U256` with a `U256`. Reverts on overflow.
-    fn multiply(self, other: Self) -> Self {
-        // Both upper words cannot be non-zero simultaneously. Otherwise, overflow is guaranteed.
-        assert(self.a == 0 || other.a == 0);
+// impl core::ops::Multiply for U256 {
+//     /// Multiply a `U256` with a `U256`. Reverts on overflow.
+//     fn multiply(self, other: Self) -> Self {
+//         // Both upper words cannot be non-zero simultaneously. Otherwise, overflow is guaranteed.
+//         assert(self.a == 0 || other.a == 0);
 
-        if self.a != 0 {
-            // If `self.a` is non-zero, all words of `other`, except for `d`, should be zero.
-            // Otherwise, overflow is guaranteed.
-            assert(other.b == 0 && other.c == 0);
-            Self::from((self.a * other.d, 0, 0, 0))
-        } else if other.a != 0 {
-            // If `other.a` is non-zero, all words of `self`, except for `d`, should be zero.
-            // Otherwise, overflow is guaranteed.
-            assert(self.b == 0 && self.c == 0);
-            Self::from((other.a * self.d, 0, 0, 0))
-        } else {
-            if self.b != 0 {
-                // If `self.b` is non-zero, `other.b` has  to be zero. Otherwise, overflow is
-                // guaranteed because:
-                // `other.b * 2 ^ (64 * 2) * self.b * 2 ^ (62 ^ 2) > 2 ^ (64 * 4)`
-                assert(other.b == 0);
-                let result_b_d = self.b.overflowing_mul(other.d);
-                let result_c_d = self.c.overflowing_mul(other.d);
-                let result_d_c = self.d.overflowing_mul(other.c);
-                let result_d_d = self.d.overflowing_mul(other.d);
+//         if self.a != 0 {
+//             // If `self.a` is non-zero, all words of `other`, except for `d`, should be zero.
+//             // Otherwise, overflow is guaranteed.
+//             assert(other.b == 0 && other.c == 0);
+//             Self::from((self.a * other.d, 0, 0, 0))
+//         } else if other.a != 0 {
+//             // If `other.a` is non-zero, all words of `self`, except for `d`, should be zero.
+//             // Otherwise, overflow is guaranteed.
+//             assert(self.b == 0 && self.c == 0);
+//             Self::from((other.a * self.d, 0, 0, 0))
+//         } else {
+//             if self.b != 0 {
+//                 // If `self.b` is non-zero, `other.b` has  to be zero. Otherwise, overflow is
+//                 // guaranteed because:
+//                 // `other.b * 2 ^ (64 * 2) * self.b * 2 ^ (62 ^ 2) > 2 ^ (64 * 4)`
+//                 assert(other.b == 0);
+//                 let result_b_d = self.b.overflowing_mul(other.d);
+//                 let result_c_d = self.c.overflowing_mul(other.d);
+//                 let result_d_c = self.d.overflowing_mul(other.c);
+//                 let result_d_d = self.d.overflowing_mul(other.d);
 
-                let (overflow_of_c_to_b_1, mut c) = result_d_d.upper.overflowing_add(result_c_d.lower).into();
-                let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
+//                 let (overflow_of_c_to_b_1, mut c) = result_d_d.upper.overflowing_add(result_c_d.lower).into();
+//                 let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
 
-                let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();
+//                 let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();
 
-                let (overflow_of_b_to_a_1, mut b) = result_b_d.lower.overflowing_add(result_c_d.upper).into();
-                let (overflow_of_b_to_a_2, b) = b.overflowing_add(result_d_c.upper).into();
-                let (overflow_of_b_to_a_3, b) = b.overflowing_add(overflow_of_c_to_b_2).into();
+//                 let (overflow_of_b_to_a_1, mut b) = result_b_d.lower.overflowing_add(result_c_d.upper).into();
+//                 let (overflow_of_b_to_a_2, b) = b.overflowing_add(result_d_c.upper).into();
+//                 let (overflow_of_b_to_a_3, b) = b.overflowing_add(overflow_of_c_to_b_2).into();
 
-                Self::from((
-                    self.b * other.c + result_b_d.upper + overflow_of_b_to_a_3 + overflow_of_b_to_a_2 + overflow_of_b_to_a_1 + overflow_of_b_to_a_0,
-                    b,
-                    c,
-                    result_d_d.lower,
-                ))
-            } else if other.b != 0 {
-                // If `other.b` is nonzero, `self.b` has to be zero. Otherwise, overflow is
-                // guaranteed because:
-                // `other.b * 2 ^ (64 * 2) * self.b * 2 ^ (62 ^ 2) > 2 ^ (64 * 4)`.
-                assert(self.b == 0);
-                let result_b_d = other.b.overflowing_mul(self.d);
-                let result_c_d = other.c.overflowing_mul(self.d);
-                let result_d_c = other.d.overflowing_mul(self.c);
-                let result_d_d = other.d.overflowing_mul(self.d);
+//                 Self::from((
+//                     self.b * other.c + result_b_d.upper + overflow_of_b_to_a_3 + overflow_of_b_to_a_2 + overflow_of_b_to_a_1 + overflow_of_b_to_a_0,
+//                     b,
+//                     c,
+//                     result_d_d.lower,
+//                 ))
+//             } else if other.b != 0 {
+//                 // If `other.b` is nonzero, `self.b` has to be zero. Otherwise, overflow is
+//                 // guaranteed because:
+//                 // `other.b * 2 ^ (64 * 2) * self.b * 2 ^ (62 ^ 2) > 2 ^ (64 * 4)`.
+//                 assert(self.b == 0);
+//                 let result_b_d = other.b.overflowing_mul(self.d);
+//                 let result_c_d = other.c.overflowing_mul(self.d);
+//                 let result_d_c = other.d.overflowing_mul(self.c);
+//                 let result_d_d = other.d.overflowing_mul(self.d);
 
-                let (overflow_of_c_to_b_1, mut c) = result_d_d.upper.overflowing_add(result_c_d.lower).into();
-                let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
+//                 let (overflow_of_c_to_b_1, mut c) = result_d_d.upper.overflowing_add(result_c_d.lower).into();
+//                 let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
 
-                let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();
+//                 let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();
 
-                let (overflow_of_b_to_a_1, mut b) = result_b_d.lower.overflowing_add(result_c_d.upper).into();
-                let (overflow_of_b_to_a_2, b) = b.overflowing_add(result_d_c.upper).into();
-                let (overflow_of_b_to_a_3, b) = b.overflowing_add(overflow_of_c_to_b_2).into();
+//                 let (overflow_of_b_to_a_1, mut b) = result_b_d.lower.overflowing_add(result_c_d.upper).into();
+//                 let (overflow_of_b_to_a_2, b) = b.overflowing_add(result_d_c.upper).into();
+//                 let (overflow_of_b_to_a_3, b) = b.overflowing_add(overflow_of_c_to_b_2).into();
 
-                Self::from((
-                    other.b * self.c + result_b_d.upper + overflow_of_b_to_a_3 + overflow_of_b_to_a_2 + overflow_of_b_to_a_1 + overflow_of_b_to_a_0,
-                    b,
-                    c,
-                    result_d_d.lower,
-                ))
-            } else {
-                // note, that `self.a`, `self.b`, `other.a`, `other.b` are all equal to 0
-                let result_c_c = other.c.overflowing_mul(self.c);
-                let result_c_d = self.c.overflowing_mul(other.d);
-                let result_d_c = self.d.overflowing_mul(other.c);
-                let result_d_d = self.d.overflowing_mul(other.d);
+//                 Self::from((
+//                     other.b * self.c + result_b_d.upper + overflow_of_b_to_a_3 + overflow_of_b_to_a_2 + overflow_of_b_to_a_1 + overflow_of_b_to_a_0,
+//                     b,
+//                     c,
+//                     result_d_d.lower,
+//                 ))
+//             } else {
+//                 // note, that `self.a`, `self.b`, `other.a`, `other.b` are all equal to 0
+//                 let result_c_c = other.c.overflowing_mul(self.c);
+//                 let result_c_d = self.c.overflowing_mul(other.d);
+//                 let result_d_c = self.d.overflowing_mul(other.c);
+//                 let result_d_d = self.d.overflowing_mul(other.d);
 
-                let (overflow_of_c_to_b_1, mut c) = result_d_d.upper.overflowing_add(result_c_d.lower).into();
+//                 let (overflow_of_c_to_b_1, mut c) = result_d_d.upper.overflowing_add(result_c_d.lower).into();
 
-                let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
+//                 let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
 
-                let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();
+//                 let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();
 
-                let (overflow_of_b_to_a_1, mut b) = result_c_c.lower.overflowing_add(result_c_d.upper).into();
-                let (overflow_of_b_to_a_2, b) = b.overflowing_add(result_d_c.upper).into();
-                let (overflow_of_b_to_a_3, b) = b.overflowing_add(overflow_of_c_to_b_2).into();
+//                 let (overflow_of_b_to_a_1, mut b) = result_c_c.lower.overflowing_add(result_c_d.upper).into();
+//                 let (overflow_of_b_to_a_2, b) = b.overflowing_add(result_d_c.upper).into();
+//                 let (overflow_of_b_to_a_3, b) = b.overflowing_add(overflow_of_c_to_b_2).into();
 
-                Self::from((
-                    // as overflow for a means overflow for the whole number, we are adding as is, not using `overflowing_add`
-                    result_c_c.upper + overflow_of_b_to_a_3 + overflow_of_b_to_a_2 + overflow_of_b_to_a_1 + overflow_of_b_to_a_0,
-                    b,
-                    c,
-                    result_d_d.lower,
-                ))
-            }
-        }
-    }
-}
+//                 Self::from((
+//                     // as overflow for a means overflow for the whole number, we are adding as is, not using `overflowing_add`
+//                     result_c_c.upper + overflow_of_b_to_a_3 + overflow_of_b_to_a_2 + overflow_of_b_to_a_1 + overflow_of_b_to_a_0,
+//                     b,
+//                     c,
+//                     result_d_d.lower,
+//                 ))
+//             }
+//         }
+//     }
+// }
 
 // impl core::ops::Divide for U256 {
 //     /// Divide a `U256` by a `U256`. Reverts if divisor is zero.

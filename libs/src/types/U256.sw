@@ -57,23 +57,23 @@ impl From<(u64, u64, u64, u64)> for U256 {
             d: components.3,
         }
     }
+}
 
-    /// Function for extracting 4 `u64`s from a `U256`.
+impl core::ops::Eq for U256 {
+    /// Function for comparing 2 `U256`s for equality.
     #[allow(deprecated)]
-    fn into(self) -> (u64, u64, u64, u64) {
-        (self.a, self.b, self.c, self.d)
+    fn eq(self, other: Self) -> bool {
+        self.a == other.a && self.b == other.b && self.c == other.c && self.d == other.d
     }
 }
 
-// impl core::ops::Eq for U256 {
-//     /// Function for comparing 2 `U256`s for equality.
-//     #[allow(deprecated)]
-//     fn eq(self, other: Self) -> bool {
-//         self.a == other.a && self.b == other.b && self.c == other.c && self.d == other.d
-//     }
-// }
+impl U256 {
+        /// Function for extracting 4 `u64`s from a `U256`.
+        #[allow(deprecated)]
+        fn into(self) -> (u64, u64, u64, u64) {
+            (self.a, self.b, self.c, self.d)
+        }
 
-// impl U256 {
 //     /// Initializes a new, zeroed `U256`.
 //     ///
 //     /// # Returns
@@ -639,7 +639,7 @@ impl From<(u64, u64, u64, u64)> for U256 {
 //             }
 //         }
 //     }
-// }
+}
 
 // impl core::ops::Divide for U256 {
 //     /// Divide a `U256` by a `U256`. Reverts if divisor is zero.

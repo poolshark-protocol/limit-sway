@@ -1,6 +1,8 @@
 library;
 
-use ::types::I24::*;
+use ::types::{
+    I24::*,
+};
 
 pub struct ConstantProduct {
     test: u32,

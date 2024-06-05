@@ -81,7 +81,7 @@ impl MintRangeCall {
             cache.position = positions.get(params.position_id).read();
             require(cache.position.liquidity != 0u64, "INPUT ERROR: No position with liquidity found.");
             // check msg_asset_id matches contract_id + position_id
-            require(msg_asset_id() == AssetId::new(contract_id(), params.position_id.as_u256().as_b256()), "INPUT ERROR: Position owner mismatch.");
+            require(msg_asset_id() == AssetId::new(contract_id(), SubId::from(params.position_id)), "INPUT ERROR: Position owner mismatch.");
             cache.owner = params.to;
             params.lower = cache.position.lower;
             params.upper = cache.position.upper;

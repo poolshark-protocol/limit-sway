@@ -10,6 +10,7 @@ pub mod Q64x64;
 pub mod SQ63x64;
 pub mod identity;
 pub mod state;
+pub mod sub_id;
 pub mod ticks;
 pub mod positions;
 pub mod cache;

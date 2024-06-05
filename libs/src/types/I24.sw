@@ -31,10 +31,6 @@ impl From<u32> for I24 {
         require(underlying < Self::zero_u32(), I24Error::Overflow);
         I24 { underlying }
     }
-
-    fn into(self) -> u32 {
-        self.underlying
-    }
 }
 
 // Main math and comparison Ops
@@ -81,6 +77,10 @@ impl core::ops::Ord for I24 {
 }
 
 impl I24 {
+    fn into(self) -> u32 {
+        self.underlying
+    }
+
     pub fn ge(self, other: Self) -> bool {
         // >=0 vs. >=0
         (

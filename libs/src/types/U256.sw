@@ -643,51 +643,51 @@ impl core::ops::Multiply for U256 {
     }
 }
 
-// impl core::ops::Divide for U256 {
-//     /// Divide a `U256` by a `U256`. Reverts if divisor is zero.
-//     #[allow(deprecated)]
-//     fn divide(self, divisor: Self) -> Self {
-//         let zero = Self::from((0, 0, 0, 0));
-//         let one = Self::from((0, 0, 0, 1));
+impl core::ops::Divide for U256 {
+    /// Divide a `U256` by a `U256`. Reverts if divisor is zero.
+    #[allow(deprecated)]
+    fn divide(self, divisor: Self) -> Self {
+        let zero = Self::from((0, 0, 0, 0));
+        let one = Self::from((0, 0, 0, 1));
 
-//         assert(divisor != zero);
+        assert(divisor != zero);
 
-//         if self.a == 0
-//             && self.b == 0
-//             && divisor.a == 0
-//             && divisor.b == 0
-//         {
-//             let res = U128::from((self.c, self.d)) / U128::from((divisor.c, divisor.d));
-//             return Self::from((0, 0, res.upper, res.lower));
-//         }
+        if self.a == 0
+            && self.b == 0
+            && divisor.a == 0
+            && divisor.b == 0
+        {
+            let res = U128::from((self.c, self.d)) / U128::from((divisor.c, divisor.d));
+            return Self::from((0, 0, res.upper, res.lower));
+        }
 
-//         let mut quotient = Self::from((0, 0, 0, 0));
-//         let mut remainder = Self::from((0, 0, 0, 0));
+        let mut quotient = Self::from((0, 0, 0, 0));
+        let mut remainder = Self::from((0, 0, 0, 0));
 
-//         let mut i = 256 - 1;
+        let mut i = 256 - 1;
 
-//         while true {
-//             quotient <<= 1;
-//             remainder <<= 1;
+        while true {
+            quotient <<= 1;
+            remainder <<= 1;
 
-//             let _m = self & (one << i);
-//             remainder.d = remainder.d | (self >> i).d & 1;
-//             // TODO use >= once OrdEq can be implemented.
-//             if remainder > divisor || remainder == divisor {
-//                 remainder -= divisor;
-//                 quotient.d = quotient.d | 1;
-//             }
+            let _m = self & (one << i);
+            remainder.d = remainder.d | (self >> i).d & 1;
+            // TODO use >= once OrdEq can be implemented.
+            if remainder > divisor || remainder == divisor {
+                remainder -= divisor;
+                quotient.d = quotient.d | 1;
+            }
 
-//             if i == 0 {
-//                 break;
-//             }
+            if i == 0 {
+                break;
+            }
 
-//             i -= 1;
-//         }
+            i -= 1;
+        }
 
-//         quotient
-//     }
-// }
+        quotient
+    }
+}
 
 // impl Power for U256 {
 //     /// Raises self to the power of `exponent`, using exponentiation by squaring.

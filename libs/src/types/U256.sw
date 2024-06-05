@@ -589,6 +589,7 @@ impl core::ops::Multiply for U256 {
                 //     c,
                 //     result_d_d.lower,
                 // ))
+                Self::from((0,0,0,0))
             } else if other.b != 0 {
                 // If `other.b` is nonzero, `self.b` has to be zero. Otherwise, overflow is
                 // guaranteed because:
@@ -614,6 +615,7 @@ impl core::ops::Multiply for U256 {
                 //     c,
                 //     result_d_d.lower,
                 // ))
+                Self::from((0,0,0,0))
             } else {
                 // note, that `self.a`, `self.b`, `other.a`, `other.b` are all equal to 0
                 // let result_c_c = other.c.overflowing_mul(self.c);
@@ -638,6 +640,7 @@ impl core::ops::Multiply for U256 {
                 //     c,
                 //     result_d_d.lower,
                 // ))
+                Self::from((0,0,0,0))
             }
         }
     }

@@ -575,24 +575,20 @@ impl core::ops::Multiply for U256 {
                 // let value: U128 = result_d_d.upper.overflowing_add(result_c_d.lower).into();
 
                 let (overflow_of_c_to_b_1, mut c) = result_d_d.upper.overflowing_add(result_c_d.lower).into();
-                // let c_to_b_1: U128 = result_d_d.upper.overflowing_add(result_c_d.lower).into();
-                // let overflow_of_c_to_b_1: u64 = c_to_b_1.upper;
-                // let mut c: u64 = c_to_b_1.lower;
-                // let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
+                let (mut overflow_of_c_to_b_2, c) = c.overflowing_add(result_d_c.lower).into();
 
-                // let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();
+                let (overflow_of_b_to_a_0, overflow_of_c_to_b_2) = overflow_of_c_to_b_1.overflowing_add(overflow_of_c_to_b_2).into();
 
-                // let (overflow_of_b_to_a_1, mut b) = result_b_d.lower.overflowing_add(result_c_d.upper).into();
-                // let (overflow_of_b_to_a_2, b) = b.overflowing_add(result_d_c.upper).into();
-                // let (overflow_of_b_to_a_3, b) = b.overflowing_add(overflow_of_c_to_b_2).into();
+                let (overflow_of_b_to_a_1, mut b) = result_b_d.lower.overflowing_add(result_c_d.upper).into();
+                let (overflow_of_b_to_a_2, b) = b.overflowing_add(result_d_c.upper).into();
+                let (overflow_of_b_to_a_3, b) = b.overflowing_add(overflow_of_c_to_b_2).into();
 
-                // Self::from((
-                //     self.b * other.c + result_b_d.upper + overflow_of_b_to_a_3 + overflow_of_b_to_a_2 + overflow_of_b_to_a_1 + overflow_of_b_to_a_0,
-                //     b,
-                //     c,
-                //     result_d_d.lower,
-                // ))
-                Self::from((0,0,0,0))
+                Self::from((
+                    self.b * other.c + result_b_d.upper + overflow_of_b_to_a_3 + overflow_of_b_to_a_2 + overflow_of_b_to_a_1 + overflow_of_b_to_a_0,
+                    b,
+                    c,
+                    result_d_d.lower,
+                ))
             } else if other.b != 0 {
                 // If `other.b` is nonzero, `self.b` has to be zero. Otherwise, overflow is
                 // guaranteed because:

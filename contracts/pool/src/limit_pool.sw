@@ -139,7 +139,6 @@ abi LimitPool {
     fn snapshot_limit(params: SnapshotLimitParams) -> (u64, u64);
 }
 
-// Should be all storage variables
 storage {
     token0: AssetId = AssetId{ value: 0x0000000000000000000000000000000000000000000000000000000000000000 },
     token1: AssetId = AssetId{ value: 0x0000000000000000000000000000000000000000000000000000000000000000 },
@@ -151,21 +150,9 @@ storage {
     ticks: StorageMap<I24, Tick> = StorageMap::<I24, Tick> {},
     positions: StorageMap<u32, RangePosition> = StorageMap::<u32, RangePosition> {},
 
-    range_tick_map: TickMap = TickMap {
-        blocks: 0u64,
-        words: StorageMap::<u256, u256> {},
-        ticks: StorageMap::<u256, u256> {},
-        epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
-        epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
-    },
+    range_tick_map: TickMap = TickMap::new(),
 
-    limit_tick_map: TickMap = TickMap {
-        blocks: 0u64,
-        words: StorageMap::<u256, u256> {},
-        ticks: StorageMap::<u256, u256> {},
-        epochs0: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
-        epochs1: StorageMap::<u256, StorageMap<u256, StorageMap<u256, u256>>> {},
-    },
+    limit_tick_map: TickMap = TickMap::new(),
 
     samples: StorageVec<Sample> = StorageVec {},
 

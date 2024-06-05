@@ -282,6 +282,10 @@ impl U128 {
         }
     }
 
+    pub fn into(self) -> (u64, u64) {
+        (self.upper, self.lower)
+    }
+
     /// Safely downcast to `u64` without loss of precision.
     ///
     /// # Additional Information

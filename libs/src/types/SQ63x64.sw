@@ -4,7 +4,7 @@ use core::primitives::*;
 use std::{primitive_conversions::{u64::*,},};
 use std::{assert::assert, revert::require, math::*, revert::revert};
 
-use ::types{
+use ::types::{
     I24::{I24,I24Error},
     U64::*,
     Q64x64::Q64x64,

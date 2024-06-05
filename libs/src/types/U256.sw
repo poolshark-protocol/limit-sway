@@ -452,33 +452,33 @@ impl core::ops::Not for U256 {
     }
 }
 
-// impl core::ops::Add for U256 {
-//     /// Add a `U256` to a `U256`. Reverts on overflow.
-//     #[allow(deprecated)]
-//     fn add(self, other: Self) -> Self {
-//         let (word_1, word_2, word_3, word_4) = self.into();
-//         let (other_word_1, other_word_2, other_word_3, other_word_4) = other.into();
+impl core::ops::Add for U256 {
+    /// Add a `U256` to a `U256`. Reverts on overflow.
+    #[allow(deprecated)]
+    fn add(self, other: Self) -> Self {
+        let (word_1, word_2, word_3, word_4) = self.into();
+        let (other_word_1, other_word_2, other_word_3, other_word_4) = other.into();
 
-//         let mut overflow = 0;
-//         let mut local_res = U128::from((0, word_4)) + U128::from((0, other_word_4));
-//         let result_d = local_res.lower;
-//         overflow = local_res.upper;
+        let mut overflow = 0;
+        let mut local_res = U128::from((0, word_4)) + U128::from((0, other_word_4));
+        let result_d = local_res.lower;
+        overflow = local_res.upper;
 
-//         local_res = U128::from((0, word_3)) + U128::from((0, other_word_3)) + U128::from((0, overflow));
-//         let result_c = local_res.lower;
-//         overflow = local_res.upper;
+        local_res = U128::from((0, word_3)) + U128::from((0, other_word_3)) + U128::from((0, overflow));
+        let result_c = local_res.lower;
+        overflow = local_res.upper;
 
-//         local_res = U128::from((0, word_2)) + U128::from((0, other_word_2)) + U128::from((0, overflow));
-//         let result_b = local_res.lower;
-//         overflow = local_res.upper;
+        local_res = U128::from((0, word_2)) + U128::from((0, other_word_2)) + U128::from((0, overflow));
+        let result_b = local_res.lower;
+        overflow = local_res.upper;
 
-//         local_res = U128::from((0, word_1)) + U128::from((0, other_word_1)) + U128::from((0, overflow));
-//         let result_a = local_res.lower;
-//         // panic on overflow
-//         assert(local_res.upper == 0);
-//         Self::from((result_a, result_b, result_c, result_d))
-//     }
-// }
+        local_res = U128::from((0, word_1)) + U128::from((0, other_word_1)) + U128::from((0, overflow));
+        let result_a = local_res.lower;
+        // panic on overflow
+        assert(local_res.upper == 0);
+        Self::from((result_a, result_b, result_c, result_d))
+    }
+}
 
 // impl core::ops::Subtract for U256 {
 //     /// Subtract a `U256` from a `U256`. Reverts of overflow.

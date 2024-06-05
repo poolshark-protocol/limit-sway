@@ -368,89 +368,89 @@ impl core::ops::BitwiseXor for U256 {
     }
 }
 
-// impl core::ops::Shift for U256 {
-//     #[allow(deprecated)]
-//     fn lsh(self, shift_amount: u64) -> Self {
-//         let (word_1, word_2, word_3, word_4) = self.into();
-//         let mut w1 = 0;
-//         let mut w2 = 0;
-//         let mut w3 = 0;
-//         let mut w4 = 0;
+impl core::ops::Shift for U256 {
+    #[allow(deprecated)]
+    fn lsh(self, shift_amount: u64) -> Self {
+        let (word_1, word_2, word_3, word_4) = self.into();
+        let mut w1 = 0;
+        let mut w2 = 0;
+        let mut w3 = 0;
+        let mut w4 = 0;
 
-//         let w = shift_amount / 64; // num of whole words to shift in addition to b
-//         let b = shift_amount % 64; // num of bits to shift within each word
-//         if w == 0 {
-//             let (shifted_2, carry_2) = lsh_with_carry(word_2, b);
-//             w1 = (word_1 << b) + carry_2;
-//             let (shifted_3, carry_3) = lsh_with_carry(word_3, b);
-//             w2 = shifted_2 + carry_3;
-//             let (shifted_4, carry_4) = lsh_with_carry(word_4, b);
-//             w3 = shifted_3 + carry_4;
-//             w4 = shifted_4;
-//         } else if w == 1 {
-//             let (shifted_3, carry_3) = lsh_with_carry(word_3, b);
-//             w1 = (word_2 << b) + carry_3;
-//             let (shifted_4, carry_4) = lsh_with_carry(word_4, b);
-//             w2 = shifted_3 + carry_4;
-//             w3 = shifted_4;
-//         } else if w == 2 {
-//             let (shifted_4, carry_4) = lsh_with_carry(word_4, b);
-//             w1 = (word_3 << b) + carry_4;
-//             w2 = shifted_4;
-//         } else if w == 3 {
-//             w1 = word_4 << b;
-//         }
+        let w = shift_amount / 64; // num of whole words to shift in addition to b
+        let b = shift_amount % 64; // num of bits to shift within each word
+        if w == 0 {
+            let (shifted_2, carry_2) = lsh_with_carry(word_2, b);
+            w1 = (word_1 << b) + carry_2;
+            let (shifted_3, carry_3) = lsh_with_carry(word_3, b);
+            w2 = shifted_2 + carry_3;
+            let (shifted_4, carry_4) = lsh_with_carry(word_4, b);
+            w3 = shifted_3 + carry_4;
+            w4 = shifted_4;
+        } else if w == 1 {
+            let (shifted_3, carry_3) = lsh_with_carry(word_3, b);
+            w1 = (word_2 << b) + carry_3;
+            let (shifted_4, carry_4) = lsh_with_carry(word_4, b);
+            w2 = shifted_3 + carry_4;
+            w3 = shifted_4;
+        } else if w == 2 {
+            let (shifted_4, carry_4) = lsh_with_carry(word_4, b);
+            w1 = (word_3 << b) + carry_4;
+            w2 = shifted_4;
+        } else if w == 3 {
+            w1 = word_4 << b;
+        }
 
-//         Self::from((w1, w2, w3, w4))
-//     }
+        Self::from((w1, w2, w3, w4))
+    }
 
-//     #[allow(deprecated)]
-//     fn rsh(self, shift_amount: u64) -> Self {
-//         let (word_1, word_2, word_3, word_4) = self.into();
-//         let mut w1 = 0;
-//         let mut w2 = 0;
-//         let mut w3 = 0;
-//         let mut w4 = 0;
+    #[allow(deprecated)]
+    fn rsh(self, shift_amount: u64) -> Self {
+        let (word_1, word_2, word_3, word_4) = self.into();
+        let mut w1 = 0;
+        let mut w2 = 0;
+        let mut w3 = 0;
+        let mut w4 = 0;
 
-//         let w = shift_amount / 64; // num of whole words to shift in addition to b
-//         let b = shift_amount % 64; // num of bits to shift within each word
-//         if w == 0 {
-//             let (shifted_3, carry_3) = rsh_with_carry(word_3, b);
-//             w4 = (word_4 >> b) + carry_3;
-//             let (shifted_2, carry_2) = rsh_with_carry(word_2, b);
-//             w3 = shifted_3 + carry_2;
-//             let (shifted_1, carry_1) = rsh_with_carry(word_1, b);
-//             w2 = shifted_2 + carry_1;
-//             w1 = shifted_1;
-//         } else if w == 1 {
-//             let (shifted_2, carry_2) = rsh_with_carry(word_2, b);
-//             w4 = (word_3 >> b) + carry_2;
-//             let (shifted_1, carry_1) = rsh_with_carry(word_1, b);
-//             w3 = shifted_2 + carry_1;
-//             w2 = shifted_1;
-//         } else if w == 2 {
-//             let (shifted_1, carry_1) = rsh_with_carry(word_1, b);
-//             w4 = (word_2 >> b) + carry_1;
-//             w3 = shifted_1;
-//         } else if w == 3 {
-//             w4 = word_1 >> b;
-//         };
+        let w = shift_amount / 64; // num of whole words to shift in addition to b
+        let b = shift_amount % 64; // num of bits to shift within each word
+        if w == 0 {
+            let (shifted_3, carry_3) = rsh_with_carry(word_3, b);
+            w4 = (word_4 >> b) + carry_3;
+            let (shifted_2, carry_2) = rsh_with_carry(word_2, b);
+            w3 = shifted_3 + carry_2;
+            let (shifted_1, carry_1) = rsh_with_carry(word_1, b);
+            w2 = shifted_2 + carry_1;
+            w1 = shifted_1;
+        } else if w == 1 {
+            let (shifted_2, carry_2) = rsh_with_carry(word_2, b);
+            w4 = (word_3 >> b) + carry_2;
+            let (shifted_1, carry_1) = rsh_with_carry(word_1, b);
+            w3 = shifted_2 + carry_1;
+            w2 = shifted_1;
+        } else if w == 2 {
+            let (shifted_1, carry_1) = rsh_with_carry(word_1, b);
+            w4 = (word_2 >> b) + carry_1;
+            w3 = shifted_1;
+        } else if w == 3 {
+            w4 = word_1 >> b;
+        };
 
-//         Self::from((w1, w2, w3, w4))
-//     }
-// }
+        Self::from((w1, w2, w3, w4))
+    }
+}
 
-// impl core::ops::Not for U256 {
-//     #[allow(deprecated)]
-//     fn not(self) -> Self {
-//         Self {
-//             a: !self.a,
-//             b: !self.b,
-//             c: !self.c,
-//             d: !self.d,
-//         }
-//     }
-// }
+impl core::ops::Not for U256 {
+    #[allow(deprecated)]
+    fn not(self) -> Self {
+        Self {
+            a: !self.a,
+            b: !self.b,
+            c: !self.c,
+            d: !self.d,
+        }
+    }
+}
 
 // impl core::ops::Add for U256 {
 //     /// Add a `U256` to a `U256`. Reverts on overflow.

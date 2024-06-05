@@ -115,12 +115,6 @@ impl From<u64> for U128 {
     }
 }
 
-impl U128 {
-    pub fn zero() -> U128 {
-        U128::from(0u8)
-    }
-}
-
 /// The error type used for `U128` type errors.
 pub enum U128Error {
     /// This error occurs when a `U128` is attempted to be downcast to a `u64` and the conversion would result in a loss of precision.

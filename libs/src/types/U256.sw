@@ -315,58 +315,58 @@ impl core::ops::Ord for U256 {
     }
 }
 
-// #[test]
-// fn test_u256_ord() {
-//     assert(U256::from((0, 0, 0, 1)) < U256::from((0, u64::max(), 0, 0)));
-//     assert(!(U256::from((0, 0, 0, 1)) > U256::from((0, u64::max(), 0, 0))));
+#[test]
+fn test_u256_ord() {
+    assert(U256::from((0, 0, 0, 1)) < U256::from((0, u64::max(), 0, 0)));
+    assert(!(U256::from((0, 0, 0, 1)) > U256::from((0, u64::max(), 0, 0))));
 
-//     assert(U256::from((0, u64::max(), 0, 0)) > U256::from((0, 0, 0, 1)));
-//     assert(!(U256::from((0, u64::max(), 0, 0)) < U256::from((0, 0, 0, 1))));
+    assert(U256::from((0, u64::max(), 0, 0)) > U256::from((0, 0, 0, 1)));
+    assert(!(U256::from((0, u64::max(), 0, 0)) < U256::from((0, 0, 0, 1))));
 
-//     assert(U256::max() > U256::from((0, 0, u64::max(), u64::max())));
-//     assert(!(U256::max() < U256::from((0, 0, u64::max(), u64::max()))));
-//     assert(U256::from((0, 0, u64::max(), u64::max())) < U256::max());
-//     assert(!(U256::from((0, 0, u64::max(), u64::max())) > U256::max()));
-// }
+    assert(U256::max() > U256::from((0, 0, u64::max(), u64::max())));
+    assert(!(U256::max() < U256::from((0, 0, u64::max(), u64::max()))));
+    assert(U256::from((0, 0, u64::max(), u64::max())) < U256::max());
+    assert(!(U256::from((0, 0, u64::max(), u64::max())) > U256::max()));
+}
 
-// impl core::ops::BitwiseAnd for U256 {
-//     #[allow(deprecated)]
-//     fn binary_and(self, other: Self) -> Self {
-//         let (value_word_1, value_word_2, value_word_3, value_word_4) = self.into();
-//         let (other_word_1, other_word_2, other_word_3, other_word_4) = other.into();
-//         let word_1 = value_word_1 & other_word_1;
-//         let word_2 = value_word_2 & other_word_2;
-//         let word_3 = value_word_3 & other_word_3;
-//         let word_4 = value_word_4 & other_word_4;
-//         Self::from((word_1, word_2, word_3, word_4))
-//     }
-// }
+impl core::ops::BitwiseAnd for U256 {
+    #[allow(deprecated)]
+    fn binary_and(self, other: Self) -> Self {
+        let (value_word_1, value_word_2, value_word_3, value_word_4) = self.into();
+        let (other_word_1, other_word_2, other_word_3, other_word_4) = other.into();
+        let word_1 = value_word_1 & other_word_1;
+        let word_2 = value_word_2 & other_word_2;
+        let word_3 = value_word_3 & other_word_3;
+        let word_4 = value_word_4 & other_word_4;
+        Self::from((word_1, word_2, word_3, word_4))
+    }
+}
 
-// impl core::ops::BitwiseOr for U256 {
-//     #[allow(deprecated)]
-//     fn binary_or(self, other: Self) -> Self {
-//         let (value_word_1, value_word_2, value_word_3, value_word_4) = self.into();
-//         let (other_word_1, other_word_2, other_word_3, other_word_4) = other.into();
-//         let word_1 = value_word_1 | other_word_1;
-//         let word_2 = value_word_2 | other_word_2;
-//         let word_3 = value_word_3 | other_word_3;
-//         let word_4 = value_word_4 | other_word_4;
-//         Self::from((word_1, word_2, word_3, word_4))
-//     }
-// }
+impl core::ops::BitwiseOr for U256 {
+    #[allow(deprecated)]
+    fn binary_or(self, other: Self) -> Self {
+        let (value_word_1, value_word_2, value_word_3, value_word_4) = self.into();
+        let (other_word_1, other_word_2, other_word_3, other_word_4) = other.into();
+        let word_1 = value_word_1 | other_word_1;
+        let word_2 = value_word_2 | other_word_2;
+        let word_3 = value_word_3 | other_word_3;
+        let word_4 = value_word_4 | other_word_4;
+        Self::from((word_1, word_2, word_3, word_4))
+    }
+}
 
-// impl core::ops::BitwiseXor for U256 {
-//     #[allow(deprecated)]
-//     fn binary_xor(self, other: Self) -> Self {
-//         let (value_word_1, value_word_2, value_word_3, value_word_4) = self.into();
-//         let (other_word_1, other_word_2, other_word_3, other_word_4) = other.into();
-//         let word_1 = value_word_1 ^ other_word_1;
-//         let word_2 = value_word_2 ^ other_word_2;
-//         let word_3 = value_word_3 ^ other_word_3;
-//         let word_4 = value_word_4 ^ other_word_4;
-//         Self::from((word_1, word_2, word_3, word_4))
-//     }
-// }
+impl core::ops::BitwiseXor for U256 {
+    #[allow(deprecated)]
+    fn binary_xor(self, other: Self) -> Self {
+        let (value_word_1, value_word_2, value_word_3, value_word_4) = self.into();
+        let (other_word_1, other_word_2, other_word_3, other_word_4) = other.into();
+        let word_1 = value_word_1 ^ other_word_1;
+        let word_2 = value_word_2 ^ other_word_2;
+        let word_3 = value_word_3 ^ other_word_3;
+        let word_4 = value_word_4 ^ other_word_4;
+        Self::from((word_1, word_2, word_3, word_4))
+    }
+}
 
 // impl core::ops::Shift for U256 {
 //     #[allow(deprecated)]

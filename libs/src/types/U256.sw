@@ -689,75 +689,75 @@ impl core::ops::Divide for U256 {
     }
 }
 
-// impl Power for U256 {
-//     /// Raises self to the power of `exponent`, using exponentiation by squaring.
-//     ///
-//     /// # Panics
-//     ///
-//     /// Panics if the result overflows the type.
-//     #[allow(deprecated)]
-//     fn pow(self, exponent: u32) -> Self {
-//         let one = U256::from((0, 0, 0, 1));
+impl Power for U256 {
+    /// Raises self to the power of `exponent`, using exponentiation by squaring.
+    ///
+    /// # Panics
+    ///
+    /// Panics if the result overflows the type.
+    #[allow(deprecated)]
+    fn pow(self, exponent: u32) -> Self {
+        let one = U256::from((0, 0, 0, 1));
 
-//         if exponent == 0 {
-//             return one;
-//         }
+        if exponent == 0 {
+            return one;
+        }
 
-//         let mut exp = exponent;
-//         let mut base = self;
-//         let mut acc = one;
+        let mut exp = exponent;
+        let mut base = self;
+        let mut acc = one;
 
-//         while exp > 1 {
-//             if (exp & 1) == 1 {
-//                 acc = acc * base;
-//             }
-//             exp = exp >> 1;
-//             base = base * base;
-//         }
+        while exp > 1 {
+            if (exp & 1) == 1 {
+                acc = acc * base;
+            }
+            exp = exp >> 1;
+            base = base * base;
+        }
 
-//         acc * base
-//     }
-// }
+        acc * base
+    }
+}
 
-// #[test]
-// #[allow(deprecated)]
-// fn test_five_pow_two_u256() {
-//     let five = U256::from((0, 0, 0, 5));
+#[test]
+#[allow(deprecated)]
+fn test_five_pow_two_u256() {
+    let five = U256::from((0, 0, 0, 5));
 
-//     let five_pow_two = five.pow(2);
-//     assert(five_pow_two.a == 0);
-//     assert(five_pow_two.b == 0);
-//     assert(five_pow_two.c == 0);
-//     assert(five_pow_two.d == 25);
-// }
+    let five_pow_two = five.pow(2);
+    assert(five_pow_two.a == 0);
+    assert(five_pow_two.b == 0);
+    assert(five_pow_two.c == 0);
+    assert(five_pow_two.d == 25);
+}
 
-// #[test]
-// #[allow(deprecated)]
-// fn test_five_pow_three_u256() {
-//     let five = U256::from((0, 0, 0, 5));
+#[test]
+#[allow(deprecated)]
+fn test_five_pow_three_u256() {
+    let five = U256::from((0, 0, 0, 5));
 
-//     let five_pow_three = five.pow(3);
-//     assert_eq(five_pow_three.a, 0);
-//     assert_eq(five_pow_three.b, 0);
-//     assert_eq(five_pow_three.c, 0);
-//     assert_eq(five_pow_three.d, 125);
-// }
+    let five_pow_three = five.pow(3);
+    assert_eq(five_pow_three.a, 0);
+    assert_eq(five_pow_three.b, 0);
+    assert_eq(five_pow_three.c, 0);
+    assert_eq(five_pow_three.d, 125);
+}
 
-// #[test]
-// #[allow(deprecated)]
-// fn test_five_pow_28_u256() {
-//     let five = U256::from((0, 0, 0, 5));
+#[test]
+#[allow(deprecated)]
+fn test_five_pow_28_u256() {
+    let five = U256::from((0, 0, 0, 5));
 
-//     let five_pow_28 = five.pow(28);
-//     assert_eq(five_pow_28.a, 0);
-//     assert_eq(five_pow_28.b, 0);
-//     assert_eq(five_pow_28.c, 2);
-//     assert_eq(five_pow_28.d, 359414837200037393);
-// }
+    let five_pow_28 = five.pow(28);
+    assert_eq(five_pow_28.a, 0);
+    assert_eq(five_pow_28.b, 0);
+    assert_eq(five_pow_28.c, 2);
+    assert_eq(five_pow_28.d, 359414837200037393);
+}
 
-// #[test]
-// #[allow(deprecated)]
-// fn test_is_zero() {
-//     let zero_u256 = U256::new();
-//     assert(zero_u256.is_zero());
-// }
+#[test]
+#[allow(deprecated)]
+fn test_is_zero() {
+    let zero_u256 = U256::new();
+    assert(zero_u256.is_zero());
+}

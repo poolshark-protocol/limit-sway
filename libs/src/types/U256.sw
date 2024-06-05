@@ -74,109 +74,109 @@ impl U256 {
             (self.a, self.b, self.c, self.d)
         }
 
-//     /// Initializes a new, zeroed `U256`.
-//     ///
-//     /// # Returns
-//     ///
-//     /// * [U256] - A new, zero value `U256`.
-//     ///
-//     /// # Examples
-//     ///
-//     /// ```sway
-//     /// use std::u256::U256;
-//     ///
-//     /// fn foo() {
-//     ///     let new_u256 = U256::new();
-//     ///     let zero_u256 = U256 { a: 0, b: 0, c: 0, d: 0 };
-//     ///
-//     ///     assert(new_u256 == zero_u256);
-//     /// }
-//     /// ```
-//     #[allow(deprecated)]
-//     pub fn new() -> Self {
-//         Self {
-//             a: 0,
-//             b: 0,
-//             c: 0,
-//             d: 0,
-//         }
-//     }
+    /// Initializes a new, zeroed `U256`.
+    ///
+    /// # Returns
+    ///
+    /// * [U256] - A new, zero value `U256`.
+    ///
+    /// # Examples
+    ///
+    /// ```sway
+    /// use std::u256::U256;
+    ///
+    /// fn foo() {
+    ///     let new_u256 = U256::new();
+    ///     let zero_u256 = U256 { a: 0, b: 0, c: 0, d: 0 };
+    ///
+    ///     assert(new_u256 == zero_u256);
+    /// }
+    /// ```
+    #[allow(deprecated)]
+    pub fn new() -> Self {
+        Self {
+            a: 0,
+            b: 0,
+            c: 0,
+            d: 0,
+        }
+    }
 
-//     /// Initializes a new `U256` with a value of 1.
-//     ///
-//     /// ### Examples
-//     ///
-//     /// ```sway
-//     /// use std::u256::U256;
-//     ///
-//     /// let init_one = U256::one();
-//     /// let one_u256 = U256 { a: 0, b: 0, c: 0, d: 1 };
-//     ///
-//     /// assert(init_one == one_u256);
-//     /// ```
-//     #[allow(deprecated)]
-//     pub fn one() -> Self {
-//         Self {
-//             a: 0,
-//             b: 0,
-//             c: 0,
-//             d: 1,
-//         }
-//     }
+    /// Initializes a new `U256` with a value of 1.
+    ///
+    /// ### Examples
+    ///
+    /// ```sway
+    /// use std::u256::U256;
+    ///
+    /// let init_one = U256::one();
+    /// let one_u256 = U256 { a: 0, b: 0, c: 0, d: 1 };
+    ///
+    /// assert(init_one == one_u256);
+    /// ```
+    #[allow(deprecated)]
+    pub fn one() -> Self {
+        Self {
+            a: 0,
+            b: 0,
+            c: 0,
+            d: 1,
+        }
+    }
 
-//     /// Returns true if value is zero.
-//     ///
-//     /// ### Examples
-//     ///
-//     /// ```sway
-//     /// use std::u256::U256
-//     ///
-//     /// let zero_u256 = U256::new();
-//     /// assert(zero_u256.is_zero());
-//     /// ```
-//     pub fn is_zero(self) -> bool {
-//         self.a == 0 && self.b == 0 && self.c == 0 && self.d == 0
-//     }
+    /// Returns true if value is zero.
+    ///
+    /// ### Examples
+    ///
+    /// ```sway
+    /// use std::u256::U256
+    ///
+    /// let zero_u256 = U256::new();
+    /// assert(zero_u256.is_zero());
+    /// ```
+    pub fn is_zero(self) -> bool {
+        self.a == 0 && self.b == 0 && self.c == 0 && self.d == 0
+    }
 
-//     pub fn low_u64(self) -> u64 {
-//         self.a
-//     }
+    pub fn low_u64(self) -> u64 {
+        self.a
+    }
 
-//     /// Safely downcast to `u64` without loss of precision.
-//     ///
-//     /// # Additional Information
-//     ///
-//     /// If the `U256` is larger than `u64::max()`, an error will be returned.
-//     ///
-//     /// # Returns
-//     ///
-//     /// * [Result<u64, U256Error>] - The `U256` as a `u64` or an error if the conversion would result in a loss of precision.
-//     ///
-//     /// # Examples
-//     ///
-//     /// ```sway
-//     /// use std::u256::{U256, U256Error};
-//     ///
-//     /// fn foo() {
-//     ///     let zero_u256 = U256 { a: 0, b: 0, c: 0, d: 0 };
-//     ///     let zero_u64 = zero_u256.as_u64().unwrap();
-//     ///
-//     ///     assert(zero_u64 == 0);
-//     ///
-//     ///     let max_u256 = U256::max();
-//     ///     let result = U256.as_u64();
-//     ///
-//     ///     assert(result.is_err()))
-//     /// }
-//     /// ```
-//     #[allow(deprecated)]
-//     pub fn as_u64(self) -> Result<u64, U256Error> {
-//         if self.a == 0 && self.b == 0 && self.c == 0 {
-//             Ok(self.d)
-//         } else {
-//             Err(U256Error::LossOfPrecision)
-//         }
-//     }
+    /// Safely downcast to `u64` without loss of precision.
+    ///
+    /// # Additional Information
+    ///
+    /// If the `U256` is larger than `u64::max()`, an error will be returned.
+    ///
+    /// # Returns
+    ///
+    /// * [Result<u64, U256Error>] - The `U256` as a `u64` or an error if the conversion would result in a loss of precision.
+    ///
+    /// # Examples
+    ///
+    /// ```sway
+    /// use std::u256::{U256, U256Error};
+    ///
+    /// fn foo() {
+    ///     let zero_u256 = U256 { a: 0, b: 0, c: 0, d: 0 };
+    ///     let zero_u64 = zero_u256.as_u64().unwrap();
+    ///
+    ///     assert(zero_u64 == 0);
+    ///
+    ///     let max_u256 = U256::max();
+    ///     let result = U256.as_u64();
+    ///
+    ///     assert(result.is_err()))
+    /// }
+    /// ```
+    #[allow(deprecated)]
+    pub fn as_u64(self) -> Result<u64, U256Error> {
+        if self.a == 0 && self.b == 0 && self.c == 0 {
+            Ok(self.d)
+        } else {
+            Err(U256Error::LossOfPrecision)
+        }
+    }
 
 //     /// Safely downcast to `U128` without loss of precision.
 //     ///

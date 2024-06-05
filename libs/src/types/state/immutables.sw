@@ -31,8 +31,8 @@ impl LimitImmutables {
                 min: Q64x64::zero(),
                 max: Q64x64::zero(),
             },
-            token0: AssetId::new(),
-            token1: AssetId::new(),
+            token0: AssetId::default(),
+            token1: AssetId::default(),
             tick_spacing: 0u8,
             swap_fee: 0u16,
         }

@@ -240,39 +240,39 @@ impl core::ops::Divide for I64 {
 }
 
 #[test]
-fn I64_from_neg() {
+fn i64_from_neg() {
 }
 
 #[test]
-fn I64_from_uint() {
+fn i64_from_uint() {
 }
 
 #[test]
-fn I64_from_uint_bool() {
+fn i64_from_uint_bool() {
 }
 
 #[test]
-fn I64_add() {
+fn i64_add() {
 }
 
 #[test]
-fn I64_subtract() {
+fn i64_subtract() {
 }
 
 #[test]
-fn I64_multiply() {
+fn i64_multiply() {
 }
 
 #[test]
-fn I64_divide() {
+fn i64_divide() {
 }
 
 #[test]
-fn I64_mod() {
+fn i64_mod() {
 }
 
 #[test]
-fn I64_abs() {
+fn i64_abs() {
 }
 
 

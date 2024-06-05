@@ -15,7 +15,7 @@ pub enum Q64x64Error {
 }
 
 pub struct Q64x64 {
-    value: U128,
+    pub value: U128,
 }
 impl Q64x64 {
     pub fn u128(self) -> U128 {

@@ -3,8 +3,16 @@ library;
 use ::types::U64::*;
 use ::types::Q64x64::Q64x64;
 use ::types::Q128x128::Q128x128;
-use std::{result::Result, u128::U128, u256::U256};
+use std::{result::Result};
 use std::revert::revert;
+
+use types::{
+    U64::*,
+    Q64x64::Q64x64,
+    Q128x128::Q128x128,
+    U256::U256,
+    U128::U128,
+};
 
 pub enum FullMathError {
     Overflow: (),

@@ -37,10 +37,6 @@ impl From<u64> for I64 {
         require(underlying < Self::zero_u64(), I64Error::Overflow);
         I64 { underlying }
     }
-
-    fn into(self) -> u64 {
-        self.underlying
-    }
 }
 
 // Main math and comparison Ops
@@ -93,6 +89,11 @@ impl I64 {
             underlying: I64::zero_u64(),
         }
     }
+    
+    pub fn into(self) -> u64 {
+        self.underlying
+    }
+
     pub fn abs(self) -> u64 {
         let is_gt_zero: bool = (self.underlying > I64::zero_u64()) || (self.underlying == I64::zero_u64());
         let abs_pos = self.underlying - I64::zero_u64();

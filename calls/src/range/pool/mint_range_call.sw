@@ -94,18 +94,18 @@ impl MintRangeCall {
             //     cache.position,
             //     cache.fees_accrued_0,
             //     cache.fees_accrued_1
-            // ) = RangePositions::update(
-            //     ticks,
-            //     cache.position,
-            //     cache.state,
-            //     cache.constants,
-            //     RangePoolStructs::UpdateParams(
-            //         params.lower,
-            //         params.upper,
-            //         params.position_id,
-            //         0
-            //     )
-            // );
+            let update_result = RangePositions::update(
+                ticks,
+                cache.position,
+                cache.state,
+                cache.constants,
+                RangePoolStructs::UpdateParams(
+                    params.lower,
+                    params.upper,
+                    params.position_id,
+                    0
+                )
+            );
         } else {
             params.position_id = cache.state.position_id_next;
             cache.state.position_id_next = cache.state.position_id_next + 1;

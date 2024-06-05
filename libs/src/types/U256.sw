@@ -16,30 +16,30 @@ fn lsh_with_carry(word: u64, shift_amount: u64) -> (u64, u64) {
     (shifted, carry)
 }
 
-// /// Right shift a `u64` and preserve the overflow amount if any.
-// fn rsh_with_carry(word: u64, shift_amount: u64) -> (u64, u64) {
-//     let left_shift_amount = 64 - shift_amount;
-//     let carry = word << left_shift_amount;
-//     let shifted = word >> shift_amount;
-//     (shifted, carry)
-// }
+/// Right shift a `u64` and preserve the overflow amount if any.
+fn rsh_with_carry(word: u64, shift_amount: u64) -> (u64, u64) {
+    let left_shift_amount = 64 - shift_amount;
+    let carry = word << left_shift_amount;
+    let shifted = word >> shift_amount;
+    (shifted, carry)
+}
 
-// /// The 256-bit unsigned integer type.
-// ///
-// /// # Additional Information
-// ///
-// /// Represented as four 64-bit components: `(a, b, c, d)`, where `value = (a << 192) + (b << 128) + (c << 64) + d`.
-// #[deprecated(note = "use the built-in type `u256` instead")]
-// pub struct U256 {
-//     /// The most significant 64 bits of the `U256`.
-//     a: u64,
-//     /// The 65-128th most significant bits of the `U256`.
-//     b: u64,
-//     /// The 129-192nd most significant bits of the `U256`.
-//     c: u64,
-//     /// The 193-256th most significant bits of the `U256`.
-//     d: u64,
-// }
+/// The 256-bit unsigned integer type.
+///
+/// # Additional Information
+///
+/// Represented as four 64-bit components: `(a, b, c, d)`, where `value = (a << 192) + (b << 128) + (c << 64) + d`.
+#[deprecated(note = "use the built-in type `u256` instead")]
+pub struct U256 {
+    /// The most significant 64 bits of the `U256`.
+    pub a: u64,
+    /// The 65-128th most significant bits of the `U256`.
+    pub b: u64,
+    /// The 129-192nd most significant bits of the `U256`.
+    pub c: u64,
+    /// The 193-256th most significant bits of the `U256`.
+    pub d: u64,
+}
 
 // /// The error type used for `U256` type errors.
 // pub enum U256Error {

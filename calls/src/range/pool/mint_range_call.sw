@@ -16,8 +16,6 @@ use std::{
     },
 };
 
-use limit_libs::abis::callbacks::ILimitPoolMintRangeCallback;
-
 use limit_libs::{
     types::{
         I24::*,
@@ -37,10 +35,13 @@ use limit_libs::{
         identity::*,
         sub_id::*,
     },
-};
-use limit_libs::math::{
-    tick_math::get_price_at_tick,
-    constant_product::*,
+    math::{
+        tick_math::get_price_at_tick,
+        constant_product::*,
+    },
+    abis::{
+        callbacks::ILimitPoolMintRangeCallback
+    },
 };
 
 struct Balances {

@@ -19,12 +19,6 @@ pub struct U128 {
     pub lower: u64,
 }
 
-impl U128 {
-    pub fn zero() -> U128 {
-        U128::from(0u8)
-    }
-}
-
 impl From<u8> for U128 {
     /// Converts a `u8` to a `U128`.
     ///
@@ -118,6 +112,12 @@ impl From<u64> for U128 {
             upper: 0,
             lower: val,
         }
+    }
+}
+
+impl U128 {
+    pub fn zero() -> U128 {
+        U128::from(0u8)
     }
 }
 

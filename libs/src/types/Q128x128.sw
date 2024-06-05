@@ -15,7 +15,7 @@ pub enum Q128x128Error {
 }
 
 pub struct Q128x128 {
-    value: U256,
+    pub value: U256,
 }
 
 pub struct msb_tuple {

@@ -49,14 +49,7 @@ impl Q64x64 {
         64
     }
 }
-impl U128 {
-    fn ge(self, other: Self) -> bool {
-        self > other || self == other
-    }
-    fn le(self, other: Self) -> bool {
-        self < other || self == other
-    }
-}
+
 impl core::ops::Eq for Q64x64 {
     fn eq(self, other: Self) -> bool {
         self.value == other.value

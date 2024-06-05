@@ -7,7 +7,7 @@ use ::{
         Q128x128::*,
     },
     math::{
-        full_math,
+        full_math::*,
     },
 };
     

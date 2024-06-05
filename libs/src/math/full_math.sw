@@ -1,10 +1,9 @@
 library;
 
-use ::types::U64::*;
-use ::types::Q64x64::Q64x64;
-use ::types::Q128x128::Q128x128;
-use std::{result::Result};
-use std::revert::revert;
+use std::{
+    result::Result,
+    revert::revert,
+};
 
 use ::types::{
     U64::*,

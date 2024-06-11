@@ -98,7 +98,7 @@ impl MintRangeCall {
                 cache.position,
                 cache.state,
                 cache.constants,
-                RangePoolStructs::UpdateParams(
+                RangeUpdateParams(
                     params.lower,
                     params.upper,
                     params.position_id,

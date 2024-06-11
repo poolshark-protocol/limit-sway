@@ -8,7 +8,6 @@ use std::{
         storage_map::*,
         storage_key::*,
     },
-    u128::*,
     identity::*,
     call_frames::{
         contract_id,
@@ -79,114 +78,114 @@ impl MintRangeCall {
             cache.constants.tick_spacing
         );
 
-        cache.state = global_state.read();
+        // cache.state = global_state.read();
 
-        if params.position_id > 0 {
-            cache.position = positions.get(params.position_id).read();
-            require(cache.position.liquidity != 0u64, "INPUT ERROR: No position with liquidity found.");
-            // check msg_asset_id matches contract_id + position_id
-            require(msg_asset_id() == AssetId::new(contract_id(), SubId::from(params.position_id)), "INPUT ERROR: Position owner mismatch.");
-            cache.owner = params.to;
-            params.lower = cache.position.lower;
-            params.upper = cache.position.upper;
-            // update existing position
-            // (
-            //     cache.position,
-            //     cache.fees_accrued_0,
-            //     cache.fees_accrued_1
-            let update_result = RangePositions::update(
-                ticks,
-                cache.position,
-                cache.state,
-                cache.constants,
-                RangePoolStructs::UpdateParams(
-                    params.lower,
-                    params.upper,
-                    params.position_id,
-                    0
-                )
-            );
-        } else {
-            params.position_id = cache.state.position_id_next;
-            cache.state.position_id_next = cache.state.position_id_next + 1;
-            cache.position.lower = params.lower;
-            cache.position.upper = params.upper;
-            cache.owner = params.to;
-        }
-        cache.price_lower = get_price_at_tick(
-            cache.position.lower,
-            cache.constants
-        );
-        cache.price_upper = get_price_at_tick(
-            cache.position.upper,
-            cache.constants
-        );
+        // if params.position_id > 0u32 {
+        //     cache.position = positions.get(params.position_id).read();
+        //     require(cache.position.liquidity != 0u64, "INPUT ERROR: No position with liquidity found.");
+        //     // check msg_asset_id matches contract_id + position_id
+        //     require(msg_asset_id() == AssetId::new(contract_id(), SubId::from(params.position_id)), "INPUT ERROR: Position owner mismatch.");
+        //     cache.owner = params.to;
+        //     params.lower = cache.position.lower;
+        //     params.upper = cache.position.upper;
+        //     // update existing position
+        //     // (
+        //     //     cache.position,
+        //     //     cache.fees_accrued_0,
+        //     //     cache.fees_accrued_1
+        //     let update_result = RangePositions::update(
+        //         ticks,
+        //         cache.position,
+        //         cache.state,
+        //         cache.constants,
+        //         RangePoolStructs::UpdateParams(
+        //             params.lower,
+        //             params.upper,
+        //             params.position_id,
+        //             0
+        //         )
+        //     );
+        // } else {
+        //     params.position_id = cache.state.position_id_next;
+        //     cache.state.position_id_next = cache.state.position_id_next + 1;
+        //     cache.position.lower = params.lower;
+        //     cache.position.upper = params.upper;
+        //     cache.owner = params.to;
+        // }
+        // cache.price_lower = get_price_at_tick(
+        //     cache.position.lower,
+        //     cache.constants
+        // );
+        // cache.price_upper = get_price_at_tick(
+        //     cache.position.upper,
+        //     cache.constants
+        // );
 
-        save(positions, global_state, cache, params.position_id);
-        cache.amount0 = cache.amount0 - I64::from_uint(params.amount0);
-        cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
+        // save(positions, global_state, cache, params.position_id);
+        // cache.amount0 = cache.amount0 - I64::from_uint(params.amount0);
+        // cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
 
-        log(MintRangeEvent {
-            pool_id: contract_id().into(),
-            recipient: params.to,
-            lower: params.lower,
-            upper: params.upper,
-            position_id: params.position_id,
-            liquidity_minted: cache.liquidity_minted,
-            amount0_delta: cache.amount0 + cache.fees_accrued_0,
-            amount1_delta: cache.amount1 + cache.fees_accrued_1,
-        });
+        // log(MintRangeEvent {
+        //     pool_id: contract_id().into(),
+        //     recipient: params.to,
+        //     lower: params.lower,
+        //     upper: params.upper,
+        //     position_id: params.position_id,
+        //     liquidity_minted: cache.liquidity_minted,
+        //     amount0_delta: cache.amount0 + cache.fees_accrued_0,
+        //     amount1_delta: cache.amount1 + cache.fees_accrued_1,
+        // });
 
-        // cache = RangePositions::add(ticks, samples, tick_map, cache, params);
+        // // cache = RangePositions::add(ticks, samples, tick_map, cache, params);
 
-        save(positions, global_state, cache, params.position_id);
+        // save(positions, global_state, cache, params.position_id);
 
-        if cache.fees_accrued_0 > I64::zero() || cache.fees_accrued_1 > I64::zero() {
-            // CollectLib::range(
-            //     cache.position,
-            //     cache.constants,
-            //     cache.owner,
-            //     cache.owner,
-            //     cache.fees_accrued_0,
-            //     cache.fees_accrued_1
-            // );
-        }
+        // if cache.fees_accrued_0 > I64::zero() || cache.fees_accrued_1 > I64::zero() {
+        //     // CollectLib::range(
+        //     //     cache.position,
+        //     //     cache.constants,
+        //     //     cache.owner,
+        //     //     cache.owner,
+        //     //     cache.fees_accrued_0,
+        //     //     cache.fees_accrued_1
+        //     // );
+        // }
 
-        let mut start_balances = Balances {
-            amount0: 0,
-            amount1: 0
-        };
+        // let mut start_balances = Balances {
+        //     amount0: 0,
+        //     amount1: 0
+        // };
 
-        if cache.amount0 < I64::zero() {
-            start_balances.amount0 = balance0(cache);
-        }
-        if cache.amount1 < I64::zero() {
-            start_balances.amount1 = balance1(cache);
-        }
+        // if cache.amount0 < I64::zero() {
+        //     start_balances.amount0 = balance0(cache);
+        // }
+        // if cache.amount1 < I64::zero() {
+        //     start_balances.amount1 = balance1(cache);
+        // }
 
-        abi(ILimitPoolMintRangeCallback, msg_sender().unwrap().bits()).limit_pool_mint_range_callback(
-            cache.amount0,
-            cache.amount1,
-            params.callback_data
-        );
+        // abi(ILimitPoolMintRangeCallback, msg_sender().unwrap().bits()).limit_pool_mint_range_callback(
+        //     cache.amount0,
+        //     cache.amount1,
+        //     params.callback_data
+        // );
 
-        if cache.amount0 < I64::zero() {
-            // revert if cache.amount0 > start_balances.amount0
-            if balance0(cache) < start_balances.amount0 + cache.amount0.abs() {
-                // revert MintInputAmount0TooLow
-            }
-        }
-        if cache.amount1 < I64::zero() {
-            // revert if cache.amount1 > start_balances.amount1
-            if balance1(cache) < start_balances.amount1 + cache.amount1.abs() {
-                // revert MintInputAmount1TooLow
-            }
-        }
+        // if cache.amount0 < I64::zero() {
+        //     // revert if cache.amount0 > start_balances.amount0
+        //     if balance0(cache) < start_balances.amount0 + cache.amount0.abs() {
+        //         // revert MintInputAmount0TooLow
+        //     }
+        // }
+        // if cache.amount1 < I64::zero() {
+        //     // revert if cache.amount1 > start_balances.amount1
+        //     if balance1(cache) < start_balances.amount1 + cache.amount1.abs() {
+        //         // revert MintInputAmount1TooLow
+        //     }
+        // }
 
-        (
-            cache.amount0 + cache.fees_accrued_0,
-            cache.amount1 + cache.fees_accrued_1
-        )
+        // (
+        //     cache.amount0 + cache.fees_accrued_0,
+        //     cache.amount1 + cache.fees_accrued_1
+        // )
     }
 }
 

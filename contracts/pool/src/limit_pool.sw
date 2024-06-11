@@ -16,7 +16,9 @@ use std::{
     auth::*,
     hash::*,
     logging::log,
-    call_frames::{contract_id ,msg_asset_id},
+    call_frames::{
+        msg_asset_id
+    },
     context::msg_amount,
     alias::SubId,
     storage::{

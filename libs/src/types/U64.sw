@@ -11,4 +11,11 @@ impl u64 {
 
         optional_res_32.unwrap()
     }
+
+    fn as_u128(self) -> U128 {
+        U128 {
+            upper: 0,
+            lower: self
+        }
+    }
 }

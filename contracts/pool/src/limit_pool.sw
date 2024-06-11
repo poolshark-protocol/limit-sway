@@ -64,46 +64,6 @@ use limit_calls::{
     },
 };
 
-impl core::ops::Ord for AssetId {
-    fn lt(self, other: Self) -> bool {
-        self.bits() < other.bits()
-    }
-    fn gt(self, other: Self) -> bool {
-        self.bits() > other.bits()
-    }
-}
-
-impl u64 {
-    fn as_u128(self) -> U128 {
-        U128 {
-            upper: 0,
-            lower: self
-        }
-    }
-}
-
-impl SubId {
-    fn default() -> SubId {
-        let default_sub_id: SubId = 0x0000000000000000000000000000000000000000000000000000000000000000;
-        default_sub_id
-    }
-}
-
-struct Position {
-    liquidity: U128,
-    fee_growth_inside0: Q64x64,
-    fee_growth_inside1: Q64x64,
-}
-
-struct Tick {
-    prev_tick: I24, 
-    next_tick: I24,
-    liquidity: U128,
-    fee_growth_outside0: Q64x64,
-    fee_growth_outside1: Q64x64,
-    seconds_growth_outside: U128
-}
-
 abi LimitPool {
     #[storage(read, write)]
     fn initialize(start_price: Q64x64);

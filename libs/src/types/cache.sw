@@ -12,7 +12,7 @@ use ::types::{
     },
 };
 
-pubpub  struct MintRangeCache {
+pub struct MintRangeCache {
    pub state: GlobalState,
    pub position: RangePosition,
    pub constants: LimitImmutables,

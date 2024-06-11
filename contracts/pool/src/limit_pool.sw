@@ -66,10 +66,10 @@ use limit_calls::{
 
 impl core::ops::Ord for AssetId {
     fn lt(self, other: Self) -> bool {
-        self.value < other.value
+        self.bits() < other.bits()
     }
     fn gt(self, other: Self) -> bool {
-        self.value > other.value
+        self.bits() > other.bits()
     }
 }
 

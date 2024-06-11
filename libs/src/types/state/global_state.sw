@@ -8,37 +8,37 @@ use ::types::{
 };
 
 pub struct Sample {
-  block_timestamp: u32,
-  tick_seconds_accum: I64,
-  seconds_per_liquidity_accum: u256
+  pub block_timestamp: u32,
+  pub tick_seconds_accum: I64,
+  pub seconds_per_liquidity_accum: u256
 }
 
 pub struct SampleState {
-  index: u16,
-  count: u16,
-  count_max: u16,
+  pub index: u16,
+  pub count: u16,
+  pub count_max: u16,
 }
 
 pub struct LimitPoolState {
-  price: Q64x64,                
-  liquidity: u64,          
-  protocol_fees: u64,
-  protocol_fill_fee: u16,
-  tick_at_price: I24,
+  pub price: Q64x64,                
+  pub liquidity: u64,          
+  pub protocol_fees: u64,
+  pub protocol_fill_fee: u16,
+  pub tick_at_price: I24,
 }
 
 pub struct RangePoolState {
-  samples: SampleState,
-  fee_growth_global0: u256,
-  fee_growth_global1: u256,
-  seconds_per_liquidity_accum: u256,
-  price: Q64x64,                
-  liquidity: u64,            
-  tick_seconds_accum: I64,
-  tick_at_price: I24,
-  swap_fee: u16,
-  protocol_swap_fee0: u16,
-  protocol_swap_fee1: u16,
+  pub samples: SampleState,
+  pub fee_growth_global0: u256,
+  pub fee_growth_global1: u256,
+  pub seconds_per_liquidity_accum: u256,
+  pub price: Q64x64,                
+  pub liquidity: u64,            
+  pub tick_seconds_accum: I64,
+  pub tick_at_price: I24,
+  pub swap_fee: u16,
+  pub protocol_swap_fee0: u16,
+  pub protocol_swap_fee1: u16,
 }
 
 pub struct GlobalState {

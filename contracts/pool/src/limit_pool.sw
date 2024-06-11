@@ -6,6 +6,7 @@ use ::errors::LimitPoolErrors;
 
 use std::{
     revert::require,
+    b256::*,
     identity::*,
     contract_id::*,
     asset_id::*,
@@ -169,7 +170,7 @@ impl LimitPool for Contract {
     fn initialize(start_price: Q64x64) {
 
         log(InitPoolEvent {
-            pool_id: contract_id().into(),
+            pool_id: ContractId::this().into(),
             min_tick: I24::zero(),
             max_tick: I24::zero(),
             start_price: Q64x64::zero(),

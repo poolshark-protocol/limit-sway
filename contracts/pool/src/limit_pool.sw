@@ -10,7 +10,6 @@ use std::{
     contract_id::*,
     asset_id::*,
     address::Address,
-    u256::*,
     asset::transfer,
     result::*,
     auth::*,
@@ -36,6 +35,7 @@ use limit_libs::{
         Q64x64::*,
         Q128x128::*,
         U128::*,
+        U256::*,
         state::{
             global_state::*,
         },

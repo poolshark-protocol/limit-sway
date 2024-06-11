@@ -77,40 +77,40 @@ impl MintRangeCall {
             cache.constants.tick_spacing
         );
 
-        // cache.state = global_state.read();
+        cache.state = global_state.read();
 
-        // if params.position_id > 0u32 {
-        //     cache.position = positions.get(params.position_id).read();
-        //     require(cache.position.liquidity != 0u64, "INPUT ERROR: No position with liquidity found.");
-        //     // check msg_asset_id matches contract_id + position_id
-        //     require(msg_asset_id() == AssetId::new(contract_id(), SubId::from(params.position_id)), "INPUT ERROR: Position owner mismatch.");
-        //     cache.owner = params.to;
-        //     params.lower = cache.position.lower;
-        //     params.upper = cache.position.upper;
-        //     // update existing position
-        //     // (
-        //     //     cache.position,
-        //     //     cache.fees_accrued_0,
-        //     //     cache.fees_accrued_1
-        //     let update_result = RangePositions::update(
-        //         ticks,
-        //         cache.position,
-        //         cache.state,
-        //         cache.constants,
-        //         RangePoolStructs::UpdateParams(
-        //             params.lower,
-        //             params.upper,
-        //             params.position_id,
-        //             0
-        //         )
-        //     );
-        // } else {
-        //     params.position_id = cache.state.position_id_next;
-        //     cache.state.position_id_next = cache.state.position_id_next + 1;
-        //     cache.position.lower = params.lower;
-        //     cache.position.upper = params.upper;
-        //     cache.owner = params.to;
-        // }
+        if params.position_id > 0u32 {
+            cache.position = positions.get(params.position_id).read();
+            require(cache.position.liquidity != 0u64, "INPUT ERROR: No position with liquidity found.");
+            // check msg_asset_id matches contract_id + position_id
+            require(msg_asset_id() == AssetId::new(contract_id(), SubId::from(params.position_id)), "INPUT ERROR: Position owner mismatch.");
+            cache.owner = params.to;
+            params.lower = cache.position.lower;
+            params.upper = cache.position.upper;
+            // update existing position
+            // (
+            //     cache.position,
+            //     cache.fees_accrued_0,
+            //     cache.fees_accrued_1
+            let update_result = RangePositions::update(
+                ticks,
+                cache.position,
+                cache.state,
+                cache.constants,
+                RangePoolStructs::UpdateParams(
+                    params.lower,
+                    params.upper,
+                    params.position_id,
+                    0
+                )
+            );
+        } else {
+            params.position_id = cache.state.position_id_next;
+            cache.state.position_id_next = cache.state.position_id_next + 1;
+            cache.position.lower = params.lower;
+            cache.position.upper = params.upper;
+            cache.owner = params.to;
+        }
         // cache.price_lower = get_price_at_tick(
         //     cache.position.lower,
         //     cache.constants

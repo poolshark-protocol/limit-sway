@@ -1,13 +1,13 @@
 library;
 
 use std::{
-    u128::U128,
     hash::*,
 };
 
 use ::types::{
     I24::*,
     I64::*,
+    U128::*,
     ticks::tick::*,
     state::{
         global_state::*,

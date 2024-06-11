@@ -2,12 +2,12 @@ library;
 
 use std::{
     bytes::*,
-    u128::*,
 };
 
 use ::types::{
     I24::*,
     Q64x64::*,
+    U128::*,
 };
 
 pub struct MintRangeParams {

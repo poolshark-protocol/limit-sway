@@ -12,6 +12,7 @@ use std::{
     call_frames::{
         msg_asset_id
     },
+    contract_id::*,
 };
 
 use limit_libs::{
@@ -83,7 +84,7 @@ impl MintRangeCall {
             cache.position = positions.get(params.position_id).read();
             require(cache.position.liquidity != 0u64, "INPUT ERROR: No position with liquidity found.");
             // check msg_asset_id matches contract_id + position_id
-            require(msg_asset_id() == AssetId::new(contract_id(), SubId::from(params.position_id)), "INPUT ERROR: Position owner mismatch.");
+            require(msg_asset_id() == AssetId::new(ContractId::this(), SubId::from(params.position_id)), "INPUT ERROR: Position owner mismatch.");
             cache.owner = params.to;
             params.lower = cache.position.lower;
             params.upper = cache.position.upper;
@@ -92,7 +93,7 @@ impl MintRangeCall {
             //     cache.position,
             //     cache.fees_accrued_0,
             //     cache.fees_accrued_1
-            let update_result = RangePositions::update(
+            let update_result = RangePosition::update(
                 ticks,
                 cache.position,
                 cache.state,
@@ -125,7 +126,7 @@ impl MintRangeCall {
         // cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
 
         // log(MintRangeEvent {
-        //     pool_id: contract_id().into(),
+        //     pool_id: ContractId::this().into(),
         //     recipient: params.to,
         //     lower: params.lower,
         //     upper: params.upper,

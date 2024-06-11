@@ -181,10 +181,10 @@ impl MintRangeCall {
         //     }
         // }
 
-        // (
-        //     cache.amount0 + cache.fees_accrued_0,
-        //     cache.amount1 + cache.fees_accrued_1
-        // )
+        (
+            cache.amount0 + cache.fees_accrued_0,
+            cache.amount1 + cache.fees_accrued_1
+        )
     }
 }
 

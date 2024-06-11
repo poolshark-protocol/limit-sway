@@ -42,13 +42,13 @@ pub struct RangePoolState {
 }
 
 pub struct GlobalState {
-  pool: RangePoolState,
-  pool_0: LimitPoolState,
-  pool_1: LimitPoolState,
-  liquidity_global: u64,
-  position_id_next: u32,
-  epoch: u32,
-  unlocked: u8,
+  pub pool: RangePoolState,
+  pub pool_0: LimitPoolState,
+  pub pool_1: LimitPoolState,
+  pub liquidity_global: u64,
+  pub position_id_next: u32,
+  pub epoch: u32,
+  pub unlocked: u8,
 }
 
 impl GlobalState {

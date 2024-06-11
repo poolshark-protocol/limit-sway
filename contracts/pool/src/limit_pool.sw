@@ -143,7 +143,7 @@ abi LimitPool {
 }
 
 storage {
-    token0: AssetId = AssetId::new(ContractId::zero(), SubId::default()),
+    token0: AssetId = AssetId::default(),
 
     token1: AssetId = AssetId{ value: ZERO_B256 },
 

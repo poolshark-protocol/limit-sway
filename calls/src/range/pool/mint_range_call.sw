@@ -102,7 +102,7 @@ impl MintRangeCall {
                     lower: params.lower,
                     upper: params.upper,
                     position_id: params.position_id,
-                    burn_percent: 0
+                    burn_percent: U128::zero(),
                 }
             );
         } else {

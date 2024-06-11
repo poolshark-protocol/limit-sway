@@ -16,18 +16,18 @@ use ::types::{
 };
 
 pub struct RangePosition {
-    fee_growth_inside_last_0: u256,
-    fee_growth_inside_last_1: u256,
-    liquidity: u64,
-    lower: I24,
-    upper: I24,
+    pub fee_growth_inside_last_0: u256,
+    pub fee_growth_inside_last_1: u256,
+    pub liquidity: u64,
+    pub lower: I24,
+    pub upper: I24,
 }
 
 pub struct RangeUpdateParams {
-    lower: I24,
-    upper: I24,
-    position_id: u32,
-    burn_percent: U128,
+    pub lower: I24,
+    pub upper: I24,
+    pub position_id: u32,
+    pub burn_percent: U128,
 }
 
 impl RangePosition {

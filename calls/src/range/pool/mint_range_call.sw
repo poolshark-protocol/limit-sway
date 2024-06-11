@@ -10,7 +10,6 @@ use std::{
     },
     identity::*,
     call_frames::{
-        contract_id,
         msg_asset_id
     },
 };

@@ -1,6 +1,9 @@
 library;
 
-use ::types::U32::{U32Error};
+use ::types::{
+    U32::{U32Error},
+    U128::*,
+};
 use std::{primitive_conversions::{u64::*,},};
 
 impl u64 {

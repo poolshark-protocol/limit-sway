@@ -1,9 +1,10 @@
 library;
 
-use std::u128::U128;
-
-use ::types::I64::*;
-use ::types::I24::*;
+use ::types::{
+    I24::*,
+    I64::*,
+    U128::*,
+}
 
 pub struct RangeTick {
     fee_growth_outside_0: u256,

@@ -202,7 +202,7 @@ impl LimitPool for Contract {
         // );
 
         log(MintRangeEvent {
-            pool_id: contract_id().into(),
+            pool_id: ContractId::this().into(),
             recipient: params.to,
             lower: params.lower,
             upper: params.upper,
@@ -223,7 +223,7 @@ impl LimitPool for Contract {
     fn burn_range(params: BurnRangeParams) -> (I64, I64) {
 
         log(BurnRangeEvent {
-            pool_id: contract_id().into(),
+            pool_id: ContractId::this().into(),
             recipient: params.to,
             position_id: params.position_id,
             liquidity_burned: 1u64,
@@ -240,7 +240,7 @@ impl LimitPool for Contract {
         let mut state: GlobalState = storage.global_state.read();
 
         log(MintLimitEvent {
-            pool_id: contract_id().into(),
+            pool_id: ContractId::this().into(),
             recipient: params.to,
             lower: params.lower,
             upper: params.upper,
@@ -263,7 +263,7 @@ impl LimitPool for Contract {
 
         if params.zero_for_one {
             log(BurnLimitEvent {
-                pool_id: contract_id().into(),
+                pool_id: ContractId::this().into(),
                 recipient: params.to,
                 position_id: params.position_id,
                 lower: I24::zero(),
@@ -277,7 +277,7 @@ impl LimitPool for Contract {
             });
         } else {
             log(BurnLimitEvent {
-                pool_id: contract_id().into(),
+                pool_id: ContractId::this().into(),
                 recipient: params.to,
                 position_id: params.position_id,
                 lower: I24::zero(),
@@ -300,7 +300,7 @@ impl LimitPool for Contract {
         let mut state: GlobalState = storage.global_state.read();
 
         log(SwapEvent {
-                pool_id: contract_id().into(),
+                pool_id: ContractId::this().into(),
                 recipient: params.to,
                 amount_in: 1u64,
                 amount_out: 1u64,
@@ -332,7 +332,7 @@ impl LimitPool for Contract {
     fn increase_sample_count(new_sample_count_max: u16) {
 
         log(SampleCountIncreased {
-            pool_id: contract_id().into(),
+            pool_id: ContractId::this().into(),
             new_sample_count_max
         });
     }

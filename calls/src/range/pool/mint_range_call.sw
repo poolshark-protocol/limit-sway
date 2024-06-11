@@ -98,12 +98,12 @@ impl MintRangeCall {
                 cache.position,
                 cache.state,
                 cache.constants,
-                RangeUpdateParams(
-                    params.lower,
-                    params.upper,
-                    params.position_id,
-                    0
-                )
+                RangeUpdateParams {
+                    lower: params.lower,
+                    upper: params.upper,
+                    position_id: params.position_id,
+                    burn_percent: 0
+                }
             );
         } else {
             params.position_id = cache.state.position_id_next;

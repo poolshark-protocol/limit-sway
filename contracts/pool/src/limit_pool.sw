@@ -143,9 +143,9 @@ abi LimitPool {
 }
 
 storage {
-    token0: AssetId = 0x0000000000000000000000000000000000000000000000000000000000000000,
+    token0: AssetId = AssetId::zero(),
 
-    token1: AssetId = 0x0000000000000000000000000000000000000000000000000000000000000000,
+    token1: AssetId = AssetId::zero(),
 
     unlocked: bool = false,
 

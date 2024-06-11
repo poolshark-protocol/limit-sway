@@ -10,17 +10,17 @@ use ::types::Q64x64::*;
 use ::types::identity::*;
 
 pub struct PriceBounds {
-    min: Q64x64,
-    max: Q64x64,
+    pub min: Q64x64,
+    pub max: Q64x64,
 }
 
 pub struct LimitImmutables {
-    owner: Identity,
-    bounds: PriceBounds,
-    token0: AssetId,
-    token1: AssetId,
-    tick_spacing: u8,
-    swap_fee: u16,
+    pub owner: Identity,
+    pub bounds: PriceBounds,
+    pub token0: AssetId,
+    pub token1: AssetId,
+    pub tick_spacing: u8,
+    pub swap_fee: u16,
 }
 
 impl LimitImmutables {

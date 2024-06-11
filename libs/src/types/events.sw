@@ -10,131 +10,131 @@ use ::types::{
 };
 
 pub struct InitPoolEvent {
-    pool_id: b256,
-    min_tick: I24,
-    max_tick: I24,
-    start_price: Q64x64,
-    start_tick: I24,
+    pub pool_id: b256,
+    pub min_tick: I24,
+    pub max_tick: I24,
+    pub start_price: Q64x64,
+    pub start_tick: I24,
 }
 
 pub struct MintRangeEvent {
-    pool_id: b256,
-    recipient: Identity,
-    lower: I24,
-    upper: I24,
-    position_id: u32,
-    liquidity_minted: u64,
-    amount0_delta: I64,
-    amount1_delta: I64,
+    pub pool_id: b256,
+    pub recipient: Identity,
+    pub lower: I24,
+    pub upper: I24,
+    pub position_id: u32,
+    pub liquidity_minted: u64,
+    pub amount0_delta: I64,
+    pub amount1_delta: I64,
 }
 
 pub struct BurnRangeEvent {
-    pool_id: b256,
-    recipient: Identity,
-    position_id: u32,
-    liquidity_burned: u64,
-    amount0_delta: I64,
-    amount1_delta: I64,
+    pub pool_id: b256,
+    pub recipient: Identity,
+    pub position_id: u32,
+    pub liquidity_burned: u64,
+    pub amount0_delta: I64,
+    pub amount1_delta: I64,
 }
 
 pub struct CompoundRangeEvent {
-    pool_id: b256,
-    position_id: u32,
-    liquidity_compounded: u64,
+    pub pool_id: b256,
+    pub position_id: u32,
+    pub liquidity_compounded: u64,
 }
 
 pub struct MintLimitEvent {
-    pool_id: b256,
-    recipient: Identity,
-    lower: I24,
-    upper: I24,
-    zero_for_one: bool,
-    position_id: u32,
-    epoch_last: u32,
-    amount_in: u64,
-    liquidity_minted: u64,
+    pub pool_id: b256,
+    pub recipient: Identity,
+    pub lower: I24,
+    pub upper: I24,
+    pub zero_for_one: bool,
+    pub position_id: u32,
+    pub epoch_last: u32,
+    pub amount_in: u64,
+    pub liquidity_minted: u64,
 }
 
 pub struct BurnLimitEvent {
-    pool_id: b256,
-    recipient: Identity,
-    position_id: u32,
-    lower: I24,
-    upper: I24,
-    old_claim: I24,
-    new_claim: I24,
-    zero_for_one: bool,
-    liquidity_burned: u64,
-    token_in_claimed: u64,
-    token_out_burned: u64,
+    pub pool_id: b256,
+    pub recipient: Identity,
+    pub position_id: u32,
+    pub lower: I24,
+    pub upper: I24,
+    pub old_claim: I24,
+    pub new_claim: I24,
+    pub zero_for_one: bool,
+    pub liquidity_burned: u64,
+    pub token_in_claimed: u64,
+    pub token_out_burned: u64,
 }
 
 pub struct SwapEvent {
-    pool_id: b256,
-    recipient: Identity,
-    amount_in: u64,
-    amount_out: u64,
-    fee_growth_global0: u256,
-    fee_growth_global1: u256,
-    price: Q64x64,
-    liquidity: u64,
-    fee_amount: u64,
-    tick_at_price: I24,
-    zero_for_one: bool,
-    exact_in: bool,
+    pub pool_id: b256,
+    pub recipient: Identity,
+    pub amount_in: u64,
+    pub amount_out: u64,
+    pub fee_growth_global0: u256,
+    pub fee_growth_global1: u256,
+    pub price: Q64x64,
+    pub liquidity: u64,
+    pub fee_amount: u64,
+    pub tick_at_price: I24,
+    pub zero_for_one: bool,
+    pub exact_in: bool,
 }
 
 pub struct SyncRangeTickEvent {
-    pool_id: b256,
-    fee_growth_global0: u256,
-    fee_growth_global1: u256,
-    tick: I24,
+    pub pool_id: b256,
+    pub fee_growth_global0: u256,
+    pub fee_growth_global1: u256,
+    pub tick: I24,
 }
 
 pub struct SyncLimitPoolEvent {
-    pool_id: b256,
-    price: Q64x64,
-    liquidity: u64,
-    epoch: u32,
-    tick_at_price: I24,
-    is_pool0: bool,
+    pub pool_id: b256,
+    pub price: Q64x64,
+    pub liquidity: u64,
+    pub epoch: u32,
+    pub tick_at_price: I24,
+    pub is_pool0: bool,
 }
 
 pub struct SyncLimitLiquidityEvent {
-    pool_id: b256,
-    liquidity_added: u64,
-    tick: I24,
-    zero_for_one: bool,
+    pub pool_id: b256,
+    pub liquidity_added: u64,
+    pub tick: I24,
+    pub zero_for_one: bool,
 }
 
 pub struct SyncLimitTickEvent {
-    pool_id: b256,
-    epoch: u32,
-    tick: I24,
-    zero_for_one: bool,
+    pub pool_id: b256,
+    pub epoch: u32,
+    pub tick: I24,
+    pub zero_for_one: bool,
 }
 
 pub struct SampleRecorded {
-    pool_id: b256,
-    tick_seconds_accum: I64,
-    seconds_per_liquidity_accum: u256,
+    pub pool_id: b256,
+    pub tick_seconds_accum: I64,
+    pub seconds_per_liquidity_accum: u256,
 }
 
 pub struct SampleCountIncreased {
-    pool_id: b256,
-    new_sample_count_max: u16,
+    pub pool_id: b256,
+    pub new_sample_count_max: u16,
 }
 
 pub struct ProtocolFeesModifiedEvent {
-    pool_ids: Vec<b256>,
-    protocol_swap_fees0: Vec<u16>,
-    protocol_swap_fees1: Vec<u16>,
-    protocol_fill_fees0: Vec<u16>,
-    protocol_fill_fees1: Vec<u16>,
+    pub pool_ids: Vec<b256>,
+    pub protocol_swap_fees0: Vec<u16>,
+    pub protocol_swap_fees1: Vec<u16>,
+    pub protocol_fill_fees0: Vec<u16>,
+    pub protocol_fill_fees1: Vec<u16>,
 }
 
 pub struct ProtocolFeesCollectedEvent {
-    pool_ids: Vec<b256>,
-    token0_fees_collected: Vec<u64>,
-    token1_fees_collected: Vec<u64>,
+    pub pool_ids: Vec<b256>,
+    pub token0_fees_collected: Vec<u64>,
+    pub token1_fees_collected: Vec<u64>,
 }

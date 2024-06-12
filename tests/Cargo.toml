@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["alphak3y <alphak3y@protonmail.com>"]
 
 [build]
-target = "testnet"
+target = "./testnet.rs"
 
 [dependencies]
 fuels = "0.63.1"

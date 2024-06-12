@@ -9,8 +9,13 @@ use fuel_chain_config::StateConfig;
 
 
 abigen!(
-    TestContract,
-    "./contracts/out/debug/main-abi.json"
+    Exeguttor,
+    "./amm/out/debug/amm-abi.json"
+);
+
+abigen!(
+    ExeguttorTests,
+    "./amm_tests/out/debug/tests-abi.json"
 );
 
 // abigen!(
@@ -211,7 +216,7 @@ async fn get_test_contract_instance(
 ) -> (ExeguttorTests, Bech32ContractId) {
     
     let id = Contract::deploy(
-        "./contracts/out/debug/tests.bin",
+        "./amm_tests/out/debug/tests.bin",
         &wallet,
         TxParameters::default(),
         StorageConfiguration::with_storage_path(Some(

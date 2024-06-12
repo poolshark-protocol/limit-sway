@@ -1,5 +1,7 @@
 use std::str::FromStr;
 
+extern crate fuel;
+
 use fuels::{crypto::SecretKey, prelude::*};
 
 fn main() {

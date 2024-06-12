@@ -13,7 +13,7 @@ fn main() {
     // Setup a private key
     let secret = SecretKey::from_str(
         "830499a7b3ed234ab617ad6c402c623d0b4318cc4737059c28169e239a25101d",
-    )?;
+    );
 
     // Create the wallet
     let wallet = WalletUnlocked::new_from_private_key(secret, Some(provider));

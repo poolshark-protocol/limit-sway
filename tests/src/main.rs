@@ -22,5 +22,5 @@ fn main() {
     dbg!(wallet.address().to_string());
 
     println!("Wallet address:");
-    println!(wallet.address().to_string());
+    println!("{}", wallet.address().to_string());
 }

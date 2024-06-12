@@ -21,6 +21,6 @@ fn main() {
     // Get the wallet address. Used later with the faucet
     dbg!(wallet.address().to_string());
 
-    println("Wallet address:");
-    println(wallet.address().to_string());
+    println!("Wallet address:");
+    println!(wallet.address().to_string());
 }

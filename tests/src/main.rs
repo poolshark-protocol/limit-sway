@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-extern crate fuel;
+extern crate fuels;
 
 use fuels::{crypto::SecretKey, prelude::*};
 

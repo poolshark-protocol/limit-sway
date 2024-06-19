@@ -15,8 +15,7 @@ fn main() {
         "830499a7b3ed234ab617ad6c402c623d0b4318cc4737059c28169e239a25101d",
     );
 
-    // Create the wallet
-    let wallet = WalletUnlocked::new_from_private_key(secret, Some(provider));
+    let wallet = WalletUnlocked::new_from_private_key(secret.expect("INVALID SECRET"), Some(provider));
 
     // Get the wallet address. Used later with the faucet
     dbg!(wallet.address().to_string());

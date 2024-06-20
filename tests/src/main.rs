@@ -8,7 +8,7 @@ fn main() {
     println!("Hello, world!");
 
     // Create a provider pointing to the testnet.
-    let provider = Provider::connect("testnet.fuel.network");
+    let provider = Provider::connect("testnet.fuel.network").await.unwrap();
 
     // Setup a private key
     let secret = SecretKey::from_str(

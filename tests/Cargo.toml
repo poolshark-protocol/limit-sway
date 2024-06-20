@@ -4,4 +4,4 @@ version = "0.1.0"
 authors = ["alphak3y <alphak3y@protonmail.com>"]
 
 [dependencies]
-fuels = "0.60.0"
+fuels = "0.63.0"

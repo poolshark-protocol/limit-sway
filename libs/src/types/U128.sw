@@ -182,7 +182,7 @@ impl u64 {
     ///     assert(z == U128::from(1, 18446744073709551614));
     /// }
     /// ```
-    pub fn overflowing_add_custom_custom(self, right: Self) -> U128 {
+    pub fn overflowing_add_custom(self, right: Self) -> U128 {
         let prior_flags = disable_panic_on_overflow();
 
         let mut result = U128 {
@@ -229,7 +229,7 @@ impl u64 {
     ///     assert(z == U128::from(18446744073709551615, 1));
     /// }
     /// ```
-    pub fn overflowing_mul_custom_custom(self, right: Self) -> U128 {
+    pub fn overflowing_mul_custom(self, right: Self) -> U128 {
         let prior_flags = disable_panic_on_overflow();
 
         let mut result = U128 {

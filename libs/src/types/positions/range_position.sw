@@ -2,6 +2,11 @@ library;
 
 use std::{
     hash::*,
+    storage::{
+        storage_vec::*,
+        storage_map::*,
+        storage_key::*,
+    },
 };
 
 use ::types::{

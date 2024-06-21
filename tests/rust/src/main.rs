@@ -4,7 +4,8 @@ extern crate fuels;
 
 use fuels::{crypto::SecretKey, prelude::*};
 
-fn async main() {
+#[tokio::main]
+async fn main() {
     println!("Hello, world!");
 
     // Create a provider pointing to the testnet.

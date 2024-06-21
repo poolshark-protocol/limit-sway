@@ -22,7 +22,7 @@ use ::types::{
         global_state::*,
         immutables::*,
     },
-    position::*,
+    positions::*,
 };
 
 pub struct RangeUpdateParams {

@@ -44,8 +44,9 @@ use limit_libs::{
             tick::*,
         },
         position::{
-            range_positions::*,
+            range_position::*,
         },
+        positions::*,
         params::*,
         events::*,
         cache::*,

@@ -106,18 +106,18 @@ impl MintRangeCall {
             cache.position.upper = params.upper;
             cache.owner = params.to;
         }
-        // cache.price_lower = get_price_at_tick(
-        //     cache.position.lower,
-        //     cache.constants
-        // );
-        // cache.price_upper = get_price_at_tick(
-        //     cache.position.upper,
-        //     cache.constants
-        // );
+        cache.price_lower = get_price_at_tick(
+            cache.position.lower,
+            cache.constants
+        );
+        cache.price_upper = get_price_at_tick(
+            cache.position.upper,
+            cache.constants
+        );
 
-        // save(positions, global_state, cache, params.position_id);
-        // cache.amount0 = cache.amount0 - I64::from_uint(params.amount0);
-        // cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
+        save(positions, global_state, cache, params.position_id);
+        cache.amount0 = cache.amount0 - I64::from_uint(params.amount0);
+        cache.amount1 = cache.amount1 - I64::from_uint(params.amount1);
 
         // log(MintRangeEvent {
         //     pool_id: ContractId::this().into(),

@@ -3,7 +3,7 @@ library;
 use ::types::{
     I64::*,
     Q64x64::*,
-    positions::{
+    position::{
         range_position::*,
     },
     state::{

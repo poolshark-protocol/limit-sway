@@ -22,25 +22,14 @@ use ::types::{
         global_state::*,
         immutables::*,
     },
+    position::*,
 };
-
-pub struct RangePosition {
-    pub fee_growth_inside_last_0: u256,
-    pub fee_growth_inside_last_1: u256,
-    pub liquidity: u64,
-    pub lower: I24,
-    pub upper: I24,
-}
 
 pub struct RangeUpdateParams {
     pub lower: I24,
     pub upper: I24,
     pub position_id: u32,
     pub burn_percent: U128,
-}
-
-pub struct RangeUpdateResult {
-    pub position: RangePosition,
 }
 
 impl RangePosition {

@@ -4,7 +4,7 @@ extern crate fuels;
 
 use fuels::{crypto::SecretKey, prelude::*};
 
-fn main() {
+fn async main() {
     println!("Hello, world!");
 
     // Create a provider pointing to the testnet.

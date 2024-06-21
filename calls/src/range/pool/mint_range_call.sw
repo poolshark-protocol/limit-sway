@@ -85,11 +85,7 @@ impl MintRangeCall {
             params.lower = cache.position.lower;
             params.upper = cache.position.upper;
             // update existing position
-            (
-                cache.position,
-                cache.fees_accrued_0,
-                cache.fees_accrued_1
-            ) = cache.position.update(
+            let update_result = cache.position.update(
                 ticks,
                 cache.state,
                 cache.constants,
@@ -100,6 +96,7 @@ impl MintRangeCall {
                     burn_percent: U128::zero(),
                 }
             );
+            update_result[0];
         } else {
             params.position_id = cache.state.position_id_next;
             cache.state.position_id_next = cache.state.position_id_next + 1;

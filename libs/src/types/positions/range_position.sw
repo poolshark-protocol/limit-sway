@@ -64,4 +64,15 @@ impl RangePosition {
             I64::from_uint(0)
         )
     }
+
+    pub fn add(
+        ref mut self,
+        ticks: StorageKey<StorageMap<I24, Tick>>,
+        samples: StorageKey<StorageVec<Sample>>,
+        tick_map: TickMapKeys,
+        cache: MintRangeCache,
+        params: MintRangeParams
+    ) -> MintRangeCache {
+        cache
+    }
 }

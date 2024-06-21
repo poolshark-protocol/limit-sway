@@ -14,6 +14,7 @@ use ::types::{
     I64::*,
     U128::*,
     params::*,
+    cache::*,
     ticks::{
         tick::*,
         tick_map::*,

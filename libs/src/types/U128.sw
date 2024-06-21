@@ -449,7 +449,7 @@ impl core::ops::Not for U128 {
 impl core::ops::Add for U128 {
     /// Add a `U128` to a `U128`. Reverts on overflow.
     fn add(self, other: Self) -> Self {
-        let mut upper_128 = self.upper.overflowing_add(other.upper);
+        let mut upper_128: u64 = self.upper.overflowing_add(other.upper);
 
         // If the upper overflows, then the number cannot fit in 128 bits, so panic.
         assert(upper_128.upper == 0);

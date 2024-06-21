@@ -25,7 +25,7 @@ use limit_libs::{
         },
         cache::*,
         params::MintRangeParams,
-        position::range_position::*,
+        positions::range_positions::*,
         ticks::{
             tick::*,
             tick_map::*,

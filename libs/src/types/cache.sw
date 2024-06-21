@@ -3,8 +3,8 @@ library;
 use ::types::{
     I64::*,
     Q64x64::*,
-    position::{
-        range_position::*,
+    positions::{
+        range_positions::*,
     },
     state::{
         global_state::*,

@@ -3,6 +3,7 @@ authors = ["alphak3y"]
 entry = "calls.sw"
 license = "Apache-2.0"
 name = "limit_calls"
+forc-version = "0.61.0"
 
 [dependencies]
 limit_libs = { path = "../libs" }

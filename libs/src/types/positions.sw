@@ -1,5 +1,9 @@
 library;
 
+use ::types::{
+    I24::*,
+}
+
 pub struct RangePosition {
     pub fee_growth_inside_last_0: u256,
     pub fee_growth_inside_last_1: u256,

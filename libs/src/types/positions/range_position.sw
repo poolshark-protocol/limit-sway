@@ -30,6 +30,10 @@ pub struct RangeUpdateParams {
     pub burn_percent: U128,
 }
 
+pub struct RangeUpdateResult {
+    pub position: RangePosition,
+}
+
 impl RangePosition {
     pub fn new() -> Self {
         Self {

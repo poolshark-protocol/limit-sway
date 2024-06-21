@@ -89,11 +89,11 @@ impl MintRangeCall {
             params.lower = cache.position.lower;
             params.upper = cache.position.upper;
             // update existing position
-            // (
-            //     cache.position,
-            //     cache.fees_accrued_0,
-            //     cache.fees_accrued_1
-            let update_result = cache.position.update(
+            (
+                cache.position,
+                cache.fees_accrued_0,
+                cache.fees_accrued_1
+            ) = cache.position.update(
                 ticks,
                 cache.state,
                 cache.constants,

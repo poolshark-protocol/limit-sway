@@ -154,6 +154,108 @@ impl core::ops::Ord for U128 {
 
 impl core::ops::OrdEq for U128 {}
 
+impl u64 {
+    /// Performs addition between two `u64` values, returning a `U128`.
+    ///
+    /// # Additional Information
+    ///
+    /// Allows for addition between two `u64` values that would otherwise overflow.
+    ///
+    /// # Arguments
+    ///
+    /// * `right`: [u64] - The right-hand side of the addition.
+    ///
+    /// # Returns
+    ///
+    /// * [U128] - The result of the addition.
+    ///
+    /// # Examples
+    ///
+    /// ```sway
+    /// use std::u128::U128;
+    ///
+    /// fn foo() {
+    ///     let x = u64::max();
+    ///     let y = u64::max();
+    ///     let z = x.overflowing_add_custom(y);
+    ///
+    ///     assert(z == U128::from(1, 18446744073709551614));
+    /// }
+    /// ```
+    pub fn overflowing_add_custom_custom(self, right: Self) -> U128 {
+        let prior_flags = disable_panic_on_overflow();
+
+        let mut result = U128 {
+            upper: 0,
+            lower: 0,
+        };
+
+        asm(sum, overflow, left: self, right: right, result_ptr: result) {
+            add sum left right;
+            move overflow of;
+            sw result_ptr overflow i0;
+            sw result_ptr sum i1;
+        };
+
+        set_flags(prior_flags);
+
+        result
+    }
+
+    /// Performs multiplication between two `u64` values, returning a `U128`.
+    ///
+    /// # Additional Information
+    ///
+    /// Allows for multiplication between two `u64` values that would otherwise overflow.
+    ///
+    /// # Arguments
+    ///
+    /// * `right`: [u64] - The right-hand side of the multiplication.
+    ///
+    /// # Returns
+    ///
+    /// * [U128] - The result of the multiplication.
+    ///
+    /// # Examples
+    ///
+    /// ```sway
+    /// use std::u128::U128;
+    ///
+    /// fn foo() {
+    ///     let x = u64::max();
+    ///     let y = u64::max();
+    ///     let z = x.overflowing_mul_custom(y);
+    ///
+    ///     assert(z == U128::from(18446744073709551615, 1));
+    /// }
+    /// ```
+    pub fn overflowing_mul_custom_custom(self, right: Self) -> U128 {
+        let prior_flags = disable_panic_on_overflow();
+
+        let mut result = U128 {
+            upper: 0,
+            lower: 0,
+        };
+
+        asm(
+            product,
+            overflow,
+            left: self,
+            right: right,
+            result_ptr: result,
+        ) {
+            mul product left right;
+            move overflow of;
+            sw result_ptr overflow i0;
+            sw result_ptr product i1;
+        };
+
+        set_flags(prior_flags);
+
+        result
+    }
+}
+
 impl U128 {
     /// Initializes a new, zeroed `U128`.
     ///
@@ -449,16 +551,16 @@ impl core::ops::Not for U128 {
 impl core::ops::Add for U128 {
     /// Add a `U128` to a `U128`. Reverts on overflow.
     fn add(self, other: Self) -> Self {
-        let mut upper_128: U128 = self.upper.overflowing_add(other.upper);
+        let mut upper_128 = self.upper.overflowing_add_custom(other.upper);
 
         // If the upper overflows, then the number cannot fit in 128 bits, so panic.
         assert(upper_128.upper == 0);
-        let lower_128 = self.lower.overflowing_add(other.lower);
+        let lower_128 = self.lower.overflowing_add_custom(other.lower);
 
         // If overflow has occurred in the lower component addition, carry.
         // Note: carry can be at most 1.
         if lower_128.upper > 0 {
-            upper_128 = upper_128.lower.overflowing_add(lower_128.upper);
+            upper_128 = upper_128.lower.overflowing_add_custom(lower_128.upper);
         }
 
         // If overflow has occurred in the upper component addition, panic.
@@ -499,7 +601,7 @@ impl core::ops::Multiply for U128 {
         // is upper part multiplied by 2 ^ 64 + lower part
         assert(self.upper == 0 || other.upper == 0);
 
-        let mut result = self.lower.overflowing_mul(other.lower);
+        let mut result = self.lower.overflowing_mul_custom(other.lower);
         if self.upper == 0 {
             // panic in case of overflow
             result.upper += self.lower * other.upper;

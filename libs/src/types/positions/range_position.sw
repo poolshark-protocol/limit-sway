@@ -13,7 +13,11 @@ use ::types::{
     I24::*,
     I64::*,
     U128::*,
-    ticks::tick::*,
+    params::*,
+    ticks::{
+        tick::*,
+        tick_map::*,
+    },
     state::{
         global_state::*,
         immutables::*,

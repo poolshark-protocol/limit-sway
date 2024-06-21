@@ -96,7 +96,9 @@ impl MintRangeCall {
                     burn_percent: U128::zero(),
                 }
             );
-            update_result[0];
+            cache.position = update_result.0;
+            cache.fees_accrued_0 = update_result.1;
+            cache.fees_accrued_1 = update_result.2;
         } else {
             params.position_id = cache.state.position_id_next;
             cache.state.position_id_next = cache.state.position_id_next + 1;

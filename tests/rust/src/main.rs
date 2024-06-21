@@ -19,8 +19,8 @@ async fn main() {
     let wallet = WalletUnlocked::new_from_private_key(secret.expect("INVALID SECRET"), Some(provider));
 
     // // Get the wallet address. Used later with the faucet
-    // dbg!(wallet.address().to_string());
+    dbg!(wallet.address().to_string());
 
-    // println!("Wallet address:");
-    // println!("{}", wallet.address().to_string());
+    println!("Wallet address:");
+    println!("{}", wallet.address().to_string());
 }

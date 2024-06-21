@@ -3,9 +3,7 @@ library;
 use ::types::{
     I64::*,
     Q64x64::*,
-    positions::{
-        range_positions::*,
-    },
+    positions::*,
     state::{
         global_state::*,
         immutables::*,

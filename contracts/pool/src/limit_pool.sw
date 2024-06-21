@@ -152,15 +152,15 @@ impl LimitPool for Contract {
             epochs1: storage.range_tick_map.epochs1,
         };
 
-        // let result = MintRangeCall::perform(
-        //     storage.positions,
-        //     storage.ticks,
-        //     range_tick_map_keys,
-        //     storage.samples,
-        //     storage.global_state,
-        //     MintRangeCache::new(),
-        //     params,
-        // );
+        let result = MintRangeCall::perform(
+            storage.positions,
+            storage.ticks,
+            range_tick_map_keys,
+            storage.samples,
+            storage.global_state,
+            MintRangeCache::new(),
+            params,
+        );
 
         log(MintRangeEvent {
             pool_id: ContractId::this().into(),

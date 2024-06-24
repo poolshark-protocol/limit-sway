@@ -30,7 +30,7 @@ impl ConstantProduct {
     ) -> I24 {
         MAX_TICK
             / I24::from_uint(tick_spacing.as_u32())
-            * I24::from_uint(tick_spacing.as_u32())
+            * I24::from_uint(tick_spacing.as_u32()) 
     }
 
     pub fn check_ticks(

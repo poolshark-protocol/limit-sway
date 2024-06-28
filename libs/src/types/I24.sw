@@ -9,7 +9,7 @@ use std::hash::*;
 /// Actual value is underlying value minus 2 ^ 24
 /// Max value is 2 ^ 24 - 1, min value is - 2 ^ 24
 pub struct I24 {
-    pub underlying: u3,
+    pub underlying: u32,
 }
 
 pub enum I24Error {

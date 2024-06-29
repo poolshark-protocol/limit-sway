@@ -35,20 +35,14 @@ pub struct RangeUpdateParams {
 
 impl RangePosition {
     pub fn update(
-        ref mut self,
+        position: RangePosition,
         ticks: StorageKey<StorageMap<I24, Tick>>,
         state: GlobalState,
         constants: LimitImmutables,
         params: RangeUpdateParams
     ) -> (RangePosition, I64, I64) {
         (
-            RangePosition {
-                fee_growth_inside_last_0: 0,
-                fee_growth_inside_last_1: 0,
-                liquidity: 0u64,
-                lower: I24::zero(),
-                upper: I24::zero(),
-            },
+            position,
             I64::from_uint(0),
             I64::from_uint(0)
         )

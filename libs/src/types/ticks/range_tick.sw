@@ -13,3 +13,16 @@ pub struct RangeTick {
     liquidity_delta: I64,
     liquidity_absolute: u64
 }
+
+impl RangeTick {
+    pub fn insert(
+        ticks,
+        samples,
+        tick_map,
+        state,
+        constants,
+        lower,
+        upper,
+        amount
+    )
+}

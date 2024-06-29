@@ -14,7 +14,6 @@ pub mod state;
 pub mod sub_id;
 pub mod ticks;
 pub mod params;
-pub mod positions;
 pub mod cache;
-pub mod position;
+pub mod positions;
 pub mod events;

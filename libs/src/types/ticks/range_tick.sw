@@ -17,7 +17,7 @@ pub struct RangeTick {
 impl RangeTick {
     pub fn insert(
         ticks: StorageKey<StorageMap<I24, Tick>>,
-        samples: StorageKey<StorageVec<Sample>>,,
+        samples: StorageKey<StorageVec<Sample>>,
         tick_map: TickMapKeys,
         state: GlobalState,
         constants: LimitImmutables,

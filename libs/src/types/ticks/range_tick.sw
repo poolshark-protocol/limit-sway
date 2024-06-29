@@ -3,6 +3,9 @@ library;
 use ::types::{
     I24::*,
     I64::*,
+    ticks::{
+        tick::*,
+    }
 };
 
 pub struct RangeTick {

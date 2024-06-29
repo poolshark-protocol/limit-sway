@@ -24,7 +24,7 @@ use limit_libs::{
             global_state::*,
         },
         cache::*,
-        params::MintRangeParams,
+        params::*,
         positions::*,
         position::range_position::*,
         ticks::{

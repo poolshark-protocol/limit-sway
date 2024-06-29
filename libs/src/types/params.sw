@@ -76,3 +76,10 @@ pub struct FeesParams {
     pub protocol_fill_fee_1: u16,
     pub set_fees_flags: bool
 }
+
+pub struct RangeUpdateParams {
+    pub lower: I24,
+    pub upper: I24,
+    pub position_id: u32,
+    pub burn_percent: U128,
+}

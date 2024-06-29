@@ -35,7 +35,7 @@ pub struct RangeUpdateParams {
 
 impl RangePosition {
     pub fn update(
-        position: RangePosition,
+        ref mut position: RangePosition,
         ticks: StorageKey<StorageMap<I24, Tick>>,
         state: GlobalState,
         constants: LimitImmutables,

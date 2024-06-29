@@ -86,7 +86,8 @@ impl MintRangeCall {
             params.lower = cache.position.lower;
             params.upper = cache.position.upper;
             // update existing position
-            let update_result = cache.position.update(
+            let update_result = RangePosition::update(
+                cache.position,
                 ticks,
                 cache.state,
                 cache.constants,
